@@ -1,10 +1,11 @@
-import { render } from "react-dom";
+import Home from './routes/Home';
+
 
 const App = () => {
   return (
-    <main>
-      Hello World.
-    </main>
+    <div id='app-container'>
+      <Home />
+    </div>
   );
 };
 
