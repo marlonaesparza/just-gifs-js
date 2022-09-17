@@ -8,10 +8,14 @@ const HomeMain = () => {
   return (
     <Main>
       <Nav>
-
+        {/*
+          // Add search bar and view buttons
+          // -- Search bar requires click to fetch
+          // -- View buttons are Trending/Feed
+        */}
       </Nav>
       <Section>
-        
+        {/* Render trending gifs */}
       </Section>
     </Main>
   );
