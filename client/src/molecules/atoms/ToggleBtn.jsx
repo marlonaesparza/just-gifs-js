@@ -6,7 +6,7 @@ const ToggleBtn = styled.button`
   padding: 0;
   float: right;
   height: 100%;
-  width: 10%;
+  width: 5%;
   border: 1px solid black;
 `;
 

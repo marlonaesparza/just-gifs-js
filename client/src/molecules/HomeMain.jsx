@@ -3,6 +3,8 @@ import Main from './atoms/Main';
 import Nav from './atoms/Nav';
 import Section from './atoms/Section';
 import SearchInput from './atoms/SearchInput';
+import SearchBtn from './atoms/SearchBtn';
+import ViewBtn from './atoms/ViewBtn';
 
 
 const HomeMain = () => {
@@ -14,13 +16,18 @@ const HomeMain = () => {
           // -- Search bar requires click to fetch
           // -- View buttons are Trending/Feed
         */}
-        <SearchInput />
+        <div>
+          <SearchInput /> <SearchBtn> Search </SearchBtn>
+        </div>
+        <div>
+          <ViewBtn>Trending</ViewBtn><ViewBtn>Feed</ViewBtn>
+        </div>
       </Nav>
       <Section>
         {/*
           // Render trending gifs
         */}
-
+        
       </Section>
     </Main>
   );

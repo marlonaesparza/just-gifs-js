@@ -7,6 +7,12 @@ const Nav = styled.nav`
   width: ${(homeMain) => 
     homeMain ? '100%' : 'default'
   };
+
+  ${(homeMain) =>
+    homeMain ?
+    'display: grid; grid-template-columns: 1fr 1fr;' :
+    null
+  }
 `;
 
 

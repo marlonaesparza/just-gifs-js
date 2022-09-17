@@ -6,6 +6,7 @@ const SearchInput = styled.input.attrs({
 })`
   margin: auto;
   padding: 5px;
+  width: 40%;
   float: left;
 `;
 
