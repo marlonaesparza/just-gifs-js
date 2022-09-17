@@ -1,12 +1,12 @@
 import React from 'react';
-import HomeNav from './../molecules/HomeNav';
+import TopNav from '../molecules/TopNav';
 import HomeMain from '../molecules/HomeMain';
 
 
 const Home = () => {
   return (
     <React.Fragment>
-        <HomeNav />
+        <TopNav />
         <HomeMain />
     </React.Fragment>  
   )

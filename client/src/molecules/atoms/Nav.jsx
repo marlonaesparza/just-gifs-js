@@ -4,14 +4,18 @@ import styled from 'styled-components';
 const Nav = styled.nav`
   margin: auto;
   padding: 0px 10px;
-  width: ${(homeMain) => 
-    homeMain ? '100%' : 'default'
+  width: ${
+    ({ homeMainNav }) => 
+      homeMainNav ? '100%' : 'default'
   };
 
-  ${(homeMain) =>
-    homeMain ?
-    'display: grid; grid-template-columns: 1fr 1fr;' :
-    null
+  ${
+    ({ homeMainNav }) => {
+      return homeMainNav ?
+      'display: grid; grid-template-columns: 1fr 1fr;' :
+      null
+    }
+
   }
 `;
 

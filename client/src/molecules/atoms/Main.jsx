@@ -9,7 +9,7 @@ const Main = styled.main`
     !homeMain ? null : '95vh'
   };
 
-  ${(homeMain) => 
+  ${({ homeMain }) => 
     homeMain ?
     'display: grid; grid-template-rows: 1fr 9fr;' :
     null
