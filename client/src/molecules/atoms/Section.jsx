@@ -5,7 +5,7 @@ const Section = styled.section`
   margin: auto;
   padding: 0;
   height: ${({ homeNav }) => 
-    homeNav ? '5vh' : '95vh'
+    homeNav ? '5vh' : '100%'
   };
 `;
 

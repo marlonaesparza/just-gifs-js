@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 
-const ToggleBtn = styled.button`
+const SearchBtn = styled.button`
   margin: auto 10px;
   padding: 0;
   float: right;
@@ -11,4 +11,4 @@ const ToggleBtn = styled.button`
 `;
 
 
-export default ToggleBtn;
+export default SearchBtn;
