@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 const Nav = styled.nav`
   margin: auto;
-  padding: 0px 10px;
+  padding: 0;
   width: ${
     ({ homeMainNav }) => 
       homeMainNav ? '100%' : 'default'

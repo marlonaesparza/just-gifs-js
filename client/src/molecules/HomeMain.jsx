@@ -1,4 +1,8 @@
 import React from 'react';
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { updateTrendingGifs } from '../state/features/trendingGifsSlice';
+import requestHelpers from './../../helpers/requestHelpers';
 import Main from './atoms/Main';
 import Nav from './atoms/Nav';
 import Section from './atoms/Section';
@@ -9,59 +13,16 @@ import ViewBtn from './atoms/ViewBtn';
 import GifArticle from './atoms/GifArticle';
 
 
-const testDataTrendingGifs = [
-  {
-    id: 1,
-    gif: '{Gif Here}'
-  },
-  {
-    id: 2,
-    gif: '{Gif Here}'
-  },
-  {
-    id: 3,
-    gif: '{Gif Here}'
-  },
-  {
-    id: 4,
-    gif: '{Gif Here}'
-  },
-  {
-    id: 5,
-    gif: '{Gif Here}'
-  },
-  {
-    id: 6,
-    gif: '{Gif Here}'
-  },
-  {
-    id: 7,
-    gif: '{Gif Here}'
-  },
-  {
-    id: 8,
-    gif: '{Gif Here}'
-  },
-  {
-    id: 9,
-    gif: '{Gif Here}'
-  },
-  {
-    id: 10,
-    gif: '{Gif Here}'
-  },
-  {
-    id: 11,
-    gif: '{Gif Here}'
-  },
-  {
-    id: 12,
-    gif: '{Gif Here}'
-  }
-];
 
 
 const HomeMain = () => {
+  const trendingGifs = useSelector((state) => state.trendingGifs.all);
+  const dispatch = useDispatch();
+  
+  useEffect(() => {
+    requestHelpers.getTrendingGifs(0, dispatch, updateTrendingGifs);
+  }, []);
+
   return (
     <Main homeMain={true}>
       <Nav homeMainNav={true}>
@@ -83,13 +44,28 @@ const HomeMain = () => {
         */}
         <Div homeMainSectionDiv={true}>
           {
-            testDataTrendingGifs.map((gif) => {
+            /*
+              testDataTrendingGifs.map((gif) => {
+                return (
+                  <GifArticle key={gif.id}>
+                    <Div gifArticleDiv={true}>
+                    {gif.gif}
+                    </Div>
+                    <Div gifArticleDiv={true}>
+                      <button>Like</button>
+                    </Div>
+                  </GifArticle>
+                );
+              })
+            */
+            
+            trendingGifs.map((gif) => {
               return (
                 <GifArticle key={gif.id}>
-                  <Div>
-                    {gif.gif}
+                  <Div gifArticleDiv={true}>
+                    <img src={gif.images.fixed_width_small.url} />
                   </Div>
-                  <Div>
+                  <Div gifArticleDiv={true}>
                     <button>Like</button>
                   </Div>
                 </GifArticle>
@@ -101,6 +77,58 @@ const HomeMain = () => {
     </Main>
   );
 };
+
+
+// const testDataTrendingGifs = [
+//   {
+//     id: 1,
+//     gif: '{Gif Here}'
+//   },
+//   {
+//     id: 2,
+//     gif: '{Gif Here}'
+//   },
+//   {
+//     id: 3,
+//     gif: '{Gif Here}'
+//   },
+//   {
+//     id: 4,
+//     gif: '{Gif Here}'
+//   },
+//   {
+//     id: 5,
+//     gif: '{Gif Here}'
+//   },
+//   {
+//     id: 6,
+//     gif: '{Gif Here}'
+//   },
+//   {
+//     id: 7,
+//     gif: '{Gif Here}'
+//   },
+//   {
+//     id: 8,
+//     gif: '{Gif Here}'
+//   },
+//   {
+//     id: 9,
+//     gif: '{Gif Here}'
+//   },
+//   {
+//     id: 10,
+//     gif: '{Gif Here}'
+//   },
+//   {
+//     id: 11,
+//     gif: '{Gif Here}'
+//   },
+//   {
+//     id: 12,
+//     gif: '{Gif Here}'
+//   }
+// ];
 
 
 export default HomeMain;
