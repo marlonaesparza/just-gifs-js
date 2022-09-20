@@ -15,7 +15,12 @@ homeRouter.get('/feed', (req, res) => {
 
 homeRouter.get('/search', (req, res) => {
   const index = req.query.index ? req.query.index : 0;
-  const search = req.query.search ? req.query.search : 'ghost';
+  const search = req.query.search ? req.query.search : '';
+
+  if (search === '') {
+    return res.status(200).send({ data: []});
+  }
+
   HomeBusinesss.getSearchGifs(index, search, res)
 });
 

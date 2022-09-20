@@ -1,61 +1,38 @@
 import React from 'react';
 import { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { updateTrendingGifs } from '../state/features/gifsSlice';
+import { useDispatch } from 'react-redux';
+import { updateTrendingGifs, updateSearchedGifs } from '../state/features/gifsSlice';
 import requestHelpers from './../../helpers/requestHelpers';
+import Search from './Search';
+import GifsContainer from './GifsContainer';
 import Main from './atoms/Main';
 import Nav from './atoms/Nav';
 import Section from './atoms/Section';
 import Div from './atoms/Div';
-import SearchInput from './atoms/SearchInput';
-import SearchBtn from './atoms/SearchBtn';
 import ViewBtn from './atoms/ViewBtn';
-import GifArticle from './atoms/GifArticle';
 
 
 const HomeMain = () => {
-  const gifsSlice = useSelector((state) => state.gifsSlice.all);
   const dispatch = useDispatch();
   
   useEffect(() => {
     requestHelpers.getTrendingGifs(0, dispatch, updateTrendingGifs);
   }, []);
-
+  
   return (
     <Main homeMain={true}>
       <Nav homeMainNav={true}>
-        {/*
-          // Add search bar and view buttons
-          // -- Search bar requires click to fetch
-          // -- View buttons are Trending/Feed
-        */}
         <Div>
-          <SearchInput homeMainSearchInput={true} /> <SearchBtn homeMainSearchBtn={true}> Search </SearchBtn>
+          <Search />
         </Div>
         <Div>
-          <ViewBtn>Trending</ViewBtn><ViewBtn>Feed</ViewBtn>
+          <ViewBtn>Trending</ViewBtn>
+          <ViewBtn>Feed</ViewBtn>
         </Div>
       </Nav>
       <Section homeMainSection={true}>
-        {/*
-          // Render trending gifs
-          // Or Searched gifs
-        */}
         <Div homeMainSectionDiv={true}>
-          {
-            gifsSlice.map((gif) => {
-              return (
-                <GifArticle key={gif.id}>
-                  <Div gifArticleDiv={true}>
-                    <img src={gif.images.fixed_width_small.url} />
-                  </Div>
-                  <Div gifArticleDiv={true}>
-                    <button>Like</button>
-                  </Div>
-                </GifArticle>
-              );
-            })
-          }
+          <GifsContainer />
         </Div>
       </Section>
     </Main>
@@ -63,56 +40,5 @@ const HomeMain = () => {
 };
 
 
-// const testDataTrendingGifs = [
-//   {
-//     id: 1,
-//     gif: '{Gif Here}'
-//   },
-//   {
-//     id: 2,
-//     gif: '{Gif Here}'
-//   },
-//   {
-//     id: 3,
-//     gif: '{Gif Here}'
-//   },
-//   {
-//     id: 4,
-//     gif: '{Gif Here}'
-//   },
-//   {
-//     id: 5,
-//     gif: '{Gif Here}'
-//   },
-//   {
-//     id: 6,
-//     gif: '{Gif Here}'
-//   },
-//   {
-//     id: 7,
-//     gif: '{Gif Here}'
-//   },
-//   {
-//     id: 8,
-//     gif: '{Gif Here}'
-//   },
-//   {
-//     id: 9,
-//     gif: '{Gif Here}'
-//   },
-//   {
-//     id: 10,
-//     gif: '{Gif Here}'
-//   },
-//   {
-//     id: 11,
-//     gif: '{Gif Here}'
-//   },
-//   {
-//     id: 12,
-//     gif: '{Gif Here}'
-//   }
-// ];
-
-
 export default HomeMain;
+
