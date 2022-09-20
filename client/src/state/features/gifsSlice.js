@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 
-export const trendingGifsSlice = createSlice({
-  name: 'trendingGifs',
+export const gifsSlice = createSlice({
+  name: 'gifsSlice',
   initialState: {
     all: [],
   },
@@ -13,6 +13,6 @@ export const trendingGifsSlice = createSlice({
   },
 });
 
-export const { updateTrendingGifs } = trendingGifsSlice.actions;
+export const { updateTrendingGifs } = gifsSlice.actions;
 
-export default trendingGifsSlice.reducer;
+export default gifsSlice.reducer;

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { updateTrendingGifs } from '../state/features/trendingGifsSlice';
+import { updateTrendingGifs } from '../state/features/gifsSlice';
 import requestHelpers from './../../helpers/requestHelpers';
 import Main from './atoms/Main';
 import Nav from './atoms/Nav';
@@ -13,10 +13,8 @@ import ViewBtn from './atoms/ViewBtn';
 import GifArticle from './atoms/GifArticle';
 
 
-
-
 const HomeMain = () => {
-  const trendingGifs = useSelector((state) => state.trendingGifs.all);
+  const gifsSlice = useSelector((state) => state.gifsSlice.all);
   const dispatch = useDispatch();
   
   useEffect(() => {
@@ -41,25 +39,11 @@ const HomeMain = () => {
       <Section homeMainSection={true}>
         {/*
           // Render trending gifs
+          // Or Searched gifs
         */}
         <Div homeMainSectionDiv={true}>
           {
-            /*
-              testDataTrendingGifs.map((gif) => {
-                return (
-                  <GifArticle key={gif.id}>
-                    <Div gifArticleDiv={true}>
-                    {gif.gif}
-                    </Div>
-                    <Div gifArticleDiv={true}>
-                      <button>Like</button>
-                    </Div>
-                  </GifArticle>
-                );
-              })
-            */
-            
-            trendingGifs.map((gif) => {
+            gifsSlice.map((gif) => {
               return (
                 <GifArticle key={gif.id}>
                   <Div gifArticleDiv={true}>

@@ -1,9 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
-import trendingGifsReducer from './features/trendingGifsSlice';
+import gifsSliceReducer from './features/gifsSlice';
 
 
 export default configureStore({
   reducer: {
-    trendingGifs: trendingGifsReducer,
+    gifsSlice: gifsSliceReducer,
   },
 });
