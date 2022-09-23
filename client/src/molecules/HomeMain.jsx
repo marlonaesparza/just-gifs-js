@@ -1,7 +1,7 @@
 import React from 'react';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { updateTrendingGifs, updateSearchedGifs } from '../state/features/gifsSlice';
+import { updateTrendingGifs } from '../state/features/gifsSlice';
 import requestHelpers from './../../helpers/requestHelpers';
 import Search from './Search';
 import GifsContainer from './GifsContainer';
