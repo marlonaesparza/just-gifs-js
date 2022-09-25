@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { updateSearchValue } from '../state/features/searchSlice';
-import { updateSearchedGifs } from '../state/features/gifsSlice';
+import { updateAllGifs, updateSearchedGifs } from '../state/features/gifsSlice';
 import requestHelpers from '../../helpers/requestHelpers';
 import SearchInput from './atoms/SearchInput';
 import SearchBtn from './atoms/SearchBtn';
@@ -19,7 +19,7 @@ const Search = () => {
   
   const handleGetSearchGifs = (e) => {
     e.preventDefault();
-    requestHelpers.getSearchedGifs(0, searchSliceValue, dispatch, updateSearchedGifs);
+    requestHelpers.getSearchedGifs(0, searchSliceValue, dispatch, updateAllGifs, updateSearchedGifs);
   };
   
   return (

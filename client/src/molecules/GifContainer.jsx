@@ -5,7 +5,9 @@ import Div from './atoms/Div';
 
 
 const GifContainer = () => {
-  const gifsSliceFocus = useSelector((state) => state.gifsSlice.focus)[0];
+  const gifsSliceFocus = useSelector((state) => state.gifsSlice.focus)[0] ?
+    useSelector((state) => state.gifsSlice.focus)[0] :
+    JSON.parse(localStorage.getItem('focusGif'))[0];
   
   return (
     <React.Fragment>

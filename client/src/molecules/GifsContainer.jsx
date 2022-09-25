@@ -9,13 +9,13 @@ import GifContainer from './GifContainer';
 
 const GifsContainer = () => {
   const gifsSliceAll = useSelector((state) => state.gifsSlice.all);
+  const gifsSliceTrending = useSelector((state) => state.gifsSlice.trending);
   const gifsSliceSearched = useSelector((state) => state.gifsSlice.searched);
   const gifsSliceFocus = useSelector((state) => state.gifsSlice.focus);
   const dispatch = useDispatch();
   const params = useParams();
-  console.log(params);
 
-  let gifs = gifsSliceAll;
+  let gifs = gifsSliceTrending;
 
   if (gifsSliceSearched.length !== 0) {
     gifs = gifsSliceSearched;
@@ -23,9 +23,9 @@ const GifsContainer = () => {
 
   const handleGifFocus = (e) => {
     dispatch(updateFocusGif(
-      gifsSliceAll.filter((gif) => 
-        gif.id === e.target.id
-      )
+      gifsSliceAll.filter((gif) =>{
+        return gif.id === e.target.id
+      })
     ));
   }
 
@@ -35,16 +35,16 @@ const GifsContainer = () => {
         params['*'] === '' ?
           gifs.map((gif) => {
             return (
-              <Link to={`/home/${gif.id}`} key={gif.id}>
-                <GifArticle onClick={handleGifFocus}>
-                  <Div gifArticleDiv={true}>
-                    <img id={gif.id} src={gif.images.fixed_width_small.url} />
-                  </Div>
-                  <Div gifArticleDiv={true}>
-                    <button>Like</button>
-                  </Div>
-                </GifArticle>
-              </Link>
+              <GifArticle key={gif.id} onClick={handleGifFocus}>
+                <Div gifArticleDiv={true}>
+                <Link to={`/home/${gif.id}`} key={gif.id}>
+                  <img id={gif.id} src={gif.images.fixed_width_small.url} />
+                </Link>
+                </Div>
+                <Div gifArticleDiv={true}>
+                  <button>Like</button>
+                </Div>
+              </GifArticle>
             );
           }) :
           <Routes>

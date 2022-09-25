@@ -5,23 +5,30 @@ export const gifsSlice = createSlice({
   name: 'gifsSlice',
   initialState: {
     all: [],
+    trending: [],
     searched: [],
-    focus: {}
+    focus: {},
   },
   reducers: {
+    updateAllGifs: (state, { payload }) => {
+      payload.forEach((gif) => {
+        state.all.push(gif);
+      });
+    },
     updateTrendingGifs: (state, { payload }) => {
-      state.all =  payload;
+      state.trending =  payload;
     },
     updateSearchedGifs: (state, { payload }) => {
       state.searched = payload;
     },
     updateFocusGif: (state, {payload}) => {
+      localStorage.setItem('focusGif', JSON.stringify(payload));
       state.focus = payload;
     }
   },
 });
 
 
-export const { updateTrendingGifs, updateSearchedGifs, updateFocusGif } = gifsSlice.actions;
+export const { updateAllGifs, updateTrendingGifs, updateSearchedGifs, updateFocusGif } = gifsSlice.actions;
 
 export default gifsSlice.reducer;

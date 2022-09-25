@@ -1,7 +1,7 @@
 import React from 'react';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { updateTrendingGifs } from '../state/features/gifsSlice';
+import { updateAllGifs, updateTrendingGifs } from '../state/features/gifsSlice';
 import requestHelpers from './../../helpers/requestHelpers';
 import Search from './Search';
 import GifsContainer from './GifsContainer';
@@ -16,7 +16,7 @@ const HomeMain = () => {
   const dispatch = useDispatch();
   
   useEffect(() => {
-    requestHelpers.getTrendingGifs(0, dispatch, updateTrendingGifs);
+    requestHelpers.getTrendingGifs(0, dispatch, updateAllGifs, updateTrendingGifs);
   }, []);
   
   return (
