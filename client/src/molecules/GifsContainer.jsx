@@ -48,7 +48,9 @@ const GifsContainer = () => {
             );
           }) :
           <Routes>
-            <Route path={`:${gifsSliceFocus.id}`} element={<GifContainer/>} />
+            <Route path={`:${gifsSliceFocus.id}`} element={<GifContainer gifId={() => {
+              
+            }} />} />
           </Routes>
       }
     </React.Fragment>
