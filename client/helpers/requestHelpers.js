@@ -3,6 +3,7 @@ import axios from "axios";
 const serverIndexURL = 'http://localhost:8000/';
 const serverHomePath = 'home/';
 const serverSearchPath = 'home/search';
+const serverFocusPath = 'home/focus';
 
 const requestHelpers = {
   getTrendingGifs: (offset = 0, dispatch, action1, action2) => {
@@ -32,6 +33,18 @@ const requestHelpers = {
       })
       .catch((error) => {
         console.log(error);
+      })
+  },
+  getFocusedGifs: (id, dispatch, action) => {
+    console.log('FG INCOMING REQUEST:', id);
+    axios.get(serverIndexURL + serverFocusPath, {
+      params: {
+        id
+      }
+    })
+      .then((result) => {
+        console.log('FG HELPER RESULT:', result);
+        dispatch(action(result.data.data));
       })
   }
 };

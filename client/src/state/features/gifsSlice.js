@@ -22,7 +22,6 @@ export const gifsSlice = createSlice({
       state.searched = payload;
     },
     updateFocusGif: (state, {payload}) => {
-      localStorage.setItem('focusGif', JSON.stringify(payload));
       state.focus = payload;
     }
   },

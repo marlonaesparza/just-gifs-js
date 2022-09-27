@@ -1,4 +1,5 @@
 const homeRouter = require('express').Router();
+const home = require('./../business/home');
 const HomeBusinesss = require('./../business/home');
 
 
@@ -24,5 +25,9 @@ homeRouter.get('/search', (req, res) => {
   HomeBusinesss.getSearchGifs(index, search, res)
 });
 
+homeRouter.get('/focus/:id', (req, res) => {
+  const focusId = req.query.id;
+  HomeBusinesss.getFocusGif(focusId, res);
+});
 
 module.exports = homeRouter;

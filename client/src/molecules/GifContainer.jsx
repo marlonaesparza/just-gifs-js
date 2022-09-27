@@ -1,13 +1,25 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useParams } from 'react-router-dom';
+import { updateFocusGif } from '../state/features/gifsSlice';
 import GifArticle from './atoms/GifArticle';
 import Div from './atoms/Div';
+import requestHelpers from '../../helpers/requestHelpers';
 
 
 const GifContainer = () => {
-  const gifsSliceFocus = useSelector((state) => state.gifsSlice.focus)[0] ?
-    useSelector((state) => state.gifsSlice.focus)[0] :
-    JSON.parse(localStorage.getItem('focusGif'))[0];
+  const gifsSliceFocus = useSelector((state) => state.gifsSlice.focus);
+  const dispatch = useDispatch();
+  const params = useParams();
+
+  console.log('Gif Container (PARAMS):', params['*']);
+
+  useEffect(() => {
+    console.log('Gif Container (USE EFFECT)');
+    const id = params['*'];
+    requestHelpers.getFocusedGifs(id, dispatch, updateFocusGif);
+  }, []);
   
   return (
     <React.Fragment>
