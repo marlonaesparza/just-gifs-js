@@ -3,8 +3,8 @@ import styled from 'styled-components';
 
 const Div = styled.div`
   margin: auto;
-  padding: 0;
-  width: 100%;
+  width: 95%;
+  height: 100%;
   
   ${
     ({ homePage, focusPage, pageHeader, gifsCont }) => 
@@ -18,7 +18,7 @@ const Div = styled.div`
       `
         display: grid;
         gap: 0;
-        grid-template-columns: 4fr 8fr;
+        grid-template-columns: 6fr 6fr;
       ` :
       gifsCont ?
       `

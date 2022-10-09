@@ -13,7 +13,6 @@ const Gif = ({ id, url }) => {
   const location = useLocation();
   const path = location.pathname.split('/')[1];
   const focusedGif = useSelector((state) => state.gifsSlice.focus);
-  console.log(focusedGif);
 
   const handleFavoriteGif = (e) => {
     e.preventDefault();
@@ -26,7 +25,7 @@ const Gif = ({ id, url }) => {
   return (
     <React.Fragment>
       {
-        path === 'focus' ?
+        path === 'focus' && focusedGif.id ?
           <Article key={id}>
             <Div>
               <Img id={focusedGif.id} src={focusedGif.images.fixed_width_small.url} />

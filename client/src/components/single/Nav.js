@@ -10,7 +10,7 @@ const Nav = styled.nav`
       contentNav ?
       `
         display: grid;
-        grid-template-columns: 4fr 8fr;
+        grid-template-columns: 6fr 6fr;
       ` :
       null
   }
