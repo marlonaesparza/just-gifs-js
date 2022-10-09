@@ -7,6 +7,7 @@ export const gifsSlice = createSlice({
     all: [],
     trending: [],
     searched: [],
+    feed: [],
     focus: {},
   },
   reducers: {
@@ -21,6 +22,9 @@ export const gifsSlice = createSlice({
     updateSearchedGifs: (state, { payload }) => {
       state.searched = payload;
     },
+    updateFeedGifs: (state, { payload }) => {
+      state.feed.push(payload);
+    },
     updateFocusGif: (state, {payload}) => {
       state.focus = payload;
     }
@@ -28,6 +32,12 @@ export const gifsSlice = createSlice({
 });
 
 
-export const { updateAllGifs, updateTrendingGifs, updateSearchedGifs, updateFocusGif } = gifsSlice.actions;
+export const {
+  updateAllGifs,
+  updateTrendingGifs,
+  updateSearchedGifs,
+  updateFeedGifs,
+  updateFocusGif
+} = gifsSlice.actions;
 
 export default gifsSlice.reducer;

@@ -1,11 +1,9 @@
-const { ModuleFederationPlugin } = require('webpack').container;
-
 module.exports = {
   mode: 'development',
-  entry: ["regenerator-runtime/runtime.js", __dirname + '/client/index.js'],
+  entry: __dirname + '/client/index.js',
   output: {
     path: __dirname + '/public/dist',
-    filename: 'bundle.js'
+    filename: 'bundle.js',
   },
   module: {
     rules: [
@@ -16,8 +14,7 @@ module.exports = {
           {
             loader: 'babel-loader',
             options: {
-              presets: [['@babel/preset-react', { runtime: 'automatic'}], '@babel/preset-env'],
-              plugins: ['babel-plugin-styled-components']
+              presets: ['@babel/preset-react', '@babel/preset-env']
             }
           }
         ]
