@@ -9,6 +9,7 @@ class HomeBusiness {
     this.apiKey = 'api_key=' + process.env.GIPHY_KEY;
     this.limit = 'limit=12';
     this.getTrendingGifs = this.getTrendingGifs.bind(this);
+    this.getSearchGifs = this.getSearchGifs.bind(this);
   }
 
   getTrendingGifs(i, res) {
@@ -36,20 +37,6 @@ class HomeBusiness {
       .then((results) => {
         const searchGifs = results.data;
         return res.status(200).send(searchGifs);
-      })
-      .catch((error) => {
-        return res.status(500).send(error);
-      });
-  }
-
-  getFocusGif(id, res) {
-    const focusId = `gif_id=${id}`;
-    const url = this.generalUrl + id + '?' + this.apiKey + '&' + focusId;
-    
-    return axios.get(url)
-      .then((results) => {
-        const focusGif = results.data;
-        return res.status(200).send(focusGif);
       })
       .catch((error) => {
         return res.status(500).send(error);

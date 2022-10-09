@@ -7,8 +7,8 @@ const Div = styled.div`
   width: 100%;
   
   ${
-    ({ homePage, pageHeader, gifsCont }) => 
-      homePage ?
+    ({ homePage, focusPage, pageHeader, gifsCont }) => 
+      homePage || focusPage ?
       `
         display: grid;
         gap: 0;
