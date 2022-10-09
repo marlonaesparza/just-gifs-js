@@ -1,26 +1,21 @@
-require('dotenv').config({ path: __dirname + '/../.env'});
-require('./../database/index');
+require('dotenv').config({ path: `${__dirname}/../.env`});
 
 
 const express = require('express');
-const cors = require('cors');
-const cookieParser = require('cookie-parser');
-
-const homeRouter = require('./api/home');
-// const favoritesRouter = require('./api/favorites');
-
+const path = require('path');
 const app = express();
 const port = 8000;
 
-app.use(cors());
-app.use(cookieParser());
-app.use(express.urlencoded({ extended: true}));
-app.use(express.json());
 
-app.use(express.static(`${__dirname}/../public`));
+const homeRouter = require('./api/home');
+const focusRouter = require('./api/focus');
+const catchRouter = require('./api/catch');
 
-app.use('/home', homeRouter);
-// app.use('/favorites', favoritesRouter);
+
+app.use(express.static(path.join(__dirname, '..', 'public')));
+app.use('/api/home', homeRouter);
+app.use('/api/focus', focusRouter);
+app.get('*', catchRouter);
 
 
 app.listen(port, () => {
