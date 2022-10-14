@@ -4,6 +4,7 @@ const serverIndexURL = 'http://localhost:8000/';
 const serverHomePath = 'api/home/';
 const serverSearchPath = 'api/home/search';
 const serverFocusPath = 'api/focus';
+const serverAuthPath = 'api/auth'
 
 const requestHelpers = {
   getTrendingGifs: (offset = 0, dispatch, action1, action2) => {
@@ -20,6 +21,7 @@ const requestHelpers = {
         console.log(error);
       });
   },
+
   getSearchedGifs: (offset = 0, search, dispatch, action1, action2) => {
     axios.get(serverIndexURL + serverSearchPath, {
       params: {
@@ -35,6 +37,7 @@ const requestHelpers = {
         console.log(error);
       })
   },
+
   getFocusedGif: (id, dispatch, action) => {
     axios.get(serverIndexURL + serverFocusPath, {
       params: {
@@ -46,6 +49,20 @@ const requestHelpers = {
       })
       .catch((error) => {
         console.log(error);
+      });
+  },
+
+  authUser: (dispatch, action) => {
+    axios.get(serverIndexURL + serverAuthPath)
+      .then(() => {
+        console.log('AuthUser Response:', document.cookie);
+        return;
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .then(() => {
+        console.log('Finished request...');
       });
   }
 };
