@@ -7,62 +7,63 @@ const serverFocusPath = 'api/focus';
 const serverAuthPath = 'api/auth'
 
 const requestHelpers = {
-  getTrendingGifs: (offset = 0, dispatch, action1, action2) => {
+  getTrendingGifs: (nextArgs) => {
     axios.get(serverIndexURL + serverHomePath, {
       params: {
-        index: offset
+        index: nextArgs.offset
       }
     })
       .then((result) => {
-        dispatch(action1(result.data.data));
-        dispatch(action2(result.data.data));
+        nextArgs.dispatch(nextArgs.actions.action1(result.data.data));
+        nextArgs.dispatch(nextArgs.actions.action2(result.data.data));
       })
       .catch((error) => {
         console.log(error);
       });
   },
 
-  getSearchedGifs: (offset = 0, search, dispatch, action1, action2) => {
+  getSearchedGifs: (nextArgs) => {
     axios.get(serverIndexURL + serverSearchPath, {
       params: {
-        index: offset,
-        search: search
+        index: nextArgs.offset,
+        search: nextArgs.search
       }
     })
       .then((result) => {
-        dispatch(action1(result.data.data));
-        dispatch(action2(result.data.data));
+        nextArgs.dispatch(nextArgs.actions.action1(result.data.data));
+        nextArgs.dispatch(nextArgs.actions.action2(result.data.data));
       })
       .catch((error) => {
         console.log(error);
       })
   },
 
-  getFocusedGif: (id, dispatch, action) => {
+  getFocusedGif: (nextArgs) => {
     axios.get(serverIndexURL + serverFocusPath, {
       params: {
-        id
+        id: nextArgs.gifId
       }
     })
       .then((result) => {
-        dispatch(action(result.data.data));
+        nextArgs.dispatch(nextArgs.actions.action1(result.data.data));
       })
       .catch((error) => {
         console.log(error);
       });
   },
 
-  authUser: (dispatch, action) => {
+  authUser: (next, nextArgs, dispatch, actions) => {
     axios.get(serverIndexURL + serverAuthPath)
       .then(() => {
         console.log('AuthUser Response:', document.cookie);
-        return;
+        console.log('Calling next...');
+        return next(nextArgs);
       })
       .catch((error) => {
         console.log(error);
       })
       .then(() => {
-        console.log('Finished request...');
+        console.log('Error fallback (authUser)...');
       });
   }
 };

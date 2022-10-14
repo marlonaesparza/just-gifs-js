@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import requestHelpers from '../helpers/reqHandlers';
 import Div from '../components/single/Div';
 import PageHeader from '../components/combination/PageHeader';
@@ -7,6 +7,7 @@ import PageHeader from '../components/combination/PageHeader';
 
 const LogInPage = (props) => {
   const dispatch = useDispatch();
+  const validAuth = useSelector((state) => state.sessionSlice.validAuth);
   
   useEffect(() => {
     console.log('Login user, or have them login.');
@@ -14,16 +15,23 @@ const LogInPage = (props) => {
   }, []);
 
   return (
-    <Div>
-      <PageHeader/>
+    <React.Fragment>
+      {
+        validAuth ?
+          <Navigate to="/home" replace={true} /> :
 
-      <Div>
-        {
-          // Insert login form
-        }
-        Login Form
-      </Div>
-    </Div>
+          <Div>
+            <PageHeader/>
+
+           <Div>
+              {
+                // Insert login form
+              }
+             Login Form
+            </Div>
+         </Div>
+      }
+    </React.Fragment>
   );
 };
 

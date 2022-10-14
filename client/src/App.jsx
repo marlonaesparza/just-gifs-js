@@ -5,6 +5,7 @@ import HomePage from './pages/HomePage';
 import FocusPage from './pages/FocusPage';
 import PageNotFound from './pages/PageNotFound';
 import LogInPage from './pages/LogInPage';
+import SignUpPage from './pages/SignUpPage';
 
 
 const App = (props) => {
@@ -15,6 +16,7 @@ const App = (props) => {
         <Route path='/home' element={<HomePage/>}/>
         <Route path='/focus/:gifId' element={<FocusPage/>}/>
         <Route path='/login' element={<LogInPage />}/>
+        <Route path='/signup' element={<SignUpPage />}/>
         <Route path='*' element={<PageNotFound/>}/>
       </Routes>
     </BrowserRouter>
