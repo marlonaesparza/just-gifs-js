@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import { Navigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateAllGifs, updateTrendingGifs } from '../state/features/gifsSlice';
-import requestHelpers from '../helpers/reqHandlers';
+import reqHandlers from '../helpers/reqHandlers';
 import Div from '../components/single/Div';
 import PageHeader from '../components/combination/PageHeader';
 import ContentNav from '../components/combination/ContentNav';
@@ -14,7 +14,8 @@ const HomePage = (props) => {
   const validAuth = useSelector((state) => state.sessionSlice.validAuth);
   
   useEffect(() => {
-    console.log('Login user, or have them login.');
+    console.log('Access home page, or have them login.');
+    const next = reqHandlers.getTrendingGifs;
     const nextArgs = {
       offset: 0,
       dispatch,
@@ -22,9 +23,7 @@ const HomePage = (props) => {
       action2: updateTrendingGifs
     };
 
-    const next = requestHelpers.getTrendingGifs;
-
-    requestHelpers.authUser(next, nextArgs);
+    reqHandlers.authUser(next, nextArgs);
   }, []);
 
   return (

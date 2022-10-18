@@ -1,15 +1,21 @@
 import React, { useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import requestHelpers from '../helpers/reqHandlers';
+import { useDispatch, useSelector } from 'react-redux';
+import reqHandlers from '../helpers/reqHandlers';
 
 
 const LandingPage = (props) => {
+  const dispatch = useDispatch();
   const validAuth = useSelector((state) => state.sessionSlice.validAuth);
 
   useEffect(() => {
-    console.log('Login user, or have them login.');
-    requestHelpers.authUser();
+    console.log('Login user, or direct them to signup.');
+    const next = () => {return;}
+    const nextArgs = {
+      dispatch
+    };
+
+    reqHandlers.authUser(next, nextArgs);
   }, []);
 
   return (

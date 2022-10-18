@@ -6,7 +6,7 @@ import Div from '../components/single/Div';
 import PageHeader from '../components/combination/PageHeader';
 import ContentNav from '../components/combination/ContentNav';
 import Gif from '../components/combination/Gif';
-import requestHelpers from '../helpers/reqHandlers';
+import reqHandlers from '../helpers/reqHandlers';
 
 
 const FocusPage = () => {
@@ -15,7 +15,8 @@ const FocusPage = () => {
   const validAuth = useSelector((state) => state.sessionSlice.validAuth);
   
   useEffect(() => {
-    console.log('Login user, or have them login.');
+    console.log('Access focus page, or have them login.');
+    const next = reqHandlers.getFocusedGif;
     const nextArgs = {
       gifId: params.gifId,
       dispatch,
@@ -24,8 +25,7 @@ const FocusPage = () => {
       }
     };
 
-    const next = requestHelpers.getFocusedGif;
-    requestHelpers.authUser(next, nextArgs);
+    reqHandlers.authUser(next, nextArgs);
   }, []);
 
   return (

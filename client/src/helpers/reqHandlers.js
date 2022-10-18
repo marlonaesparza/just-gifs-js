@@ -1,4 +1,7 @@
 import axios from "axios";
+import Cookies from "js-cookie";
+import sliceHandlers from "./sliceHandlers";
+
 
 const serverIndexURL = 'http://localhost:8000/';
 const serverHomePath = 'api/home/';
@@ -6,16 +9,20 @@ const serverSearchPath = 'api/home/search';
 const serverFocusPath = 'api/focus';
 const serverAuthPath = 'api/auth'
 
-const requestHelpers = {
+
+const reqHandlers = {
   getTrendingGifs: (nextArgs) => {
+    const dispatch = nextArgs.dispatch;
+    const actions = nextArgs.actions;
+
     axios.get(serverIndexURL + serverHomePath, {
       params: {
         index: nextArgs.offset
       }
     })
       .then((result) => {
-        nextArgs.dispatch(nextArgs.actions.action1(result.data.data));
-        nextArgs.dispatch(nextArgs.actions.action2(result.data.data));
+        dispatch(actions.action1(result.data.data));
+        dispatch(actions.action2(result.data.data));
       })
       .catch((error) => {
         console.log(error);
@@ -52,21 +59,26 @@ const requestHelpers = {
       });
   },
 
-  authUser: (next, nextArgs, dispatch, actions) => {
+  authUser: (next, nextArgs) => {
+    const dispatch = nextArgs.dispatch;
     axios.get(serverIndexURL + serverAuthPath)
       .then(() => {
-        console.log('AuthUser Response:', document.cookie);
-        console.log('Calling next...');
-        return next(nextArgs);
+        const userUUID = JSON.parse(Cookies.get('hpp_session').slice(2)).userUUID;
+        if (userUUID === null) {
+          throw userUUID;
+        };
+
+        sliceHandlers.authUserSlice(dispatch, true)
+        next(nextArgs);
       })
-      .catch((error) => {
-        console.log(error);
+      .catch(() => {
+        sliceHandlers.authUserSlice(dispatch, false)
       })
       .then(() => {
-        console.log('Error fallback (authUser)...');
+        console.log('Fallback (authUser)...');
       });
   }
 };
 
 
-export default requestHelpers;
+export default reqHandlers;
