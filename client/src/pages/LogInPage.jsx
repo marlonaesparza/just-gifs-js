@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import reqHandlers from '../helpers/reqHandlers';
 import Div from '../components/single/Div';
 import PageHeader from '../components/combination/PageHeader';
+import LoginForm from '../components/combination/LoginForm';
 
 
 const LogInPage = (props) => {
@@ -32,7 +33,7 @@ const LogInPage = (props) => {
               {
                 // Insert login form
               }
-             Login Form
+              <LoginForm />
             </Div>
          </Div>
       }
