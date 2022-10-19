@@ -30,9 +30,6 @@ const LogInPage = (props) => {
             <PageHeader/>
 
            <Div>
-              {
-                // Insert login form
-              }
               <LoginForm />
             </Div>
          </Div>
