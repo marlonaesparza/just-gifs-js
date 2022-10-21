@@ -8,6 +8,7 @@ export const sessionSlice = createSlice({
   },
   reducers: {
     updateValidAuth: (state, { payload }) => {
+      console.log('Update Valid Auth:', payload);
       payload === true ? state.validAuth = true : state.validAuth = false
     },
   }

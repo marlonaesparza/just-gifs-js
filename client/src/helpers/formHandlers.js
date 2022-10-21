@@ -5,25 +5,10 @@ const formHandlers = {
     const passwordValid = password.length >= 8 ? true : false;
 
     if (values.confirmedPassword) {
-      const confirmPasswordValid1 = values.confirmedPassword ?
-        values.confirmedPassword.length === password.length :
-        false
-      ;
+      const confirmedPassword = values.confirmedPassword;
+      const confirmedPasswordValid = confirmedPassword === password;
 
-      const confirmPasswordValid2 = !confirmPasswordValid1 ?
-        false :
-        (() => {
-          for (let i = 0; i < password.length; i++) {
-            if (password[i] !== values.confirmedPassword[i]) {
-              return false;
-            }
-          } 
-          return true;
-        })()
-      ;
-
-
-      return usernameValid === true && passwordValid === true && confirmPasswordValid2 === true ?
+      return usernameValid === true && passwordValid === true && confirmedPasswordValid === true ?
         true :
         false
       ;

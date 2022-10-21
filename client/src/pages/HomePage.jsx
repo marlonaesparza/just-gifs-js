@@ -14,14 +14,23 @@ const HomePage = (props) => {
   const validAuth = useSelector((state) => state.sessionSlice.validAuth);
   
   useEffect(() => {
-    console.log('Access home page, or have them login.');
-    const next = reqHandlers.getTrendingGifs;
+    console.log('Valid Auth Home Page:', validAuth);
+
     const nextArgs = {
       offset: 0,
       dispatch,
       action1: updateAllGifs,
-      action2: updateTrendingGifs
+      action2: updateTrendingGifs,
+      page: 'Home Page'
     };
+
+    if (validAuth) {
+      reqHandlers.getTrendingGifs(nextArgs);
+      return;
+    }
+
+    console.log('Access home page, or have them login.');
+    const next = reqHandlers.getTrendingGifs;
 
     reqHandlers.authUser(next, nextArgs);
   }, []);

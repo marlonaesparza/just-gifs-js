@@ -29,76 +29,7 @@ class AuthBusiness {
       return res.status(400).end();
     })
   };
-
-  loginUser(req, res) {
-    let { username, password } = req.body;
-    let { hash } = req.cookies.hpp_session;
-    let userUUID;
-
-    return axios.post('http://localhost:8002/user/auth', {
-      username,
-      password
-    })
-      .then(({ data }) => {
-        let { uuid } = data;
-        userUUID = uuid;
-
-        if (!uuid) {
-          throw uuid;
-        };
-        
-        return axios.patch('http://localhost:8001/session/updateSession', {
-          uuid,
-          hash
-        });
-      })
-      .then(({ data }) => {
-        let { updated } = data;
-
-        if (!updated) {
-          throw updated;
-        };
-
-        req.cookies.hpp_session.userUUID = userUUID;
-        return res.status(201);
-      })
-      .catch(() => {
-        return res.status(404);
-      });
-  };
-
-  signupUser(req, res) {
-    let { username, password } = req.body;
-    let { hash } = req.cookies.hpp_session;
-    let userUUID;
-
-    return axios.post('http://localhost:8002/user/register', {
-      username,
-      password
-    })
-      .then(({ data }) => {
-        let { uuid } = data;
-        userUUID = uuid;
-        
-        return axios.patch('http://localhost:8001/session/updateSession', {
-          uuid,
-          hash
-        });
-      })
-      .then(({ data }) => {
-        let { updated } = data;
-
-        if (!updated) {
-          throw updated;
-        };
-
-        req.cookies.hpp_session.userUUID = userUUID;
-        return res.status(201);
-      })
-      .catch(() => {
-        return res.status(404);
-      });
-  };
+  
 };
 
 

@@ -8,12 +8,12 @@ const serverHomePath = 'api/home/';
 const serverSearchPath = 'api/home/search';
 const serverFocusPath = 'api/focus';
 const serverAuthPath = 'api/auth'
+const serverRegUserPath = 'api/userProfile/register';
 
 
 const reqHandlers = {
   getTrendingGifs: (nextArgs) => {
     const dispatch = nextArgs.dispatch;
-    const actions = nextArgs.actions;
 
     axios.get(serverIndexURL + serverHomePath, {
       params: {
@@ -21,8 +21,8 @@ const reqHandlers = {
       }
     })
       .then((result) => {
-        dispatch(actions.action1(result.data.data));
-        dispatch(actions.action2(result.data.data));
+        dispatch(nextArgs.action1(result.data.data));
+        dispatch(nextArgs.action2(result.data.data));
       })
       .catch((error) => {
         console.log(error);
@@ -60,22 +60,48 @@ const reqHandlers = {
   },
 
   authUser: (next, nextArgs) => {
+    console.log('Auth User...');
     const dispatch = nextArgs.dispatch;
     axios.get(serverIndexURL + serverAuthPath)
       .then(() => {
-        const userUUID = JSON.parse(Cookies.get('hpp_session').slice(2)).userUUID;
-        if (userUUID === null) {
-          throw userUUID;
+        const uuid = JSON.parse(Cookies.get('hpp_session').slice(2)).userUUID;
+        console.log('AuthUser User UUID:', uuid);
+
+        if (uuid === null) {
+          throw uuid;
         };
 
-        sliceHandlers.authUserSlice(dispatch, true)
+        sliceHandlers.authUserSlice(dispatch, true);
         next(nextArgs);
       })
       .catch(() => {
-        sliceHandlers.authUserSlice(dispatch, false)
+        sliceHandlers.authUserSlice(dispatch, false);
       })
       .then(() => {
+        console.log('Originating Call From:', nextArgs.page);
         console.log('Fallback (authUser)...');
+      });
+  },
+
+  resgisterUser: (next, nextArgs, formVals) => {
+    const { username, password, confirmedPassword } = formVals;
+
+    axios.post(serverIndexURL + serverRegUserPath, {
+      username,
+      password,
+      confirmedPassword
+    })
+      .then(({ data }) => {
+        console.log('Register User Results:', data.user);
+        next(() => {}, nextArgs);
+      })
+      .catch(() => {
+        console.log('Error (registerUser)...');
+      })
+      .then(() => {
+        const uuid = Cookies.get();
+        console.log('AuthUser User UUID:', uuid);
+        console.log('Fallback (registerUser)...');
       });
   }
 };

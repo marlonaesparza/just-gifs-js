@@ -6,6 +6,7 @@ import FormUsernameInput from '../single/FormUsernameInput';
 import FormPasswordInput from '../single/FormPasswordInput';
 import FormSubmitInput from '../single/FormSubmitInput';
 import formHandlers from '../../helpers/formHandlers';
+import reqHandlers from '../../helpers/reqHandlers';
 
 
 const SignupForm = (props) => {
@@ -20,15 +21,18 @@ const SignupForm = (props) => {
       confirmedPassword: e.target['confirmed-password'].value
     };
 
-    const proceed = formHandlers.validate(values);
-
-    if (!proceed) {
+    if (!formHandlers.validate(values)) {
       console.log('Invalid Signup Form: Create better UX.');
       return;
     }
 
     console.log('Valid Signup Form: Post info to server.');
-    return;
+    const next = reqHandlers.authUser;
+    const nextArgs = {
+      dispatch
+    };
+
+    reqHandlers.resgisterUser(next, nextArgs, values);
   };
 
 
