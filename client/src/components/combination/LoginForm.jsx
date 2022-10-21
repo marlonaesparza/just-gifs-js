@@ -6,6 +6,7 @@ import FormUsernameInput from '../single/FormUsernameInput';
 import FormPasswordInput from '../single/FormPasswordInput';
 import FormSubmitInput from '../single/FormSubmitInput';
 import formHandlers from '../../helpers/formHandlers';
+import reqHandlers from '../../helpers/reqHandlers';
 
 
 const LoginForm = (props) => {
@@ -19,15 +20,18 @@ const LoginForm = (props) => {
       password: e.target.password.value
     };
 
-    const proceed = formHandlers.validate(values);
-
-    if (!proceed) {
+    if (!formHandlers.validate(values)) {
       console.log('Invalid Login Form: Create better UX.');
       return;
     }
 
     console.log('Valid Login Form: Post info to server.');
-    return;
+    const next = reqHandlers.authUser;
+    const nextArgs = {
+      dispatch
+    };
+
+    reqHandlers.loginUser(next, nextArgs, values);
   };
 
   return (

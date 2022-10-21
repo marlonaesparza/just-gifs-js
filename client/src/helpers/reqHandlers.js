@@ -9,6 +9,7 @@ const serverSearchPath = 'api/home/search';
 const serverFocusPath = 'api/focus';
 const serverAuthPath = 'api/auth'
 const serverRegUserPath = 'api/userProfile/register';
+const serverLoginUserPath = 'api/userProfile/login';
 
 
 const reqHandlers = {
@@ -96,7 +97,24 @@ const reqHandlers = {
         console.log('Error (registerUser)...');
       })
       .then(() => {
-        const uuid = Cookies.get();
+        console.log('Fallback (registerUser)...');
+      });
+  },
+
+  loginUser: (next, nextArgs, values) => {
+    const { username, password } = values;
+
+    axios.post(serverIndexURL + serverLoginUserPath, {
+      username,
+      password
+    })
+      .then(({ data }) => {
+        next(() => {}, nextArgs);
+      })
+      .catch(() => {
+        console.log('Error (registerUser)...');
+      })
+      .then(() => {
         console.log('Fallback (registerUser)...');
       });
   }
