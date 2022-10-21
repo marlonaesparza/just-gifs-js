@@ -65,7 +65,6 @@ const reqHandlers = {
     axios.get(serverIndexURL + serverAuthPath)
       .then(() => {
         const uuid = JSON.parse(Cookies.get('hpp_session').slice(2)).userUUID;
-        console.log('AuthUser User UUID:', uuid);
 
         if (uuid === null) {
           throw uuid;
@@ -78,7 +77,6 @@ const reqHandlers = {
         sliceHandlers.authUserSlice(dispatch, false);
       })
       .then(() => {
-        console.log('Originating Call From:', nextArgs.page);
         console.log('Fallback (authUser)...');
       });
   },
@@ -92,7 +90,6 @@ const reqHandlers = {
       confirmedPassword
     })
       .then(({ data }) => {
-        console.log('Register User Results:', data.user);
         next(() => {}, nextArgs);
       })
       .catch(() => {
@@ -100,7 +97,6 @@ const reqHandlers = {
       })
       .then(() => {
         const uuid = Cookies.get();
-        console.log('AuthUser User UUID:', uuid);
         console.log('Fallback (registerUser)...');
       });
   }

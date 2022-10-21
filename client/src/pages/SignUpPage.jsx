@@ -15,7 +15,8 @@ const SignUpPage = (props) => {
     console.log('Login user, or direct them to signup.');
     const next = () => {return;}
     const nextArgs = {
-      dispatch
+      dispatch,
+      page: 'Signup Page'
     };
 
     reqHandlers.authUser(next, nextArgs);
