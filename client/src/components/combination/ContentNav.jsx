@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setTrendingView, setFeedView } from '../../state/features/viewsSlice';
 import Search from './Search';
@@ -9,6 +10,9 @@ import Btn from '../single/Btn';
 
 const ContentNav = (props) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const params = useParams();
+  console.log('Content Nav (Params):', params);
 
   const handleTrendingView = (e) => {
     e.preventDefault();
@@ -20,16 +24,31 @@ const ContentNav = (props) => {
     dispatch(setFeedView());
   };
 
+  const handleBackBtn = (e) => {
+    e.preventDefault();
+    navigate(-1);
+    return;
+  }
+
   return (
-    <Nav id='content-nav' contentNav={true}>
-      <Div>
-        <Search/>
-      </Div>  
-      <Div>
-        <Btn onClick={handleTrendingView}>Trending</Btn>
-        <Btn onClick={handleFeedView}>Feed</Btn>
-      </Div>
-    </Nav>
+    <React.Fragment>
+      <Nav id='content-nav' contentNav={true}>
+        <Div>
+          <Search/>
+        </Div>  
+        <Div>
+          {
+            !params.gifId ? 
+              <React.Fragment>
+                <Btn onClick={handleTrendingView}>Trending</Btn>
+                <Btn onClick={handleFeedView}>Feed</Btn>
+              </React.Fragment> :
+
+              <Btn onClick={handleBackBtn}>Back</Btn>
+          }
+        </Div>
+      </Nav>
+    </React.Fragment>
   );
 };
 

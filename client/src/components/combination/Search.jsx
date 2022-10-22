@@ -2,6 +2,7 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { updateSearchValue } from '../../state/features/searchSlice';
 import { updateAllGifs, updateSearchedGifs } from '../../state/features/gifsSlice';
+import { clearSearchValue } from '../../state/features/searchSlice';
 import requestHelpers from '../../helpers/reqHandlers';
 import SearchInput from '../single/SearchInput';
 import Btn from '../single/Btn';
@@ -19,11 +20,21 @@ const Search = () => {
   
   const handleGetSearchGifs = (e) => {
     e.preventDefault();
-    requestHelpers.getSearchedGifs(0, searchSliceValue, dispatch, updateAllGifs, updateSearchedGifs);
+    const nextArgs = {
+      offset: 0,
+      search: searchSliceValue,
+      dispatch,
+      action1: updateAllGifs,
+      action2: updateSearchedGifs,
+      action3: clearSearchValue
+    };
+
+    requestHelpers.getSearchedGifs(nextArgs);
   };
   
   return (
     <React.Fragment>
+
       <SearchInput
         searchInput={true}
         onChange={handleSearchVal}

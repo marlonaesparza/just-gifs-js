@@ -6,6 +6,7 @@ const Article = styled.article`
   padding: 0;
   display: grid;
   grid-template-rows: 10fr 2fr;
+  justify-content: center;
 `;
 
 

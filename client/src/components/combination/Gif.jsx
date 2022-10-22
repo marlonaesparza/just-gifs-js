@@ -28,7 +28,7 @@ const Gif = ({ id, url }) => {
         path === 'focus' && focusedGif.id ?
           <Article key={id}>
             <Div>
-              <Img id={focusedGif.id} src={focusedGif.images.fixed_width_small.url} />
+              <Img id={focusedGif.id} src={focusedGif.images.downsized_large.url} />
             </Div>
             <Div>
               <Btn data-gif-id={id} data-gif-url={url} onClick={handleFavoriteGif}>

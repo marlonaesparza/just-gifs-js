@@ -22,7 +22,6 @@ const reqHandlers = {
       }
     })
       .then((result) => {
-        dispatch(nextArgs.action1(result.data.data));
         dispatch(nextArgs.action2(result.data.data));
       })
       .catch((error) => {
@@ -38,8 +37,8 @@ const reqHandlers = {
       }
     })
       .then((result) => {
-        nextArgs.dispatch(nextArgs.actions.action1(result.data.data));
-        nextArgs.dispatch(nextArgs.actions.action2(result.data.data));
+        nextArgs.dispatch(nextArgs.action2(result.data.data));
+        nextArgs.dispatch(nextArgs.action3());
       })
       .catch((error) => {
         console.log(error);
@@ -61,7 +60,6 @@ const reqHandlers = {
   },
 
   authUser: (next, nextArgs) => {
-    console.log('Auth User...');
     const dispatch = nextArgs.dispatch;
     axios.get(serverIndexURL + serverAuthPath)
       .then(() => {
