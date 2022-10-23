@@ -10,10 +10,13 @@ export const searchSlice = createSlice({
     updateSearchValue: (state, { payload }) => {
       state.value = payload;
     },
+    clearSearchValue: (state, { payload}) => {
+      state.value = '';
+    }
   }
 });
 
 
-export const { updateSearchValue } = searchSlice.actions;
+export const { updateSearchValue, clearSearchValue } = searchSlice.actions;
 
 export default searchSlice.reducer;

@@ -1,54 +1,139 @@
 import axios from "axios";
+import Cookies from "js-cookie";
+import sliceHandlers from "./sliceHandlers";
+
 
 const serverIndexURL = 'http://localhost:8000/';
 const serverHomePath = 'api/home/';
 const serverSearchPath = 'api/home/search';
 const serverFocusPath = 'api/focus';
+const serverAuthPath = 'api/auth'
+const serverRegUserPath = 'api/userProfile/register';
+const serverLoginUserPath = 'api/userProfile/login';
+const serverPostFavoritePath = 'api/feed/create';
+const serverDeleteFavoritePath = 'api/feed/delete';
+const serverGetAllFavoritesPath = 'api/feed/getAll';
 
-const requestHelpers = {
-  getTrendingGifs: (offset = 0, dispatch, action1, action2) => {
+
+const reqHandlers = {
+  getTrendingGifs: (nextArgs) => {
+    const dispatch = nextArgs.dispatch;
+
     axios.get(serverIndexURL + serverHomePath, {
       params: {
-        index: offset
+        index: nextArgs.offset
       }
     })
       .then((result) => {
-        dispatch(action1(result.data.data));
-        dispatch(action2(result.data.data));
+        dispatch(nextArgs.action2(result.data.data));
       })
       .catch((error) => {
         console.log(error);
       });
   },
-  getSearchedGifs: (offset = 0, search, dispatch, action1, action2) => {
+
+  getSearchedGifs: (nextArgs) => {
     axios.get(serverIndexURL + serverSearchPath, {
       params: {
-        index: offset,
-        search: search
+        index: nextArgs.offset,
+        search: nextArgs.search
       }
     })
       .then((result) => {
-        dispatch(action1(result.data.data));
-        dispatch(action2(result.data.data));
+        nextArgs.dispatch(nextArgs.action2(result.data.data));
+        nextArgs.dispatch(nextArgs.action3());
       })
       .catch((error) => {
         console.log(error);
       })
   },
-  getFocusedGif: (id, dispatch, action) => {
+
+  getFocusedGif: (nextArgs) => {
     axios.get(serverIndexURL + serverFocusPath, {
       params: {
-        id
+        id: nextArgs.gifId
       }
     })
       .then((result) => {
-        dispatch(action(result.data.data));
+        nextArgs.dispatch(nextArgs.actions.action1(result.data.data));
       })
       .catch((error) => {
         console.log(error);
+      });
+  },
+
+  postFavoriteGif: (favoritedGif) => {
+    axios.post(serverIndexURL + serverPostFavoritePath, {
+      ...favoritedGif
+    })
+      .then(result => {
+        console.log('Post Favorite Gif (result):', result);
+        return;
+      })
+      .catch(error => {
+        console.log(error);
+        return;
+      });
+  },
+
+  authUser: (next, nextArgs) => {
+    const dispatch = nextArgs.dispatch;
+    axios.get(serverIndexURL + serverAuthPath)
+      .then(() => {
+        const uuid = JSON.parse(Cookies.get('hpp_session').slice(2)).userUUID;
+
+        if (uuid === null) {
+          throw uuid;
+        };
+
+        sliceHandlers.authUserSlice(dispatch, true);
+        next(nextArgs);
+      })
+      .catch(() => {
+        sliceHandlers.authUserSlice(dispatch, false);
+      })
+      .then(() => {
+        console.log('Fallback (authUser)...');
+      });
+  },
+
+  resgisterUser: (next, nextArgs, formVals) => {
+    const { username, password, confirmedPassword } = formVals;
+
+    axios.post(serverIndexURL + serverRegUserPath, {
+      username,
+      password,
+      confirmedPassword
+    })
+      .then(({ data }) => {
+        next(() => {}, nextArgs);
+      })
+      .catch(() => {
+        console.log('Error (registerUser)...');
+      })
+      .then(() => {
+        console.log('Fallback (registerUser)...');
+      });
+  },
+
+  loginUser: (next, nextArgs, values) => {
+    const { username, password } = values;
+
+    axios.post(serverIndexURL + serverLoginUserPath, {
+      username,
+      password
+    })
+      .then(({ data }) => {
+        next(() => {}, nextArgs);
+      })
+      .catch(() => {
+        console.log('Error (registerUser)...');
+      })
+      .then(() => {
+        console.log('Fallback (registerUser)...');
       });
   }
 };
 
 
-export default requestHelpers;
+export default reqHandlers;

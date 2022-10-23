@@ -1,18 +1,31 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import Header1 from '../components/single/Header1';
+import React, { useEffect } from 'react';
+import { Navigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import reqHandlers from '../helpers/reqHandlers';
 
 
 const LandingPage = (props) => {
+  const dispatch = useDispatch();
+  const validAuth = useSelector((state) => state.sessionSlice.validAuth);
+
+  useEffect(() => {
+    console.log('Login user, or direct them to signup.');
+    const next = () => {return;}
+    const nextArgs = {
+      dispatch
+    };
+
+    reqHandlers.authUser(next, nextArgs);
+  }, []);
+
   return (
     <React.Fragment>
-      <Header1>Landing Page</Header1>
-      <nav>
-        <ul>
-          <Link to='/home'>Home</Link>
-        </ul>
-      </nav>
-    </React.Fragment>
+    {
+      !validAuth ?
+        <Navigate to="/login" replace={true} /> :
+        <Navigate to="/home" replace={true} /> 
+      }
+      </React.Fragment> 
   );
 };
 

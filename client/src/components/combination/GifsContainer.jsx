@@ -21,10 +21,8 @@ const GifsContainer = () => {
       {
         !viewsSliceFeedView ?
           gifs.map((gif) => {
-            let id = gif.id;
-            let url = gif.images.fixed_width_small.url;
             return (
-              <Gif key={id} id={id} url={url}/>
+              <Gif key={gif.id} gif={gif}/>
             );
           }) :
           gifsSliceFeed.map(({ gifId, gifUrl}) => {

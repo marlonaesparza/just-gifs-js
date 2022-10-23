@@ -6,9 +6,10 @@ import Article from '../single/Article';
 import Img from '../single/Img';
 import Div from '../single/Div';
 import Btn from '../single/Btn';
+import reqHandlers from '../../helpers/reqHandlers';
 
 
-const Gif = ({ id, url }) => {
+const Gif = ({ gif }) => {
   const dispatch = useDispatch();
   const location = useLocation();
   const path = location.pathname.split('/')[1];
@@ -16,39 +17,64 @@ const Gif = ({ id, url }) => {
 
   const handleFavoriteGif = (e) => {
     e.preventDefault();
-    const gifId = e.target.dataset.gifId;
-    const gifUrl = e.target.dataset.gifUrl;
-    const favoritedGif = {gifId, gifUrl}
-    dispatch(updateFeedGifs(favoritedGif));
+    const gifToFavorite = path === 'focus' ?
+      focusedGif :
+      gif
+    ;
+
+    const favoritedGif = {
+      postID: gifToFavorite.id,
+      postRating: gifToFavorite.rating,
+      postMedia: {
+        downsized_large: gifToFavorite.images.downsized_large,
+        fixed_height_small: gifToFavorite.images.fixed_height_small
+      }
+    };
+
+    reqHandlers.postFavoriteGif(favoritedGif);
   };
 
   return (
     <React.Fragment>
       {
         path === 'focus' && focusedGif.id ?
-          <Article key={id}>
+          <Article>
             <Div>
-              <Img id={focusedGif.id} src={focusedGif.images.fixed_width_small.url} />
+              <Img 
+                id={focusedGif.id}
+                src={focusedGif.images.downsized_large.url}
+              />
             </Div>
             <Div>
-              <Btn data-gif-id={id} data-gif-url={url} onClick={handleFavoriteGif}>
+              <Btn
+                data-gif={(JSON.stringify(focusedGif))}
+                onClick={handleFavoriteGif}
+              >
                 Like
               </Btn>
             </Div>
           </Article> :  
-
-          <Article key={id}>
+        gif ?
+          <Article>
             <Div>
-              <Link to={`/focus/${id}`}>
-                <Img id={id} src={url} />
+              <Link to={`/focus/${gif.id}`}>
+                <Img
+                  id={gif.id}
+                  src={gif.images.fixed_height_small.url}
+                />
               </Link>
             </Div>
             <Div>
-              <Btn data-gif-id={id} data-gif-url={url} onClick={handleFavoriteGif}>
+              <Btn
+                data-gif={gif}
+                onClick={handleFavoriteGif}
+              >
                 Like
               </Btn>
             </Div>
-          </Article>
+          </Article> :
+
+          null
       }
     </React.Fragment>
   );
