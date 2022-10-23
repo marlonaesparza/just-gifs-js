@@ -14,6 +14,7 @@ const LogInPage = (props) => {
   useEffect(() => {
     console.log('Login user, or direct them to signup.');
     const next = () => {return;}
+    
     const nextArgs = {
       dispatch,
       page: 'Login Page'

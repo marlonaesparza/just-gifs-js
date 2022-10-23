@@ -16,6 +16,7 @@ const FocusPage = () => {
   
   useEffect(() => {
     console.log('Valid Auth Focus Page:', validAuth);
+    const next = reqHandlers.getFocusedGif;
 
     const nextArgs = {
       gifId: params.gifId,
@@ -24,14 +25,6 @@ const FocusPage = () => {
         action1: updateFocusGif
       }
     };
-    
-    if (validAuth) {
-      reqHandlers.getFocusedGif(nextArgs);
-      return;
-    }
-    
-    console.log('Access focus page, or have them login.');
-    const next = reqHandlers.getFocusedGif;
 
     reqHandlers.authUser(next, nextArgs);
   }, []);

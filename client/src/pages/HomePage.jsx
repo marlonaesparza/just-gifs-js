@@ -15,6 +15,7 @@ const HomePage = (props) => {
   
   useEffect(() => {
     console.log('Valid Auth Home Page:', validAuth);
+    const next = reqHandlers.getTrendingGifs;
 
     const nextArgs = {
       offset: 0,
@@ -24,13 +25,7 @@ const HomePage = (props) => {
       page: 'Home Page'
     };
 
-    if (validAuth) {
-      reqHandlers.getTrendingGifs(nextArgs);
-      return;
-    }
-
     console.log('Access home page, or have them login.');
-    const next = reqHandlers.getTrendingGifs;
 
     reqHandlers.authUser(next, nextArgs);
   }, []);

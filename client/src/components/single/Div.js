@@ -23,9 +23,9 @@ const Div = styled.div`
       gifsCont ?
       `
         display: grid;
-        gap: 0;
-        grid-template-columns: repeat(4, 1fr);
-        grid-template-rows: repeat(3, 1fr);
+        gap: 1em;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        grid-template-rows: repeat(4, minmax(0, 1fr));
       ` :
       null
   }

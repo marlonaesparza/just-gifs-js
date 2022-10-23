@@ -10,6 +10,9 @@ const serverFocusPath = 'api/focus';
 const serverAuthPath = 'api/auth'
 const serverRegUserPath = 'api/userProfile/register';
 const serverLoginUserPath = 'api/userProfile/login';
+const serverPostFavoritePath = 'api/feed/create';
+const serverDeleteFavoritePath = 'api/feed/delete';
+const serverGetAllFavoritesPath = 'api/feed/getAll';
 
 
 const reqHandlers = {
@@ -56,6 +59,20 @@ const reqHandlers = {
       })
       .catch((error) => {
         console.log(error);
+      });
+  },
+
+  postFavoriteGif: (favoritedGif) => {
+    axios.post(serverIndexURL + serverPostFavoritePath, {
+      ...favoritedGif
+    })
+      .then(result => {
+        console.log('Post Favorite Gif (result):', result);
+        return;
+      })
+      .catch(error => {
+        console.log(error);
+        return;
       });
   },
 

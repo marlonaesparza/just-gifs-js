@@ -12,7 +12,6 @@ const ContentNav = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const params = useParams();
-  console.log('Content Nav (Params):', params);
 
   const handleTrendingView = (e) => {
     e.preventDefault();

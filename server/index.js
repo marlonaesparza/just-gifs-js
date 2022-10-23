@@ -13,6 +13,7 @@ const focusRouter = require('./api/focus');
 const authRouter = require('./api/auth');
 const userProfileRouter = require('./api/userProfile');
 const catchRouter = require('./api/catch');
+const feedRouter = require('./api/feed');
 
 
 app.use(express.urlencoded({ extended: true}));
@@ -20,6 +21,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '..', 'public')));
 app.use('/api/home', homeRouter);
+app.use('/api/feed', feedRouter);
 app.use('/api/focus', focusRouter);
 app.use('/api/auth', authRouter);
 app.use('/api/userProfile', userProfileRouter);
