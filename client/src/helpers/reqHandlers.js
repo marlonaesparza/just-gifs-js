@@ -12,7 +12,7 @@ const serverRegUserPath = 'api/userProfile/register';
 const serverLoginUserPath = 'api/userProfile/login';
 const serverPostFavoritePath = 'api/feed/create';
 const serverDeleteFavoritePath = 'api/feed/delete';
-const serverGetAllFavoritesPath = 'api/feed/getAll';
+const serverGetAllFavoritesPath = 'api/feed/all';
 
 
 const reqHandlers = {
@@ -66,8 +66,25 @@ const reqHandlers = {
     axios.post(serverIndexURL + serverPostFavoritePath, {
       ...favoritedGif
     })
-      .then(result => {
-        console.log('Post Favorite Gif (result):', result);
+      .then(({ data }) => {
+        console.log('Post Favorite Gif (result):', data);
+        return;
+      })
+      .catch(error => {
+        console.log(error);
+        return;
+      });
+  },
+
+  getFavoriteGifs: (nextArgs) => {
+    axios.get(serverIndexURL + serverGetAllFavoritesPath, {
+      params: {
+        index: nextArgs.offset
+      }
+    })
+      .then(({ data }) => {
+        console.log('Get Favorite Gifs (result):', data);
+        nextArgs.dispatch(nextArgs.action1(data));
         return;
       })
       .catch(error => {

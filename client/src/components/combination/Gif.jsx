@@ -9,7 +9,7 @@ import Btn from '../single/Btn';
 import reqHandlers from '../../helpers/reqHandlers';
 
 
-const Gif = ({ gif }) => {
+const Gif = (props) => {
   const dispatch = useDispatch();
   const location = useLocation();
   const path = location.pathname.split('/')[1];
@@ -17,9 +17,10 @@ const Gif = ({ gif }) => {
 
   const handleFavoriteGif = (e) => {
     e.preventDefault();
+    
     const gifToFavorite = path === 'focus' ?
       focusedGif :
-      gif
+      props.gif
     ;
 
     const favoritedGif = {
@@ -34,46 +35,53 @@ const Gif = ({ gif }) => {
     reqHandlers.postFavoriteGif(favoritedGif);
   };
 
+  const createGifElement = (id, url, gif, callback) => {
+    return (
+      <Article>
+        <Div>
+        <Link to={`/focus/${id}`}>
+          <Img
+            id={id}
+            src={url}
+          />
+        </Link>
+        </Div>
+        <Div>
+          <Btn
+            data-gif={(JSON.stringify(gif))}
+            onClick={callback}
+          >
+            Like
+          </Btn>
+        </Div>
+      </Article>
+    );
+  };
+
   return (
     <React.Fragment>
       {
         path === 'focus' && focusedGif.id ?
-          <Article>
-            <Div>
-              <Img 
-                id={focusedGif.id}
-                src={focusedGif.images.downsized_large.url}
-              />
-            </Div>
-            <Div>
-              <Btn
-                data-gif={(JSON.stringify(focusedGif))}
-                onClick={handleFavoriteGif}
-              >
-                Like
-              </Btn>
-            </Div>
-          </Article> :  
-        gif ?
-          <Article>
-            <Div>
-              <Link to={`/focus/${gif.id}`}>
-                <Img
-                  id={gif.id}
-                  src={gif.images.fixed_height_small.url}
-                />
-              </Link>
-            </Div>
-            <Div>
-              <Btn
-                data-gif={gif}
-                onClick={handleFavoriteGif}
-              >
-                Like
-              </Btn>
-            </Div>
-          </Article> :
-
+          createGifElement(
+            focusedGif.id,
+            focusedGif.images.downsized_large.url,
+            focusedGif,
+            handleFavoriteGif
+          ) :  
+        props.gif ?
+          createGifElement(
+            props.gif.id,
+            props.gif.images.fixed_height_small.url,
+            props.gif,
+            handleFavoriteGif
+          ) :
+        props.favroteGifs ?
+          createGifElement(
+            props.favroteGifs.id,
+            props.favroteGifs.images.fixed_height_small.url,
+            props.favroteGifs,
+            handleFavoriteGif
+          ) :
           null
       }
     </React.Fragment>
