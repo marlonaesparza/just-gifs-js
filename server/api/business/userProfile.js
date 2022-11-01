@@ -40,7 +40,6 @@ class UserProfileBusiness {
 
         let cookie = req.cookies.hpp_session;
         cookie.userUUID = userUUID;
-        console.log('COOKIE UPDATED (register):', cookie);
         res.cookie('hpp_session', cookie);
         return res.status(201).send({ user });
       })
@@ -81,7 +80,6 @@ class UserProfileBusiness {
 
         let cookie = req.cookies;
         cookie.userUUID = userUUID;
-        console.log('COOKIE UPDATED (Login):', cookie);
         res.cookie('hpp_session', cookie);
         return res.status(201).send({ });
       })

@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import { Navigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateAllGifs, updateTrendingGifs } from '../state/features/gifsSlice';
+import { updateFavoriteGifs } from '../state/features/gifsSlice';
 import { setCurrentPath } from '../state/features/pathSlice';
 import reqHandlers from '../helpers/reqHandlers';
 import Div from '../components/single/Div';
@@ -10,24 +10,24 @@ import ContentNav from '../components/combination/ContentNav';
 import GifsContainer from '../components/combination/GifsContainer';
 
 
-const HomePage = (props) => {
+const FavoritesPage = (props) => {
   const dispatch = useDispatch();
   const validAuth = useSelector((state) => state.sessionSlice.validAuth);
+  // const favoriteGifs = useSelector((state) => state.gifsSlice.favoriteGifs);
   dispatch(setCurrentPath(location.pathname));
   
   useEffect(() => {
-    console.log('Valid Auth Home Page:', validAuth);
-    const next = reqHandlers.getTrendingGifs;
+    console.log('Valid Auth Favorites Page:', validAuth);
+    const next = reqHandlers.getFavoriteGifs;
 
     const nextArgs = {
       offset: 0,
       dispatch,
-      action1: updateAllGifs,
-      action2: updateTrendingGifs,
-      page: 'Home Page'
+      action1: updateFavoriteGifs,
+      page: 'Favorites Page'
     };
 
-    console.log('Access home page, or have them login.');
+    console.log('Access favorites page, or have them login.');
 
     reqHandlers.authUser(next, nextArgs);
   }, []);
@@ -38,12 +38,12 @@ const HomePage = (props) => {
         !validAuth ?
           <Navigate to="/login" replace={true} /> :
 
-          <Div id='home-page-container' homePage={ true }>
+          <Div id='favorites-page-container' favoritesPage={ true }>
             <PageHeader/>
 
-            <Div id='home-content-container' homeContentCont={true}>
+            <Div id='favorites-content-container' favoritesContentCont={true}>
               <ContentNav/>
-              <GifsContainer/>
+              <GifsContainer />
             </Div>
           </Div>
       }
@@ -52,4 +52,4 @@ const HomePage = (props) => {
 };
 
 
-export default HomePage;
+export default FavoritesPage;

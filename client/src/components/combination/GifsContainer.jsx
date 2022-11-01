@@ -4,32 +4,41 @@ import Gif from './Gif';
 import Div from '../single/Div';
 
 
-const GifsContainer = () => {
+const GifsContainer = (props) => {
   const gifsSliceTrending = useSelector((state) => state.gifsSlice.trending);
   const gifsSliceSearched = useSelector((state) => state.gifsSlice.searched);
   const gifsSliceFeed = useSelector((state) => state.gifsSlice.feed);
   const viewsSliceFeedView = useSelector((state) => state.viewsSlice.feedView);
+  const favoriteGifs = useSelector((state) => state.gifsSlice.favorites);
+
 
   let gifs = gifsSliceTrending;
 
   if (gifsSliceSearched.length !== 0) {
+    console.log('gifsSliceSearched:', gifsSliceSearched);
     gifs = gifsSliceSearched;
   };
 
   return (
     <Div gifsCont={true}>
       {
-        !viewsSliceFeedView ?
+        !viewsSliceFeedView && location.pathname === '/home' ?
           gifs.map((gif) => {
             return (
-              <Gif key={gif.id} gif={gif}/>
+              <Gif key={gif.id} gif={gif} homeGif={true}/>
+            );
+          }) :
+        location.pathname === '/favorites' ?
+          favoriteGifs.map((gif) => {
+            return (
+              <Gif key={gif.postID} gif={gif} favoriteGif={true}/>
             );
           }) :
           gifsSliceFeed.map(({ gifId, gifUrl}) => {
             let id = gifId;
             let url = gifUrl;
             return (
-              <Gif key={id} id={id} url={url}/>
+              <Gif key={id} id={id} url={url} sliceFeed={true}/>
             );
           })
       }

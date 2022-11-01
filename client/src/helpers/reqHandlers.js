@@ -12,7 +12,7 @@ const serverRegUserPath = 'api/userProfile/register';
 const serverLoginUserPath = 'api/userProfile/login';
 const serverPostFavoritePath = 'api/feed/create';
 const serverDeleteFavoritePath = 'api/feed/delete';
-const serverGetAllFavoritesPath = 'api/feed/getAll';
+const serverGetAllFavoritesPath = 'api/feed/all';
 
 
 const reqHandlers = {
@@ -25,6 +25,7 @@ const reqHandlers = {
       }
     })
       .then((result) => {
+        console.log('TRENDING GIFS:', result.data.data);
         dispatch(nextArgs.action2(result.data.data));
       })
       .catch((error) => {
@@ -40,6 +41,7 @@ const reqHandlers = {
       }
     })
       .then((result) => {
+        console.log('SEARCHED GIFS:', result.data.data);
         nextArgs.dispatch(nextArgs.action2(result.data.data));
         nextArgs.dispatch(nextArgs.action3());
       })
@@ -66,8 +68,25 @@ const reqHandlers = {
     axios.post(serverIndexURL + serverPostFavoritePath, {
       ...favoritedGif
     })
-      .then(result => {
-        console.log('Post Favorite Gif (result):', result);
+      .then(({ data }) => {
+        console.log('Post Favorite Gif (result):', data);
+        return;
+      })
+      .catch(error => {
+        console.log(error);
+        return;
+      });
+  },
+
+  getFavoriteGifs: (nextArgs) => {
+    axios.get(serverIndexURL + serverGetAllFavoritesPath, {
+      params: {
+        index: nextArgs.offset
+      }
+    })
+      .then(({ data }) => {
+        console.log('Get Favorite Gifs (result):', data);
+        nextArgs.dispatch(nextArgs.action1(data));
         return;
       })
       .catch(error => {

@@ -4,15 +4,16 @@ const axios = require('axios');
 
 router.get('/all', (req, res) => {
   const hpp_session = req.cookies ? req.cookies.hpp_session : undefined;
+  console.log('Feed Params (all):', req.query);
 
   return axios.get('http://localhost:8003/base/all', {
     params: {
-      userUUID: hpp_session.userUUID
+      userUUID: hpp_session.userUUID,
     }
   })
-    .then(result => {
-      console.log('Feed Router (all):', result);
-      return res.status(200).send(result);
+    .then(({ data }) => {
+      console.log('Feed Router (all):', data);
+      return res.status(200).send(data);
     })
     .catch(error => {
       console.log(error);
