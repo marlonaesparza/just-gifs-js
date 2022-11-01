@@ -10,6 +10,8 @@ import LoginForm from '../components/combination/LoginForm';
 const LogInPage = (props) => {
   const dispatch = useDispatch();
   const validAuth = useSelector((state) => state.sessionSlice.validAuth);
+  const currentPath = useSelector((state) => state.pathSlice.path);
+  console.log('CURRENT PATH:', currentPath);
   
   useEffect(() => {
     console.log('Login user, or direct them to signup.');
@@ -27,7 +29,13 @@ const LogInPage = (props) => {
     <React.Fragment>
       {
         validAuth ?
-          <Navigate to="/home" replace={true} /> :
+          <Navigate 
+            to={
+              currentPath.length !== 0 ? currentPath : '/home'
+            }
+
+            replace={true}
+          /> :
 
           <Div>
             <PageHeader/>

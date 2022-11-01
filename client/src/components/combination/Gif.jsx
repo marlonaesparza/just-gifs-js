@@ -11,9 +11,10 @@ import reqHandlers from '../../helpers/reqHandlers';
 
 const Gif = (props) => {
   const dispatch = useDispatch();
-  const location = useLocation();
   const path = location.pathname.split('/')[1];
   const focusedGif = useSelector((state) => state.gifsSlice.focus);
+  console.log('GIF (props):', props);
+  console.log('GIF (path):', path);
 
   const handleFavoriteGif = (e) => {
     e.preventDefault();
@@ -36,6 +37,10 @@ const Gif = (props) => {
   };
 
   const createGifElement = (id, url, gif, callback) => {
+    console.log ('Create Gif:', {
+      id, url, gif, callback
+    });
+
     return (
       <Article>
         <Div>
@@ -68,20 +73,21 @@ const Gif = (props) => {
             focusedGif,
             handleFavoriteGif
           ) :  
-        props.gif ?
+        path === 'favorites' && props.favoriteGif ?
+          createGifElement(
+            props.gif.postID,
+            props.gif.postMedia.fixed_height_small.url,
+            props.gif,
+            handleFavoriteGif
+          ) :
+        path === 'home' && props.homeGif ?
           createGifElement(
             props.gif.id,
             props.gif.images.fixed_height_small.url,
             props.gif,
             handleFavoriteGif
           ) :
-        props.favroteGifs ?
-          createGifElement(
-            props.favroteGifs.id,
-            props.favroteGifs.images.fixed_height_small.url,
-            props.favroteGifs,
-            handleFavoriteGif
-          ) :
+
           null
       }
     </React.Fragment>

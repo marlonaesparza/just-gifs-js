@@ -37,13 +37,12 @@ const ContentNav = (props) => {
         </Div>  
         <Div>
           {
-            !params.gifId ? 
+            params.gifId || location.pathname === '/favorites' ? 
+              <Btn onClick={handleBackBtn}>Back</Btn> :
               <React.Fragment>
                 <Btn onClick={handleTrendingView}>Trending</Btn>
                 <Btn onClick={handleFeedView}>Feed</Btn>
-              </React.Fragment> :
-
-              <Btn onClick={handleBackBtn}>Back</Btn>
+              </React.Fragment> 
           }
         </Div>
       </Nav>

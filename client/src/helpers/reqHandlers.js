@@ -25,6 +25,7 @@ const reqHandlers = {
       }
     })
       .then((result) => {
+        console.log('TRENDING GIFS:', result.data.data);
         dispatch(nextArgs.action2(result.data.data));
       })
       .catch((error) => {
@@ -40,6 +41,7 @@ const reqHandlers = {
       }
     })
       .then((result) => {
+        console.log('SEARCHED GIFS:', result.data.data);
         nextArgs.dispatch(nextArgs.action2(result.data.data));
         nextArgs.dispatch(nextArgs.action3());
       })
