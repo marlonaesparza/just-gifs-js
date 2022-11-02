@@ -13,8 +13,6 @@ const Gif = (props) => {
   const dispatch = useDispatch();
   const path = location.pathname.split('/')[1];
   const focusedGif = useSelector((state) => state.gifsSlice.focus);
-  console.log('GIF (props):', props);
-  console.log('GIF (path):', path);
 
   const handleFavoriteGif = (e) => {
     e.preventDefault();
@@ -37,10 +35,6 @@ const Gif = (props) => {
   };
 
   const createGifElement = (id, url, gif, callback) => {
-    console.log ('Create Gif:', {
-      id, url, gif, callback
-    });
-
     return (
       <Article>
         <Div>
