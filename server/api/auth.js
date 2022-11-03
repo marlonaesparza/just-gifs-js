@@ -6,12 +6,8 @@ router.get('/', (req, res) => {
   AuthBusiness.authSession(req, res);
 });
 
-router.post('/login', (req, res) => {
-  AuthBusiness.loginUser(req, res);
-});
-
-router.post('/signup', (req, res) => {
-  AuthBusiness.signupUser(req, res);
+router.delete('/logout', (req, res) => {
+  AuthBusiness.logoutUser(req, res);
 });
 
 

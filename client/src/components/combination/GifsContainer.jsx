@@ -15,7 +15,6 @@ const GifsContainer = (props) => {
   let gifs = gifsSliceTrending;
 
   if (gifsSliceSearched.length !== 0) {
-    console.log('gifsSliceSearched:', gifsSliceSearched);
     gifs = gifsSliceSearched;
   };
 

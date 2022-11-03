@@ -28,7 +28,7 @@ class AuthBusiness {
       console.log(error);
       return res.status(400).end();
     })
-  };
+  }
 
   loginUser(req, res) {
     let { username, password } = req.body;
@@ -65,7 +65,27 @@ class AuthBusiness {
       .catch(() => {
         return res.status(404);
       });
-  };
+  }
+
+  logoutUser(req, res) {
+    let { userUUID } = req.cookies.hpp_session;
+    console.log('Lougout User (UUID):', userUUID);
+
+    return axios.delete('http://localhost:8001/session/deleteSession', {
+      data: {
+        uuid: userUUID
+      }
+    })
+    .then(({ data }) => {
+      console.log('Logout User (result):', data);
+      res.clearCookie('hpp_session');
+      return res.status(200).send({});
+    })
+    .catch((e) => {
+      console.log(e);
+      return res.status(404);
+    });
+  }
 
   signupUser(req, res) {
     let { username, password } = req.body;
@@ -98,7 +118,7 @@ class AuthBusiness {
       .catch(() => {
         return res.status(404);
       });
-  };
+  }
 };
 
 

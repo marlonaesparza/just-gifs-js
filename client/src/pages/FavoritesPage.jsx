@@ -2,7 +2,6 @@ import React, {useEffect} from 'react';
 import { Navigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateFavoriteGifs } from '../state/features/gifsSlice';
-import { setCurrentPath } from '../state/features/pathSlice';
 import reqHandlers from '../helpers/reqHandlers';
 import Div from '../components/single/Div';
 import PageHeader from '../components/combination/PageHeader';
@@ -13,11 +12,8 @@ import GifsContainer from '../components/combination/GifsContainer';
 const FavoritesPage = (props) => {
   const dispatch = useDispatch();
   const validAuth = useSelector((state) => state.sessionSlice.validAuth);
-  // const favoriteGifs = useSelector((state) => state.gifsSlice.favoriteGifs);
-  dispatch(setCurrentPath(location.pathname));
   
   useEffect(() => {
-    console.log('Valid Auth Favorites Page:', validAuth);
     const next = reqHandlers.getFavoriteGifs;
 
     const nextArgs = {

@@ -11,7 +11,6 @@ const LogInPage = (props) => {
   const dispatch = useDispatch();
   const validAuth = useSelector((state) => state.sessionSlice.validAuth);
   const currentPath = useSelector((state) => state.pathSlice.path);
-  console.log('CURRENT PATH:', currentPath);
   
   useEffect(() => {
     console.log('Login user, or direct them to signup.');
