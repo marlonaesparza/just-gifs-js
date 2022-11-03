@@ -8,6 +8,7 @@ const serverHomePath = 'api/home/';
 const serverSearchPath = 'api/home/search';
 const serverFocusPath = 'api/focus';
 const serverAuthPath = 'api/auth'
+const serverLogoutUserPath = 'api/auth/logout';
 const serverRegUserPath = 'api/userProfile/register';
 const serverLoginUserPath = 'api/userProfile/login';
 const serverPostFavoritePath = 'api/feed/create';
@@ -25,7 +26,6 @@ const reqHandlers = {
       }
     })
       .then((result) => {
-        console.log('TRENDING GIFS:', result.data.data);
         dispatch(nextArgs.action2(result.data.data));
       })
       .catch((error) => {
@@ -41,7 +41,6 @@ const reqHandlers = {
       }
     })
       .then((result) => {
-        console.log('SEARCHED GIFS:', result.data.data);
         nextArgs.dispatch(nextArgs.action2(result.data.data));
         nextArgs.dispatch(nextArgs.action3());
       })
@@ -85,7 +84,6 @@ const reqHandlers = {
       }
     })
       .then(({ data }) => {
-        console.log('Get Favorite Gifs (result):', data);
         nextArgs.dispatch(nextArgs.action1(data));
         return;
       })
@@ -150,6 +148,19 @@ const reqHandlers = {
       })
       .then(() => {
         console.log('Fallback (registerUser)...');
+      });
+  },
+
+  logoutUser: (dispatch, action) => {
+    axios.delete(serverIndexURL + serverLogoutUserPath)
+      .then(({ data }) => {
+        dispatch(action());
+      })
+      .catch(() => {
+        console.log('Error (logout user)...');
+      })
+      .then(() => {
+        console.log('Fallback (logout user)...');
       });
   }
 };
