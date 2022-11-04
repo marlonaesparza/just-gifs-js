@@ -47,7 +47,9 @@ const PageHeader = (props) => {
                 <Div id='page-menu' pageMenu={ true }>
                   <Nav>
                     <Ul pageMenu={ true }>
-                      <Link to={'/signup'}>
+                      <Link to={'/signup'} style={{
+                        textDecoration: 'none'
+                      }}>
                         <Li id='menu-signup-link' menuOption={ true }>Signup</Li>
                       </Link>
                     </Ul>
@@ -56,7 +58,9 @@ const PageHeader = (props) => {
                 <Div id='page-menu' pageMenu={ true }>
                   <Nav>
                     <Ul pageMenu={ true }>
-                      <Link to={'/login'}>
+                      <Link to={'/login'} style={{
+                        textDecoration: 'none'
+                      }}>
                         <Li id='menu-login-link' menuOption={ true }>Login</Li>
                       </Link>
                     </Ul>
@@ -66,13 +70,19 @@ const PageHeader = (props) => {
             <Div id='page-menu' pageMenu={ true }>
               <Nav>
                 <Ul pageMenu={ true }>
-                  <Link to={'/home'} >
+                  <Link to={'/home'} style={{
+                        textDecoration: 'none'
+                      }}>
                     <Li id='menu-home-link' menuOption={ true }>Home</Li>
                   </Link>
-                  <Link to={'/favorites'}>
+                  <Link to={'/favorites'} style={{
+                        textDecoration: 'none'
+                      }}>
                     <Li id='menu-favorites-link' menuOption={ true }>Favorites</Li>
                   </Link>
-                  <Link to={'/friends'}>
+                  <Link to={'/friends'} style={{
+                        textDecoration: 'none'
+                      }}>
                     <Li id='menu-friends-link' menuOption={ true }>Friends</Li>
                   </Link>
                   <Li id='menu-logout-link' menuOption={ true } onClick={ handleLogout }>Logout</Li>

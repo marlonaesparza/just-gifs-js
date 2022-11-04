@@ -4,6 +4,7 @@ import styled from 'styled-components';
 const Ul = styled.ul`
   margin: auto;
   padding: 0;
+  list-style-type: none;
 
   ${
     ({ pageMenu }) =>
