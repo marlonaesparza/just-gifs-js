@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { setTrendingView, setFeedView } from '../../state/features/viewsSlice';
+import { setTrendingView, setFeedView, setFindFriendsView, setFriendsView } from '../../state/features/viewsSlice';
 import Search from './Search';
 import Div from '../single/Div';
 import Nav from '../single/Nav';
@@ -23,6 +23,16 @@ const ContentNav = (props) => {
     dispatch(setFeedView());
   };
 
+  const handleFindFriendsView = (e) => {
+    e.preventDefault();
+    dispatch(setFindFriendsView());
+  };
+
+  const handleFriendsView = (e) => {
+    e.preventDefault();
+    dispatch(setFriendsView());
+  };
+
   const handleBackBtn = (e) => {
     e.preventDefault();
     navigate(-1);
@@ -39,6 +49,13 @@ const ContentNav = (props) => {
           {
             params.gifId || location.pathname === '/favorites' ? 
               <Btn onClick={handleBackBtn}>Back</Btn> :
+
+            location.pathname === '/friends' ?
+              <React.Fragment>
+                <Btn onClick={handleFindFriendsView}>Find Friends</Btn>
+                <Btn onClick={handleFriendsView}>Friends</Btn>
+              </React.Fragment> :
+
               <React.Fragment>
                 <Btn onClick={handleTrendingView}>Trending</Btn>
                 <Btn onClick={handleFeedView}>Feed</Btn>

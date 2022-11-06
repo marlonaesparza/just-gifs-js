@@ -3,14 +3,15 @@ import { useSelector } from 'react-redux';
 import Gif from './Gif';
 import Div from '../single/Div';
 
+let i = 0;
 
 const GifsContainer = (props) => {
+  i++;
   const gifsSliceTrending = useSelector((state) => state.gifsSlice.trending);
   const gifsSliceSearched = useSelector((state) => state.gifsSlice.searched);
   const gifsSliceFeed = useSelector((state) => state.gifsSlice.feed);
   const viewsSliceFeedView = useSelector((state) => state.viewsSlice.feedView);
   const favoriteGifs = useSelector((state) => state.gifsSlice.favorites);
-
 
   let gifs = gifsSliceTrending;
 

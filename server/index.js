@@ -14,7 +14,7 @@ const authRouter = require('./api/auth');
 const userProfileRouter = require('./api/userProfile');
 const catchRouter = require('./api/catch');
 const feedRouter = require('./api/feed');
-
+const socialRouter = require('./api/social');
 
 app.use(express.urlencoded({ extended: true}));
 app.use(express.json());
@@ -25,10 +25,10 @@ app.use('/api/feed', feedRouter);
 app.use('/api/focus', focusRouter);
 app.use('/api/auth', authRouter);
 app.use('/api/userProfile', userProfileRouter);
+app.use('/api/social', socialRouter);
 app.get('*', catchRouter);
 
 
 app.listen(port, () => {
   console.log(`Listening to port: ${port}`);
 });
-

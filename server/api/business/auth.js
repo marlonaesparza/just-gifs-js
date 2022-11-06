@@ -69,7 +69,6 @@ class AuthBusiness {
 
   logoutUser(req, res) {
     let { userUUID } = req.cookies.hpp_session;
-    console.log('Lougout User (UUID):', userUUID);
 
     return axios.delete('http://localhost:8001/session/deleteSession', {
       data: {
@@ -77,7 +76,6 @@ class AuthBusiness {
       }
     })
     .then(({ data }) => {
-      console.log('Logout User (result):', data);
       res.clearCookie('hpp_session');
       return res.status(200).send({});
     })

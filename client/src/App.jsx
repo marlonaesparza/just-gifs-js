@@ -7,6 +7,7 @@ import FocusPage from './pages/FocusPage';
 import PageNotFound from './pages/PageNotFound';
 import LogInPage from './pages/LogInPage';
 import SignUpPage from './pages/SignUpPage';
+import FriendsPage from './pages/FriendsPage';
 
 
 const App = (props) => {
@@ -16,6 +17,7 @@ const App = (props) => {
         <Route exact path='/' element={<LandingPage/>}/>
         <Route path='/home' element={<HomePage/>}/>
         <Route path='/favorites' element={<FavoritesPage/>}/>
+        <Route path='/friends' element={<FriendsPage/>}/>
         <Route path='/focus/:gifId' element={<FocusPage/>}/>
         <Route path='/login' element={<LogInPage />}/>
         <Route path='/signup' element={<SignUpPage />}/>
