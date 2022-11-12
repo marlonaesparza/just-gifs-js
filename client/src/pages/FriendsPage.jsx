@@ -23,7 +23,7 @@ const FriendsPage = (props) => {
       offset: 0,
       dispatch,
       action1: updatePotentialConnections,
-      page: 'Favorites Page'
+      page: 'Friends Page'
     };
 
     dispatch(setCurrentPath('/friends'));
@@ -35,7 +35,6 @@ const FriendsPage = (props) => {
 
   return (
     <React.Fragment>
-      {i}
       {
         !validAuth ?
           <Navigate to="/login" replace={true} /> :

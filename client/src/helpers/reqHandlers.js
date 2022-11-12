@@ -325,12 +325,13 @@ const reqHandlers = {
     Outputs: [{}, {}, {}, ...]
     Exceptions: N/A
   */
-  createRequest: (connection) => {
+  createRequest: (connection, { dispatch, action1 }) => {
     axios.post(serverIndexURL + serverCreateRequestPath, {
       connection
     })
       .then(({ data }) => {
         console.log('Create Request (data):', data);
+        dispatch(action1(data));
       })
       .catch(() => {
         console.log('Error (create request)...');

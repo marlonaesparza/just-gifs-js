@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { updateStatusAfterRequest } from '../../state/features/socialSlice';
 import Article from '../single/Article';
 import Img from '../single/Img';
 import Div from '../single/Div';
@@ -14,8 +15,11 @@ const Connection = ({ connection }) => {
   
   const handleCreateRequest = (e) => {
     e.preventDefault();
-    console.log('Connection.jsx Line 17:', '...');
-    reqHandlers.createRequest(connection);
+    const nextArgs = {
+      dispatch,
+      action1: updateStatusAfterRequest
+    };
+    reqHandlers.createRequest(connection, nextArgs);
   }
 
   const handleDeleteConnection = () => {
@@ -30,10 +34,10 @@ const Connection = ({ connection }) => {
           <Img/>
         </Div>
         <Div>
-          <Paragraph>connection.username</Paragraph>
+          <Paragraph>{connection.username}</Paragraph>
         </Div>
         <Div>
-          <Btn onClick={handleCreateRequest}>Add</Btn>
+          <Btn onClick={handleCreateRequest}>{connection.status}</Btn>
         </Div>
       </Article>
     </React.Fragment>

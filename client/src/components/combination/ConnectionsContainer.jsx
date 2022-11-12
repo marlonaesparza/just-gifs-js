@@ -11,21 +11,19 @@ const ConnectionsContainer = (props) => {
   const userConnections = useSelector((state) => state.socialSlice.userConnections);
   const findFriendsView = useSelector((state) => state.viewsSlice.findFriendsView);
   const friendsView = useSelector((state) => state.viewsSlice.friendsView);
-  console.log('Conections Container (12):', potentialConnections, findFriendsView, friendsView);
-
+  console.log('Potential Connections (14):', potentialConnections);
   return (
-    <Div id='connections-container' connectionsCont={true}>
-      {i}
+    <Div connectionsCont={true}>
       {
         findFriendsView ?
           potentialConnections.map((connection, i) => {
             // Update key with connection UUID
-            <Connection key={i} connection={connection} />
+            return <Connection key={i} connection={connection} />
           }) :
         friendsView ?
           userConnections.map((connection, i) => {
             // Update key with connection UUID
-            <Connection key={i} connection={connection} />
+            return <Connection key={i} connection={connection} />
           }) :
           'pills'
       }
