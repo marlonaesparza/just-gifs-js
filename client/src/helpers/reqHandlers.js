@@ -260,13 +260,16 @@ const reqHandlers = {
     Outputs: [{}, {}, {}, ...]
     Exceptions: N/A
   */
-  createConnection: () => {
-    axios.post(serverIndexURL + serverCreateConnectionPath)
+  createConnection: (connection, { dispatch, action1 }) => {
+    return axios.post(serverIndexURL + serverCreateConnectionPath, {
+      ...connection
+    })
       .then(({ data }) => {
-        
+        console.log('Create connection (result):', data);
+        dispatch(action1({data, cc: true}));
       })
-      .catch(() => {
-        console.log('Error (create connection)...');
+      .catch((e) => {
+        console.log('Error (create connection):', e);
       })
       .then(() => {
         console.log('Fallback (create connection)...');
@@ -281,10 +284,15 @@ const reqHandlers = {
     Outputs: [{}, {}, {}, ...]
     Exceptions: N/A
   */
-  deleteConnection: () => {
-    axios.delete(serverIndexURL + serverDeleteConnectionPath)
+  deleteConnection: (connection, { dispatch, action1 }) => {
+    return axios.delete(serverIndexURL + serverDeleteConnectionPath, {
+      data: {
+        ...connection
+      }
+    })
       .then(({ data }) => {
-        
+        console.log('Delete connection (result):', data);
+        dispatch(action1({data, dc: true}));
       })
       .catch(() => {
         console.log('Error (delete connection)...');
@@ -344,15 +352,18 @@ const reqHandlers = {
   /* 
     DELETE REQUEST
 
-    Purpose: Gets all users for potential connections- displays all on the network.
-    Inputs: N/A
-    Outputs: [{}, {}, {}, ...]
-    Exceptions: N/A
+    Purpose: Deletes a request and updates the connection status.
+    Inputs: Connection to delete, and a dispatch + action to update UI state.
   */
-  deleteRequest: () => {
-    axios.delete(serverIndexURL + serverDeleteRequestPath)
+  deleteRequest: (connection, { dispatch, action1 }) => {
+    axios.delete(serverIndexURL + serverDeleteRequestPath, {
+      data: {
+        connection
+      }
+    })
       .then(({ data }) => {
-        
+        console.log('Delete Request (data):', data);
+        dispatch(action1(data));
       })
       .catch(() => {
         console.log('Error (delete request)...');

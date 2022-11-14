@@ -12,23 +12,53 @@ import reqHandlers from '../../helpers/reqHandlers';
 
 const Connection = ({ connection }) => {
   const dispatch = useDispatch();
+  let nextArgs;
   
-  const handleCreateRequest = (e) => {
+  const handleRequest = (e) => {
     e.preventDefault();
-    const nextArgs = {
-      dispatch,
-      action1: updateStatusAfterRequest
-    };
-    reqHandlers.createRequest(connection, nextArgs);
+    const requestStatus = (e.target.innerHTML).toLowerCase();
+
+    if (requestStatus === 'accept') {
+      // accept request -> creates connection and deletes request
+      nextArgs = {
+        dispatch,
+        action1: updateStatusAfterRequest
+      };
+      reqHandlers.createConnection(connection, nextArgs);
+
+    } else if (requestStatus === 'pending' || requestStatus === 'cancel' || requestStatus === 'deny') {
+      // delete request as the requester
+      nextArgs = {
+        dispatch,
+        action1: updateStatusAfterRequest
+      };
+      reqHandlers.deleteRequest(connection, nextArgs);
+
+    } else if (requestStatus === 'add') {
+      // create a one directional request
+      nextArgs = {
+        dispatch,
+        action1: updateStatusAfterRequest
+      };
+      reqHandlers.createRequest(connection, nextArgs);
+    }
   }
 
-  const handleDeleteConnection = () => {
+  const handleDeleteConnection = (e) => {
     e.preventDefault();
-    console.log('Connection.jsx Line 22:', '...');
+    const requestStatus = (e.target.innerHTML).toLowerCase();
+    console.log('Handle Delete Connection (status):', requestStatus);
+    if (requestStatus === 'delete') {
+      // accept request -> creates connection and deletes request
+      nextArgs = {
+        dispatch,
+        action1: updateStatusAfterRequest
+      };
+      reqHandlers.deleteConnection(connection, nextArgs);
+    }
   }
 
   return (
-    <React.Fragment>
       <Article>
         <Div>
           <Img/>
@@ -37,10 +67,26 @@ const Connection = ({ connection }) => {
           <Paragraph>{connection.username}</Paragraph>
         </Div>
         <Div>
-          <Btn onClick={handleCreateRequest}>{connection.status}</Btn>
+          {
+            connection.status === 'accept' ?
+            <React.Fragment>
+              <Btn onClick={handleRequest}>{connection.status}</Btn>
+              <Btn onClick={handleRequest}>deny</Btn>
+            </React.Fragment> :
+
+            connection.status === 'pending' ?
+            <React.Fragment>
+              <Btn onClick={handleRequest}>{connection.status}</Btn>
+              <Btn onClick={handleRequest}>cancel</Btn>
+            </React.Fragment> :
+
+            connection.status === 'delete' ?
+            <Btn onClick={handleDeleteConnection}>{connection.status}</Btn> :
+
+            <Btn onClick={handleRequest}>{connection.status}</Btn>
+          }
         </Div>
       </Article>
-    </React.Fragment>
   );
 };
 

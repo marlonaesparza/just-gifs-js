@@ -3,24 +3,47 @@ import { createSlice } from "@reduxjs/toolkit";
 
 export const socialSlice = createSlice({
   name: 'socialSlice',
+
   initialState: {
     potentialConnections: [],
     userConnections: [],
   },
+
   reducers: {
     updatePotentialConnections: (state, { payload }) => {
-      console.log('Update Potential Connections (paylood):', payload);
-      state.potentialConnections = payload;
-    },
-    updateStatusAfterRequest: (state, { payload }) => {
-      state.potentialConnections = state.potentialConnections.map((connection) => {
-        if (connection.uuid === payload.uuid) {
-          console.log('Update Status After Request:', payload);
-          return payload;
-        };
-        return connection;
+      state.potentialConnections = payload.filter((connection) => {
+        return connection.status !== 'delete'
       });
+      state.userConnections = payload.filter((connection) => {
+        return connection.status === 'delete'
+      })
     },
+
+    updateStatusAfterRequest: (state, { payload }) => {
+      if ( payload.cc ) {
+        state.potentialConnections = state.potentialConnections.filter((connection) => {
+          return connection.uuid !== payload.data.uuid
+        });
+        console.log('Update Status After Request (data):', payload.data);
+        state.userConnections.push(payload.data);
+        
+      } else if ( payload.dc ) {
+        state.userConnections = state.userConnections.filter((connection) => {
+          return connection.uuid !== payload.data.uuid
+        });
+        console.log('Update Status After Request (data):', payload.data);
+        state.potentialConnections.push(payload.data);
+        
+      } else {
+        state.potentialConnections = state.potentialConnections.map((connection) => {
+          if (connection.uuid === payload.uuid) {
+            return payload;
+          };
+          return connection;
+        });
+      }
+    },
+
     updateUserConnections: (state, { payload }) => {
       state.userConnections = payload;
     }
