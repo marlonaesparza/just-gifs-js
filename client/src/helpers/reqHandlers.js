@@ -14,9 +14,24 @@ const serverLoginUserPath = 'api/userProfile/login';
 const serverPostFavoritePath = 'api/feed/create';
 const serverDeleteFavoritePath = 'api/feed/delete';
 const serverGetAllFavoritesPath = 'api/feed/all';
+const serverCreateConnectionPath = 'api/social/createConnection';
+const serverDeleteConnectionPath = 'api/social/deleteConnection';
+const serverGetAllPotentialConnectionsPath = 'api/social/allPotentialConnections';
+const serverGetAllUserConnectionsPath = 'api/social/allUserConnections';
+const serverCreateRequestPath = 'api/social/createRequest';
+const serverDeleteRequestPath = 'api/social/deleteRequest';
+const serverGetAllRequestsPath = 'api/social/allRequests';
 
 
 const reqHandlers = {
+  /* 
+    GET TRENDING GIFS
+
+    Purpose: Gets all users for potential connections- displays all on the network.
+    Inputs: N/A
+    Outputs: [{}, {}, {}, ...]
+    Exceptions: N/A
+  */
   getTrendingGifs: (nextArgs) => {
     const dispatch = nextArgs.dispatch;
 
@@ -33,6 +48,15 @@ const reqHandlers = {
       });
   },
 
+
+  /* 
+    GET SEARCHED GIFS
+
+    Purpose: Gets all users for potential connections- displays all on the network.
+    Inputs: N/A
+    Outputs: [{}, {}, {}, ...]
+    Exceptions: N/A
+  */
   getSearchedGifs: (nextArgs) => {
     axios.get(serverIndexURL + serverSearchPath, {
       params: {
@@ -49,6 +73,15 @@ const reqHandlers = {
       })
   },
 
+
+  /* 
+    GET FOCUSED GIF
+
+    Purpose: Gets all users for potential connections- displays all on the network.
+    Inputs: N/A
+    Outputs: [{}, {}, {}, ...]
+    Exceptions: N/A
+  */
   getFocusedGif: (nextArgs) => {
     axios.get(serverIndexURL + serverFocusPath, {
       params: {
@@ -63,6 +96,15 @@ const reqHandlers = {
       });
   },
 
+
+  /* 
+    POST FAVORITE GIF
+
+    Purpose: Gets all users for potential connections- displays all on the network.
+    Inputs: N/A
+    Outputs: [{}, {}, {}, ...]
+    Exceptions: N/A
+  */
   postFavoriteGif: (favoritedGif) => {
     axios.post(serverIndexURL + serverPostFavoritePath, {
       ...favoritedGif
@@ -77,6 +119,15 @@ const reqHandlers = {
       });
   },
 
+
+  /* 
+    GET FAVORITE GIFS
+
+    Purpose: Gets all users for potential connections- displays all on the network.
+    Inputs: N/A
+    Outputs: [{}, {}, {}, ...]
+    Exceptions: N/A
+  */
   getFavoriteGifs: (nextArgs) => {
     axios.get(serverIndexURL + serverGetAllFavoritesPath, {
       params: {
@@ -93,6 +144,15 @@ const reqHandlers = {
       });
   },
 
+
+  /* 
+    AUTH USER
+
+    Purpose: Gets all users for potential connections- displays all on the network.
+    Inputs: N/A
+    Outputs: [{}, {}, {}, ...]
+    Exceptions: N/A
+  */
   authUser: (next, nextArgs) => {
     const dispatch = nextArgs.dispatch;
     axios.get(serverIndexURL + serverAuthPath)
@@ -114,6 +174,15 @@ const reqHandlers = {
       });
   },
 
+
+  /* 
+    REGISTER USER
+
+    Purpose: Gets all users for potential connections- displays all on the network.
+    Inputs: N/A
+    Outputs: [{}, {}, {}, ...]
+    Exceptions: N/A
+  */
   resgisterUser: (next, nextArgs, formVals) => {
     const { username, password, confirmedPassword } = formVals;
 
@@ -133,6 +202,15 @@ const reqHandlers = {
       });
   },
 
+
+  /* 
+    LOGIN USER
+
+    Purpose: Gets all users for potential connections- displays all on the network.
+    Inputs: N/A
+    Outputs: [{}, {}, {}, ...]
+    Exceptions: N/A
+  */
   loginUser: (next, nextArgs, values) => {
     const { username, password } = values;
 
@@ -151,6 +229,15 @@ const reqHandlers = {
       });
   },
 
+
+  /* 
+    LOGOUT USER
+
+    Purpose: Gets all users for potential connections- displays all on the network.
+    Inputs: N/A
+    Outputs: [{}, {}, {}, ...]
+    Exceptions: N/A
+  */
   logoutUser: (dispatch, action) => {
     axios.delete(serverIndexURL + serverLogoutUserPath)
       .then(({ data }) => {
@@ -162,7 +249,140 @@ const reqHandlers = {
       .then(() => {
         console.log('Fallback (logout user)...');
       });
-  }
+  },
+
+
+  /* 
+    CREATE CONNECTION
+
+    Purpose: Gets all users for potential connections- displays all on the network.
+    Inputs: N/A
+    Outputs: [{}, {}, {}, ...]
+    Exceptions: N/A
+  */
+  createConnection: () => {
+    axios.post(serverIndexURL + serverCreateConnectionPath)
+      .then(({ data }) => {
+        
+      })
+      .catch(() => {
+        console.log('Error (create connection)...');
+      })
+      .then(() => {
+        console.log('Fallback (create connection)...');
+      });
+  },
+
+  /* 
+    DELETE CONNECTION
+
+    Purpose: Gets all users for potential connections- displays all on the network.
+    Inputs: N/A
+    Outputs: [{}, {}, {}, ...]
+    Exceptions: N/A
+  */
+  deleteConnection: () => {
+    axios.delete(serverIndexURL + serverDeleteConnectionPath)
+      .then(({ data }) => {
+        
+      })
+      .catch(() => {
+        console.log('Error (delete connection)...');
+      })
+      .then(() => {
+        console.log('Fallback (delete connection)...');
+      });
+  },
+
+  /*
+    GET ALL POTENTIAL CONNECTIONS
+
+    Purpose: Gets all users for potential connections- displays all on the network.
+    Inputs: N/A
+    Outputs: [{}, {}, {}, ...]
+    Exceptions: N/A
+  */
+  getAllPotentialConnections: ({ offset, dispatch, action1 }) => {
+    axios.get(serverIndexURL + serverGetAllPotentialConnectionsPath, {
+      params: {
+        offset
+      }
+    })
+      .then(({ data }) => {
+        dispatch(action1(data));
+      })
+      .catch(() => {
+        console.log('Error (get all connection)...');
+      });
+  },
+
+
+  /* 
+    CREATE REQUEST
+
+    Purpose: Create a request for a potential connection.
+    Inputs: {...}
+    Outputs: [{}, {}, {}, ...]
+    Exceptions: N/A
+  */
+  createRequest: (connection, { dispatch, action1 }) => {
+    axios.post(serverIndexURL + serverCreateRequestPath, {
+      connection
+    })
+      .then(({ data }) => {
+        console.log('Create Request (data):', data);
+        dispatch(action1(data));
+      })
+      .catch(() => {
+        console.log('Error (create request)...');
+      })
+      .then(() => {
+        console.log('Fallback (create request)...');
+      });
+  },
+
+  /* 
+    DELETE REQUEST
+
+    Purpose: Gets all users for potential connections- displays all on the network.
+    Inputs: N/A
+    Outputs: [{}, {}, {}, ...]
+    Exceptions: N/A
+  */
+  deleteRequest: () => {
+    axios.delete(serverIndexURL + serverDeleteRequestPath)
+      .then(({ data }) => {
+        
+      })
+      .catch(() => {
+        console.log('Error (delete request)...');
+      })
+      .then(() => {
+        console.log('Fallback (delete request)...');
+      });
+  },
+
+  /* 
+    GET ALL REQUESTS
+
+    Purpose: Gets all users for potential connections- displays all on the network.
+    Inputs: N/A
+    Outputs: [{}, {}, {}, ...]
+    Exceptions: N/A
+  */
+  getAllRequests: () => {
+    axios.get(serverIndexURL + serverGetAllRequestsPath)
+      .then(({ data }) => {
+        
+      })
+      .catch(() => {
+        console.log('Error (get all request)...');
+      })
+      .then(() => {
+        console.log('Fallback (get all request)...');
+      });
+  },
+
 };
 
 

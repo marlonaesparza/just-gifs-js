@@ -4,55 +4,44 @@ import { createSlice } from "@reduxjs/toolkit";
 export const viewsSlice = createSlice({
   name: 'viewsSlice',
   initialState: {
+    menuView: false,
     trendingView: true,
     feedView: false,
-    strangersView: false,
-    friendsView: false,
-    menuView: false,
+    findFriendsView: true,
+    friendsView: false
   },
   reducers: {
+    setMenuView: (state) => {
+      state.menuView ?
+        state.menuView = false :
+        state.menuView = true
+    },
     setTrendingView: (state) => {
       state.trendingView = true;
       state.feedView = false;
-      state.strangersView = false;
-      state.friendsView = false;
     },
     setFeedView: (state) => {
       state.trendingView = false;
       state.feedView = true;
-      state.strangersView = false;
-      state.friendsView = false;
     },
-    setStrangersView: (state) => {
-      state.trendingView = false;
-      state.feedView = false;
-      state.strangersView = true;
+    setFindFriendsView: (state) => {
       state.friendsView = false;
+      state.findFriendsView = true;
     },
     setFriendsView: (state) => {
-      state.trendingView = false;
-      state.feedView = false;
-      state.strangersView = false;
+      state.findFriendsView = false;
       state.friendsView = true;
     },
-    setMenuView: (state) => {
-      if (state.menuView) {
-        state.menuView = false;
-      } else {
-        state.menuView = true;
-      };
-    }
   },
 });
 
 
 export const {
+  setMenuView,
   setTrendingView,
   setFeedView,
-  setStrangersView,
-  setFriendsView,
-  setMenuView,
-  
+  setFindFriendsView,
+  setFriendsView
 } = viewsSlice.actions;
 
 export default viewsSlice.reducer;

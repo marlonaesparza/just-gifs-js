@@ -1,32 +1,34 @@
 import React, {useEffect} from 'react';
 import { Navigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateFavoriteGifs } from '../state/features/gifsSlice';
+import { updatePotentialConnections, updateUserConnections } from '../state/features/socialSlice';
 import { setCurrentPath } from '../state/features/pathSlice';
 import reqHandlers from '../helpers/reqHandlers';
 import Div from '../components/single/Div';
 import PageHeader from '../components/combination/PageHeader';
 import ContentNav from '../components/combination/ContentNav';
-import GifsContainer from '../components/combination/GifsContainer';
+import ConnectionsContainer from '../components/combination/ConnectionsContainer';
 
+let i = 0;
 
-const FavoritesPage = (props) => {
+const FriendsPage = (props) => {
+  i++;
   const dispatch = useDispatch();
   const validAuth = useSelector((state) => state.sessionSlice.validAuth);
   
   useEffect(() => {
-    const next = reqHandlers.getFavoriteGifs;
+    const next = reqHandlers.getAllPotentialConnections;
 
     const nextArgs = {
       offset: 0,
       dispatch,
-      action1: updateFavoriteGifs,
-      page: 'Favorites Page'
+      action1: updatePotentialConnections,
+      page: 'Friends Page'
     };
 
-    dispatch(setCurrentPath('/favorites'));
+    dispatch(setCurrentPath('/friends'));
 
-    console.log('Access favorites page, or have them login.');
+    console.log('Access friends page, or have them login.');
 
     reqHandlers.authUser(next, nextArgs);
   }, []);
@@ -37,12 +39,12 @@ const FavoritesPage = (props) => {
         !validAuth ?
           <Navigate to="/login" replace={true} /> :
 
-          <Div id='favorites-page-container' favoritesPage={ true }>
+          <Div id='friends-page-container' friendsPage={ true }>
             <PageHeader/>
 
-            <Div id='favorites-content-container' favoritesContentCont={true}>
+            <Div id='friends-content-container' friendsContentCont={true}>
               <ContentNav/>
-              <GifsContainer />
+              <ConnectionsContainer />
             </Div>
           </Div>
       }
@@ -51,4 +53,4 @@ const FavoritesPage = (props) => {
 };
 
 
-export default FavoritesPage;
+export default FriendsPage;
