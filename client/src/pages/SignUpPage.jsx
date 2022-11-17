@@ -14,7 +14,7 @@ const SignUpPage = (props) => {
   
   useEffect(() => {
     dispatch(setMenuView());
-    
+
     console.log('Login user, or direct them to signup.');
     const next = () => {return;}
     const nextArgs = {
@@ -31,7 +31,7 @@ const SignUpPage = (props) => {
         validAuth ?
           <Navigate to="/home" replace={true} /> :
 
-          <Div>
+          <Div signupPage={true}>
             <PageHeader/>
 
            <Div>

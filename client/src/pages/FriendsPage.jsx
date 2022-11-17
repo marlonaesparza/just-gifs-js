@@ -10,16 +10,14 @@ import PageHeader from '../components/combination/PageHeader';
 import ContentNav from '../components/combination/ContentNav';
 import ConnectionsContainer from '../components/combination/ConnectionsContainer';
 
-let i = 0;
 
 const FriendsPage = (props) => {
-  i++;
   const dispatch = useDispatch();
   const validAuth = useSelector((state) => state.sessionSlice.validAuth);
   
   useEffect(() => {
     dispatch(setMenuView());
-    
+
     const next = reqHandlers.getAllPotentialConnections;
 
     const nextArgs = {
