@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { setMenuView } from '../state/features/viewsSlice';
 import reqHandlers from '../helpers/reqHandlers';
 
 
@@ -9,6 +10,8 @@ const LandingPage = (props) => {
   const validAuth = useSelector((state) => state.sessionSlice.validAuth);
 
   useEffect(() => {
+    dispatch(setMenuView());
+
     console.log('Login user, or direct them to signup.');
     const next = () => {return;}
     const nextArgs = {

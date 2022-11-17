@@ -26,7 +26,7 @@ const PageHeader = (props) => {
   const handleLogout = (e) => {
     e.preventDefault();
     reqHandlers.logoutUser(dispatch, updateValidAuth);
-  }
+  };
 
   return (
     <React.Fragment>
@@ -38,6 +38,8 @@ const PageHeader = (props) => {
           </Ul>
         </Nav>
       </Div>
+
+      {/* Below: Handles floating menu for navigation, and log out. */}
       {
         menuView ?
         (

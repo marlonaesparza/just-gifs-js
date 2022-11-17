@@ -3,6 +3,7 @@ import { Navigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateFavoriteGifs } from '../state/features/gifsSlice';
 import { setCurrentPath } from '../state/features/pathSlice';
+import { setMenuView } from '../state/features/viewsSlice';
 import reqHandlers from '../helpers/reqHandlers';
 import Div from '../components/single/Div';
 import PageHeader from '../components/combination/PageHeader';
@@ -15,6 +16,8 @@ const FavoritesPage = (props) => {
   const validAuth = useSelector((state) => state.sessionSlice.validAuth);
   
   useEffect(() => {
+    dispatch(setMenuView());
+
     const next = reqHandlers.getFavoriteGifs;
 
     const nextArgs = {

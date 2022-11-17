@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useParams, Navigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateFocusGif } from '../state/features/gifsSlice';
+import { setMenuView } from '../state/features/viewsSlice';
 import Div from '../components/single/Div';
 import PageHeader from '../components/combination/PageHeader';
 import ContentNav from '../components/combination/ContentNav';
@@ -15,6 +16,8 @@ const FocusPage = () => {
   const validAuth = useSelector((state) => state.sessionSlice.validAuth);
   
   useEffect(() => {
+    dispatch(setMenuView());
+    
     const next = reqHandlers.getFocusedGif;
 
     const nextArgs = {
