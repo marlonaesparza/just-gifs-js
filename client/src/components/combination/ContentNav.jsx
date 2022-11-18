@@ -2,10 +2,12 @@ import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setTrendingView, setFeedView, setFindFriendsView, setFriendsView } from '../../state/features/viewsSlice';
+import { updateTrendingGifs, updateFeedGifs,updateSearchedGifs } from '../../state/features/gifsSlice';
 import Search from './Search';
 import Div from '../single/Div';
 import Nav from '../single/Nav';
 import Btn from '../single/Btn';
+import reqHandlers from '../../helpers/reqHandlers';
 
 
 const ContentNav = (props) => {
@@ -15,14 +17,30 @@ const ContentNav = (props) => {
 
   const handleTrendingView = (e) => {
     e.preventDefault();
-    dispatch(setTrendingView());
+    const nextArgs = {
+      offset: 0,
+      dispatch,
+      updateTrendingGifs,
+      updateSearchedGifs,
+      setTrendingView,
+      page: 'Home Page'
+    };
+    reqHandlers.getTrendingGifs(nextArgs);
   };
 
   const handleFeedView = (e) => {
     e.preventDefault();
-    dispatch(setFeedView());
+    const nextArgs = {
+      offset: 0,
+      dispatch,
+      updateFeedGifs,
+      updateSearchedGifs,
+      setFeedView,
+      page: 'Home Page'
+    };
+    reqHandlers.getFeedGifs(nextArgs);
   };
-
+  
   const handleFindFriendsView = (e) => {
     e.preventDefault();
     dispatch(setFindFriendsView());
@@ -36,8 +54,7 @@ const ContentNav = (props) => {
   const handleBackBtn = (e) => {
     e.preventDefault();
     navigate(-1);
-    return;
-  }
+  };
 
   return (
     <React.Fragment>
