@@ -24,7 +24,7 @@ export const gifsSlice = createSlice({
       state.searched = payload;
     },
     updateFeedGifs: (state, { payload }) => {
-      state.feed.push(payload);
+      state.feed = payload;
     },
     updateFocusGif: (state, {payload}) => {
       state.focus = payload;

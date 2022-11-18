@@ -21,5 +21,9 @@ router.get('/focus', (req, res) => {
   HomeBusiness.getFocusGif(focusId, res);
 });
 
+router.get('/feed', (req, res) => {
+  HomeBusiness.getUsersFeedGifs(req, res);
+});
+
 
 module.exports = router;

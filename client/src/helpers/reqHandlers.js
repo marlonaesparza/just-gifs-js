@@ -5,6 +5,7 @@ import sliceHandlers from "./sliceHandlers";
 
 const serverIndexURL = 'http://localhost:8000/';
 const serverHomePath = 'api/home/';
+const serverFeedPath = 'api/home/feed';
 const serverSearchPath = 'api/home/search';
 const serverFocusPath = 'api/focus';
 const serverAuthPath = 'api/auth'
@@ -41,15 +42,50 @@ const reqHandlers = {
       }
     })
       .then((result) => {
-        dispatch(nextArgs.action2(result.data.data));
+        if (nextArgs.updateTrendingGifs) {
+          dispatch(nextArgs.updateTrendingGifs(result.data.data));
+        };
+        if (nextArgs.updateSearchedGifs) {
+          dispatch(nextArgs.updateSearchedGifs([]));
+        };
+        if (nextArgs.setTrendingView) {
+          dispatch(nextArgs.setTrendingView());
+        };
       })
       .catch((error) => {
         console.log(error);
       });
   },
 
-
   /* 
+    GET FEED GIFS
+    Purpose: Gets feed for a user.
+  */
+  getFeedGifs: (nextArgs) => {
+    const dispatch = nextArgs.dispatch;
+
+    axios.get(serverIndexURL + serverFeedPath, {
+      params: {
+        offset: nextArgs.offset
+      }
+    })
+      .then((result) => {
+        if (nextArgs.updateFeedGifs) {
+          dispatch(nextArgs.updateFeedGifs(result.data));
+        };
+        if (nextArgs.updateSearchedGifs) {
+          dispatch(nextArgs.updateSearchedGifs([]));
+        };
+        if (nextArgs.setFeedView) {
+          dispatch(nextArgs.setFeedView());
+        };
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  },
+
+  /*  
     GET SEARCHED GIFS
 
     Purpose: Gets all users for potential connections- displays all on the network.
