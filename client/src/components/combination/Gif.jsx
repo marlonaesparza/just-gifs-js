@@ -36,7 +36,7 @@ const Gif = (props) => {
 
   const createGifElement = (id, url, gif, callback) => {
     return (
-      <Article>
+      <Article gif={true}>
         <Div>
         <Link to={`/focus/${id}`}>
           <Img

@@ -23,6 +23,7 @@ const Div = styled.div`
       ` :
       gifsCont ?
       `
+        margin: .7rem auto;
         display: grid;
         gap: 1em;
         grid-template-columns: repeat(3, minmax(0, 1fr));
