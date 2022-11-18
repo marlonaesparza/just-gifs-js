@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react';
 import { Navigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { setMenuView } from '../state/features/viewsSlice';
 import reqHandlers from '../helpers/reqHandlers';
 import Div from '../components/single/Div';
 import PageHeader from '../components/combination/PageHeader';
@@ -13,6 +14,8 @@ const LogInPage = (props) => {
   const currentPath = useSelector((state) => state.pathSlice.path);
   
   useEffect(() => {
+    dispatch(setMenuView());
+
     console.log('Login user, or direct them to signup.');
     const next = () => {return;}
     
@@ -36,7 +39,7 @@ const LogInPage = (props) => {
             replace={true}
           /> :
 
-          <Div>
+          <Div loginPage={true}>
             <PageHeader/>
 
            <Div>

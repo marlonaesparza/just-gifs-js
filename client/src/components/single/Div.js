@@ -7,9 +7,10 @@ const Div = styled.div`
   height: 100%;
   
   ${
-    ({ homePage, focusPage, pageHeader, gifsCont, pageMenu }) => 
-      homePage || focusPage ?
-      `
+    ({ homePage, focusPage, favoritesPage, friendsPage, signupPage, loginPage, pageHeader, gifsCont, pageMenu }) => 
+      homePage || focusPage || favoritesPage || friendsPage || signupPage || loginPage ?
+      ` 
+        height: 40px;
         display: grid;
         gap: 0;
         grid-template-rows: 1fr 11fr;
@@ -30,7 +31,7 @@ const Div = styled.div`
       pageMenu ?
       `
         position: fixed;
-        top: 3em;
+        top: 45px;
         right: 3em;
         width: 30%;
         height: auto;

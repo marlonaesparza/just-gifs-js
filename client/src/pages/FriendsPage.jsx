@@ -3,20 +3,21 @@ import { Navigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { updatePotentialConnections, updateUserConnections } from '../state/features/socialSlice';
 import { setCurrentPath } from '../state/features/pathSlice';
+import { setMenuView } from '../state/features/viewsSlice';
 import reqHandlers from '../helpers/reqHandlers';
 import Div from '../components/single/Div';
 import PageHeader from '../components/combination/PageHeader';
 import ContentNav from '../components/combination/ContentNav';
 import ConnectionsContainer from '../components/combination/ConnectionsContainer';
 
-let i = 0;
 
 const FriendsPage = (props) => {
-  i++;
   const dispatch = useDispatch();
   const validAuth = useSelector((state) => state.sessionSlice.validAuth);
   
   useEffect(() => {
+    dispatch(setMenuView());
+
     const next = reqHandlers.getAllPotentialConnections;
 
     const nextArgs = {

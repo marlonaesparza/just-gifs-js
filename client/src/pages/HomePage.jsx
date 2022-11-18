@@ -2,6 +2,7 @@ import React, {useEffect} from 'react';
 import { Navigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateAllGifs, updateTrendingGifs } from '../state/features/gifsSlice';
+import { setMenuView } from '../state/features/viewsSlice';
 import reqHandlers from '../helpers/reqHandlers';
 import Div from '../components/single/Div';
 import PageHeader from '../components/combination/PageHeader';
@@ -14,6 +15,8 @@ const HomePage = (props) => {
   const validAuth = useSelector((state) => state.sessionSlice.validAuth);
   
   useEffect(() => {
+    dispatch(setMenuView());
+    
     const next = reqHandlers.getTrendingGifs;
 
     const nextArgs = {
