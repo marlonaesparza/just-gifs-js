@@ -17,8 +17,6 @@ const GifsContainer = (props) => {
     gifs = gifsSliceSearched;
   };
 
-  console.log('GIfs Slice Feed:', gifsSliceFeed);
-
   return (
     <Div gifsCont={true}>
       {

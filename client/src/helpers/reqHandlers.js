@@ -70,7 +70,6 @@ const reqHandlers = {
       }
     })
       .then((result) => {
-        console.log('Get Feed Gifs (result):', result.data);
         if (nextArgs.updateFeedGifs) {
           dispatch(nextArgs.updateFeedGifs(result.data));
         };

@@ -57,10 +57,6 @@ const Gif = (props) => {
     );
   };
 
-  if (props.feedGif) {
-    console.log('Feed Gif:', props.gif);
-  }
-
   return (
     <React.Fragment>
       {

@@ -60,8 +60,6 @@ class HomeBusiness {
         }
       });
 
-      console.log('Get User Feed Gifs (CONNECTIONS):', connections.data);
-
       const feed = await axios.get(this.getMostRecentFeedUrl, {
         params: {
           offset,
@@ -69,11 +67,10 @@ class HomeBusiness {
         }
       });
 
-      console.log('Get User Feed Gifs (FEED):', feed.data);
-
       return res.status(200).send(feed.data);
 
     } catch (e) {
+      
       console.log(e);
       return res.status(400).send([]);
 
