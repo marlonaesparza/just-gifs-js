@@ -22,12 +22,9 @@ const HomePage = (props) => {
     const nextArgs = {
       offset: 0,
       dispatch,
-      action1: updateAllGifs,
-      action2: updateTrendingGifs,
+      updateTrendingGifs,
       page: 'Home Page'
     };
-
-    console.log('Access home page, or have them login.');
 
     reqHandlers.authUser(next, nextArgs);
   }, []);

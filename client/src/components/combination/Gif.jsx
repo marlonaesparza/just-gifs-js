@@ -81,8 +81,14 @@ const Gif = (props) => {
             props.gif,
             handleFavoriteGif
           ) :
-
-          null
+        path === 'home' && props.feedGif ?
+          createGifElement(
+            props.gif.postID,
+            props.gif.postMedia.fixed_height_small.url,
+            props.gif,
+            handleFavoriteGif
+        ) :
+        null
       }
     </React.Fragment>
   );
