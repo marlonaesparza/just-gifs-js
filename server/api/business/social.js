@@ -33,8 +33,8 @@ class SocialBusiness {
       .then(({ data }) => {
         return res.status(200).send(data);
       })
-      .catch((e) => {
-        console.log('ERROR allPotentialConnections:', e);
+      .catch(e => {
+        console.log(e);
         return res.status(500).send();
       });
   }
@@ -70,8 +70,8 @@ class SocialBusiness {
           status: 'pending'
         });
       })
-      .catch((e) => {
-        console.log('ERROR createRequest (business):', e);
+      .catch(e => {
+        console.log(e);
         return res.status(500).send(connection);
       });
   }
@@ -102,7 +102,6 @@ class SocialBusiness {
         }
       })
         .then(({data}) => {
-          console.log('Delete Request (Result):', data);
           const { aUUID } = data;
 
           return res.status(200).send({
@@ -111,7 +110,7 @@ class SocialBusiness {
             status: 'add'
           });
         })
-        .catch((e) => {
+        .catch(e => {
           console.log(e);
           return res.status(500).send(connection);
         });
@@ -131,7 +130,6 @@ class SocialBusiness {
       - Request Cookies carries requesters details; userUUID
   */
   createConnection(req, res) {
-    console.log('Create Connection (body):', req.body);
     const { uuid } = req.body;
     let { userUUID } = req.cookies.hpp_session;
     
@@ -147,8 +145,8 @@ class SocialBusiness {
           status: 'delete'
         });
       })
-      .catch((e) => {
-        console.log('Create Connection (error):', e);
+      .catch(e => {
+        console.log(e);
         return res.status(500).send({});
       });
   }
@@ -167,7 +165,6 @@ class SocialBusiness {
       - Request Cookies carries requesters details; userUUID
   */
     deleteConnection(req, res) {
-      console.log('Delete Connection (body):', req.body);
       const { uuid } = req.body;
       let { userUUID } = req.cookies.hpp_session;
       
@@ -178,7 +175,6 @@ class SocialBusiness {
         }
       })
         .then(({data}) => {
-          console.log('Delete Connection (Result):', data);
           const { rUUID } = data;
 
           return res.status(200).send({
@@ -187,7 +183,7 @@ class SocialBusiness {
             status: 'add'
           });
         })
-        .catch((e) => {
+        .catch(e => {
           console.log(e);
           return res.status(500).send(connection);
         });

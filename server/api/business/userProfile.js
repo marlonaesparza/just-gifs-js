@@ -14,8 +14,7 @@ class UserProfileBusiness {
     let userUUID;
 
     if (password !== confirmedPassword) {
-      console.log('Passwords dont match...')
-      return res.status(400);
+      return res.status(400).send();
     };
 
     return axios.post('http://localhost:8002/user/register', {
@@ -43,9 +42,9 @@ class UserProfileBusiness {
         res.cookie('hpp_session', cookie);
         return res.status(201).send({ user });
       })
-      .catch((e) => {
+      .catch(e => {
         console.log(e);
-        return res.status(500);
+        return res.status(500).send();
       });
   };
 
@@ -86,7 +85,8 @@ class UserProfileBusiness {
       .catch(() => {
         return res.status(404);
       });
-  }
+  };
+  
 };
 
 

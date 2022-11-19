@@ -35,7 +35,11 @@ const PageHeader = (props) => {
   return (
     <React.Fragment>
       <Div id='page-header' pageHeader={ true }>
-        <Header1>Just Gifs</Header1>  
+        <Link to={'/home'} style={{
+          textDecoration: 'none'
+        }}>
+          <Header1>Just Gifs</Header1>  
+        </Link>
         <Nav>
           <Ul>
             <Li onClick={handleMenu}>Menu</Li>

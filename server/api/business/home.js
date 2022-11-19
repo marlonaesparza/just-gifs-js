@@ -8,6 +8,7 @@ class HomeBusiness {
     this.searchUrl = 'https://api.giphy.com/v1/gifs/search?';
     this.getAllConnectionsUrl = 'http://localhost:8004/connections/getAllConnections';
     this.getMostRecentFeedUrl = 'http://localhost:8003/base/getMostRecentByOffset';
+    this.getUsernamesForFavorites = 'http://localhost:8002/user/getUsernamesForFavorites';
     this.apiKey = 'api_key=' + process.env.GIPHY_KEY;
     this.limit = 'limit=12';
     this.getTrendingGifs = this.getTrendingGifs.bind(this);
@@ -40,15 +41,13 @@ class HomeBusiness {
         const searchGifs = results.data;
         return res.status(200).send(searchGifs);
       })
-      .catch((error) => {
-        return res.status(500).send(error);
+      .catch(e => {
+        console.log(e);
+        return res.status(500).send();
       });
   }
 
   async getUsersFeedGifs(req, res) {
-    // Fetches from database a user's and their friends' favorites.
-    // Starts from i, and goes until i + 11 (MAX/MIN: 12).
-    // Returns an array of objects in order from newest to oldest.
     const { userUUID } = req.cookies.hpp_session;
     const { offset } = req.query;
 
@@ -67,12 +66,18 @@ class HomeBusiness {
         }
       });
 
-      return res.status(200).send(feed.data);
+      const feedWithUsernames = await axios.get(this.getUsernamesForFavorites, {
+        params: {
+          feed: feed.data
+        }
+      });
+
+      return res.status(200).send(feedWithUsernames.data);
 
     } catch (e) {
       
       console.log(e);
-      return res.status(400).send([]);
+      return res.status(400).send();
 
     };
   };

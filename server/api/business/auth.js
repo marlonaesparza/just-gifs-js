@@ -24,8 +24,8 @@ class AuthBusiness {
 
       return res.status(200).end();
     })
-    .catch(error => {
-      console.log(error);
+    .catch(e => {
+      console.log(e);
       return res.status(400).end();
     })
   }
@@ -79,7 +79,7 @@ class AuthBusiness {
       res.clearCookie('hpp_session');
       return res.status(200).send({});
     })
-    .catch((e) => {
+    .catch(e => {
       console.log(e);
       return res.status(404);
     });

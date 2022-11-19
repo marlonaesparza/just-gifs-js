@@ -21,6 +21,10 @@ const sliceHandlers = {
     dispatch(clearViewsSlice());
   },
 
+  /* 
+    AUTH USER SLICE
+    Purpose: Updates the user's authentication status.
+  */
   authUserSlice: (dispatch, bool) => {
     dispatch(updateValidAuth(bool));
   }
