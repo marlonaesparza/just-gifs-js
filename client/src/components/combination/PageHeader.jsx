@@ -1,8 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { setMenuView } from '../../state/features/viewsSlice';
-import { updateValidAuth } from '../../state/features/sessionSlice';
 import { useDispatch, useSelector } from 'react-redux';
+import { setMenuView } from '../../state/features/viewsSlice';
 import Header1 from '../single/Header1';
 import Div from '../single/Div';
 import Nav from '../single/Nav';
@@ -25,7 +24,12 @@ const PageHeader = (props) => {
 
   const handleLogout = (e) => {
     e.preventDefault();
-    reqHandlers.logoutUser(dispatch, updateValidAuth);
+
+    const nextArgs = {
+      dispatch
+    }
+
+    reqHandlers.logoutUser(nextArgs);
   };
 
   return (
@@ -74,7 +78,7 @@ const PageHeader = (props) => {
                 <Ul pageMenu={ true }>
                   <Link to={'/home'} style={{
                         textDecoration: 'none'
-                      }}>
+                  }}>
                     <Li id='menu-home-link' menuOption={ true }>Home</Li>
                   </Link>
                   <Link to={'/favorites'} style={{
@@ -84,7 +88,7 @@ const PageHeader = (props) => {
                   </Link>
                   <Link to={'/friends'} style={{
                         textDecoration: 'none'
-                      }}>
+                  }}>
                     <Li id='menu-friends-link' menuOption={ true }>Friends</Li>
                   </Link>
                   <Li id='menu-logout-link' menuOption={ true } onClick={ handleLogout }>Logout</Li>

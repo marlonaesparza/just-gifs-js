@@ -269,15 +269,19 @@ const reqHandlers = {
   /* 
     LOGOUT USER
 
-    Purpose: Gets all users for potential connections- displays all on the network.
+    Purpose: Destroys a user session and clears the state of the application.
     Inputs: N/A
     Outputs: [{}, {}, {}, ...]
     Exceptions: N/A
   */
-  logoutUser: (dispatch, action) => {
+  logoutUser: (nextArgs) => {
+    const {
+      dispatch,
+    } = nextArgs;
+
     axios.delete(serverIndexURL + serverLogoutUserPath)
-      .then(({ data }) => {
-        dispatch(action());
+      .then(() => {
+        sliceHandlers.clearAppState(dispatch);
       })
       .catch(() => {
         console.log('Error (logout user)...');

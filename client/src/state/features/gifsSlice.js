@@ -12,6 +12,14 @@ export const gifsSlice = createSlice({
     focus: {},
   },
   reducers: {
+    clearGifsSlice: (state) => {
+      state.all = [];
+      state.trending = [];
+      state.searched = [];
+      state.feed = [];
+      state.favorites = [];
+      state.focus = {};
+    },
     updateAllGifs: (state, { payload }) => {
       payload.forEach((gif) => {
         state.all.push(gif);
@@ -37,6 +45,7 @@ export const gifsSlice = createSlice({
 
 
 export const {
+  clearGifsSlice,
   updateAllGifs,
   updateTrendingGifs,
   updateSearchedGifs,

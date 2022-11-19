@@ -10,6 +10,10 @@ export const socialSlice = createSlice({
   },
 
   reducers: {
+    clearSocialSlice: (state) => {
+      state.potentialConnections = [];
+      state.userConnections = [];
+    },
     updatePotentialConnections: (state, { payload }) => {
       state.potentialConnections = payload.filter((connection) => {
         return connection.status !== 'delete'
@@ -51,6 +55,11 @@ export const socialSlice = createSlice({
 });
 
 
-export const { updatePotentialConnections, updateUserConnections, updateStatusAfterRequest } = socialSlice.actions;
+export const {
+  clearSocialSlice,
+  updatePotentialConnections,
+  updateUserConnections,
+  updateStatusAfterRequest
+} = socialSlice.actions;
 
 export default socialSlice.reducer;

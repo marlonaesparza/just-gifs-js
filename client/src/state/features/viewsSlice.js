@@ -11,6 +11,13 @@ export const viewsSlice = createSlice({
     friendsView: false
   },
   reducers: {
+    clearViewsSlice: (state) => {
+      state.menuView = false;
+      state.trendingView = true;
+      state.feedView = false;
+      state.findFriendsView = true;
+      state.friendsView = false;
+    },
     setMenuView: (state) => {
       state.menuView ?
         state.menuView = false :
@@ -37,6 +44,7 @@ export const viewsSlice = createSlice({
 
 
 export const {
+  clearViewsSlice,
   setMenuView,
   setTrendingView,
   setFeedView,

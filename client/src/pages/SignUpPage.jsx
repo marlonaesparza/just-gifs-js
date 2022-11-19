@@ -11,9 +11,13 @@ import SignupForm from '../components/combination/SignupForm';
 const SignUpPage = (props) => {
   const dispatch = useDispatch();
   const validAuth = useSelector((state) => state.sessionSlice.validAuth);
+  const menuView = useSelector(state => state.viewsSlice.menuView);
+
   
   useEffect(() => {
-    dispatch(setMenuView());
+    if (menuView) {
+      dispatch(setMenuView());
+    };
 
     console.log('Login user, or direct them to signup.');
     const next = () => {return;}

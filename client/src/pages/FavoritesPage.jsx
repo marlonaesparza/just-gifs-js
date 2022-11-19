@@ -14,9 +14,12 @@ import GifsContainer from '../components/combination/GifsContainer';
 const FavoritesPage = (props) => {
   const dispatch = useDispatch();
   const validAuth = useSelector((state) => state.sessionSlice.validAuth);
+  const menuView = useSelector(state => state.viewsSlice.menuView);
   
   useEffect(() => {
-    dispatch(setMenuView());
+    if (menuView) {
+      dispatch(setMenuView());
+    };
 
     const next = reqHandlers.getFavoriteGifs;
 
