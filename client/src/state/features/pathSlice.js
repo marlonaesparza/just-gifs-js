@@ -7,6 +7,9 @@ export const pathSlice = createSlice({
     path: ''
   },
   reducers: {
+    clearPathSlice: (state) => {
+      state.path = '';
+    },
     setCurrentPath: (state, { payload }) => {
       state.path = payload;
     }
@@ -15,6 +18,7 @@ export const pathSlice = createSlice({
 
 
 export const {
+  clearPathSlice,
   setCurrentPath,
 } = pathSlice.actions;
 

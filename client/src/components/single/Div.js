@@ -7,7 +7,7 @@ const Div = styled.div`
   height: 100%;
   
   ${
-    ({ homePage, focusPage, favoritesPage, friendsPage, signupPage, loginPage, pageHeader, gifsCont, pageMenu }) => 
+    ({ homePage, focusPage, favoritesPage, friendsPage, signupPage, loginPage, pageHeader, gifsCont, pageMenu, connectionsCont }) => 
       homePage || focusPage || favoritesPage || friendsPage || signupPage || loginPage ?
       ` 
         height: 40px;
@@ -21,8 +21,9 @@ const Div = styled.div`
         gap: 0;
         grid-template-columns: 6fr 6fr;
       ` :
-      gifsCont ?
+      gifsCont || connectionsCont ?
       `
+        margin: .7rem auto;
         display: grid;
         gap: 1em;
         grid-template-columns: repeat(3, minmax(0, 1fr));

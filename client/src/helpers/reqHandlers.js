@@ -27,23 +27,19 @@ const serverGetAllRequestsPath = 'api/social/allRequests';
 const reqHandlers = {
   /* 
     GET TRENDING GIFS
-
-    Purpose: Gets all users for potential connections- displays all on the network.
-    Inputs: N/A
-    Outputs: [{}, {}, {}, ...]
-    Exceptions: N/A
+    Purpose: Gets trending gifs for home page.
   */
   getTrendingGifs: (nextArgs) => {
     const dispatch = nextArgs.dispatch;
 
-    axios.get(serverIndexURL + serverHomePath, {
+    return axios.get(serverIndexURL + serverHomePath, {
       params: {
         index: nextArgs.offset
       }
     })
       .then((result) => {
         if (nextArgs.updateTrendingGifs) {
-          dispatch(nextArgs.updateTrendingGifs(result.data.data));
+          dispatch(nextArgs.updateTrendingGifs(result.data));
         };
         if (nextArgs.updateSearchedGifs) {
           dispatch(nextArgs.updateSearchedGifs([]));
@@ -52,10 +48,11 @@ const reqHandlers = {
           dispatch(nextArgs.setTrendingView());
         };
       })
-      .catch((error) => {
-        console.log(error);
+      .catch(e => {
+        console.log(e);
       });
   },
+  //-----------------------------------------------------
 
   /* 
     GET FEED GIFS
@@ -64,12 +61,12 @@ const reqHandlers = {
   getFeedGifs: (nextArgs) => {
     const dispatch = nextArgs.dispatch;
 
-    axios.get(serverIndexURL + serverFeedPath, {
+    return axios.get(serverIndexURL + serverFeedPath, {
       params: {
         offset: nextArgs.offset
       }
     })
-      .then((result) => {
+      .then(result => {
         if (nextArgs.updateFeedGifs) {
           dispatch(nextArgs.updateFeedGifs(result.data));
         };
@@ -80,118 +77,119 @@ const reqHandlers = {
           dispatch(nextArgs.setFeedView());
         };
       })
-      .catch((error) => {
-        console.log(error);
+      .catch(e => {
+        console.log(e);
       });
   },
+  //-----------------------------------------------------
 
   /*  
     GET SEARCHED GIFS
-
-    Purpose: Gets all users for potential connections- displays all on the network.
-    Inputs: N/A
-    Outputs: [{}, {}, {}, ...]
-    Exceptions: N/A
+    Purpose: Gets all searched gifs.
   */
   getSearchedGifs: (nextArgs) => {
-    axios.get(serverIndexURL + serverSearchPath, {
+    return axios.get(serverIndexURL + serverSearchPath, {
       params: {
         index: nextArgs.offset,
         search: nextArgs.search
       }
     })
-      .then((result) => {
-        nextArgs.dispatch(nextArgs.action2(result.data.data));
+      .then(result => {
+        nextArgs.dispatch(nextArgs.action2(result.data));
         nextArgs.dispatch(nextArgs.action3());
       })
-      .catch((error) => {
-        console.log(error);
+      .catch(e => {
+        console.log(e);
       })
   },
-
+  //-----------------------------------------------------
 
   /* 
     GET FOCUSED GIF
-
-    Purpose: Gets all users for potential connections- displays all on the network.
-    Inputs: N/A
-    Outputs: [{}, {}, {}, ...]
-    Exceptions: N/A
+    Purpose: Gets focused gif for focus page.
   */
   getFocusedGif: (nextArgs) => {
-    axios.get(serverIndexURL + serverFocusPath, {
+    return axios.get(serverIndexURL + serverFocusPath, {
       params: {
         id: nextArgs.gifId
       }
     })
-      .then((result) => {
-        nextArgs.dispatch(nextArgs.actions.action1(result.data.data));
+      .then(result => {
+        nextArgs.dispatch(nextArgs.actions.action1(result.data));
       })
-      .catch((error) => {
-        console.log(error);
+      .catch(e => {
+        console.log(e);
       });
   },
-
+  //-----------------------------------------------------
 
   /* 
     POST FAVORITE GIF
-
-    Purpose: Gets all users for potential connections- displays all on the network.
-    Inputs: N/A
-    Outputs: [{}, {}, {}, ...]
-    Exceptions: N/A
+    Purpose: Creates a favorite for a user, then updates the UI.
   */
-  postFavoriteGif: (favoritedGif) => {
-    axios.post(serverIndexURL + serverPostFavoritePath, {
+  postFavoriteGif: (favoritedGif, { dispatch, updateAllGifsAfterLikeOrDelete }) => {
+    return axios.post(serverIndexURL + serverPostFavoritePath, {
       ...favoritedGif
     })
       .then(({ data }) => {
         console.log('Post Favorite Gif (result):', data);
-        return;
+        dispatch(updateAllGifsAfterLikeOrDelete(data));
       })
-      .catch(error => {
-        console.log(error);
-        return;
+      .catch(e => {
+        console.log(e);
       });
   },
-
+  //-----------------------------------------------------
 
   /* 
-    GET FAVORITE GIFS
-
-    Purpose: Gets all users for potential connections- displays all on the network.
-    Inputs: N/A
-    Outputs: [{}, {}, {}, ...]
-    Exceptions: N/A
+    DELETE FAVORITE GIF
+    Purpose: Deletes a favorite for a user, then updates the UI.
   */
-  getFavoriteGifs: (nextArgs) => {
-    axios.get(serverIndexURL + serverGetAllFavoritesPath, {
-      params: {
-        index: nextArgs.offset
+
+  deleteFavoriteGif: (favoritedGif, { dispatch, updateAllGifsAfterLikeOrDelete }) => {
+    return axios.delete(serverIndexURL + serverDeleteFavoritePath, {
+      data: {
+        ...favoritedGif
       }
     })
       .then(({ data }) => {
-        nextArgs.dispatch(nextArgs.action1(data));
-        return;
+        console.log('Delete Favorite Gif (result):', data);
+        dispatch(updateAllGifsAfterLikeOrDelete(data));
       })
-      .catch(error => {
-        console.log(error);
-        return;
+      .catch(e => {
+        console.log(e);
       });
   },
+  //-----------------------------------------------------
+  //-----------------------------------------------------
 
+  /* 
+    GET FAVORITE GIFS
+    Purpose: Gets and updates all user's favorite gifs.
+  */
+  getFavoriteGifs: ({ offset, dispatch, updateFavoriteGifs }) => {
+    return axios.get(serverIndexURL + serverGetAllFavoritesPath, {
+      params: {
+        index: offset
+      }
+    })
+      .then(({ data }) => {
+        dispatch(updateFavoriteGifs(data));
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  },
+  //-----------------------------------------------------
 
   /* 
     AUTH USER
-
-    Purpose: Gets all users for potential connections- displays all on the network.
-    Inputs: N/A
-    Outputs: [{}, {}, {}, ...]
-    Exceptions: N/A
+    Purpose: Gets auth status of a user.
   */
   authUser: (next, nextArgs) => {
     const dispatch = nextArgs.dispatch;
-    axios.get(serverIndexURL + serverAuthPath)
+
+    return axios.get(serverIndexURL + serverAuthPath)
       .then(() => {
         const uuid = JSON.parse(Cookies.get('hpp_session').slice(2)).userUUID;
 
@@ -204,121 +202,90 @@ const reqHandlers = {
       })
       .catch(() => {
         sliceHandlers.authUserSlice(dispatch, false);
-      })
-      .then(() => {
-        console.log('Fallback (authUser)...');
       });
   },
-
+  //-----------------------------------------------------
 
   /* 
     REGISTER USER
-
-    Purpose: Gets all users for potential connections- displays all on the network.
-    Inputs: N/A
-    Outputs: [{}, {}, {}, ...]
-    Exceptions: N/A
+    Purpose: Register user upon signup.
   */
   resgisterUser: (next, nextArgs, formVals) => {
     const { username, password, confirmedPassword } = formVals;
 
-    axios.post(serverIndexURL + serverRegUserPath, {
+    return axios.post(serverIndexURL + serverRegUserPath, {
       username,
       password,
       confirmedPassword
     })
-      .then(({ data }) => {
+      .then(() => {
         next(() => {}, nextArgs);
       })
-      .catch(() => {
-        console.log('Error (registerUser)...');
-      })
-      .then(() => {
-        console.log('Fallback (registerUser)...');
+      .catch(e => {
+        console.log(e);
       });
   },
-
+  //-----------------------------------------------------
 
   /* 
     LOGIN USER
-
-    Purpose: Gets all users for potential connections- displays all on the network.
-    Inputs: N/A
-    Outputs: [{}, {}, {}, ...]
-    Exceptions: N/A
+    Purpose: Login user upon login.
   */
   loginUser: (next, nextArgs, values) => {
     const { username, password } = values;
 
-    axios.post(serverIndexURL + serverLoginUserPath, {
+    return axios.post(serverIndexURL + serverLoginUserPath, {
       username,
       password
     })
-      .then(({ data }) => {
+      .then(() => {
         next(() => {}, nextArgs);
       })
-      .catch(() => {
-        console.log('Error (registerUser)...');
-      })
-      .then(() => {
-        console.log('Fallback (registerUser)...');
+      .catch(e => {
+        console.log(e);
       });
   },
-
+  //-----------------------------------------------------
 
   /* 
     LOGOUT USER
-
-    Purpose: Gets all users for potential connections- displays all on the network.
-    Inputs: N/A
-    Outputs: [{}, {}, {}, ...]
-    Exceptions: N/A
+    Purpose: Destroys a user session and clears the state of the application.
   */
-  logoutUser: (dispatch, action) => {
-    axios.delete(serverIndexURL + serverLogoutUserPath)
-      .then(({ data }) => {
-        dispatch(action());
-      })
-      .catch(() => {
-        console.log('Error (logout user)...');
-      })
+  logoutUser: (nextArgs) => {
+    const {
+      dispatch,
+    } = nextArgs;
+
+    return axios.delete(serverIndexURL + serverLogoutUserPath)
       .then(() => {
-        console.log('Fallback (logout user)...');
+        sliceHandlers.clearAppState(dispatch);
+      })
+      .catch(e => {
+        console.log(e);
       });
   },
-
+  //-----------------------------------------------------
 
   /* 
     CREATE CONNECTION
-
-    Purpose: Gets all users for potential connections- displays all on the network.
-    Inputs: N/A
-    Outputs: [{}, {}, {}, ...]
-    Exceptions: N/A
+    Purpose: Create's a connection between two users.
   */
   createConnection: (connection, { dispatch, action1 }) => {
     return axios.post(serverIndexURL + serverCreateConnectionPath, {
       ...connection
     })
       .then(({ data }) => {
-        console.log('Create connection (result):', data);
         dispatch(action1({data, cc: true}));
       })
-      .catch((e) => {
-        console.log('Error (create connection):', e);
-      })
-      .then(() => {
-        console.log('Fallback (create connection)...');
+      .catch(e => {
+        console.log(e);
       });
   },
+  //-----------------------------------------------------
 
   /* 
     DELETE CONNECTION
-
-    Purpose: Gets all users for potential connections- displays all on the network.
-    Inputs: N/A
-    Outputs: [{}, {}, {}, ...]
-    Exceptions: N/A
+    Purpose: Deletes a connection between two users.
   */
   deleteConnection: (connection, { dispatch, action1 }) => {
     return axios.delete(serverIndexURL + serverDeleteConnectionPath, {
@@ -327,27 +294,20 @@ const reqHandlers = {
       }
     })
       .then(({ data }) => {
-        console.log('Delete connection (result):', data);
         dispatch(action1({data, dc: true}));
       })
-      .catch(() => {
-        console.log('Error (delete connection)...');
-      })
-      .then(() => {
-        console.log('Fallback (delete connection)...');
+      .catch(e => {
+        console.log(e);
       });
   },
+  //-----------------------------------------------------
 
   /*
     GET ALL POTENTIAL CONNECTIONS
-
-    Purpose: Gets all users for potential connections- displays all on the network.
-    Inputs: N/A
-    Outputs: [{}, {}, {}, ...]
-    Exceptions: N/A
+    Purpose: Gets all users in network for potential connections and connections.
   */
   getAllPotentialConnections: ({ offset, dispatch, action1 }) => {
-    axios.get(serverIndexURL + serverGetAllPotentialConnectionsPath, {
+    return axios.get(serverIndexURL + serverGetAllPotentialConnectionsPath, {
       params: {
         offset
       }
@@ -355,78 +315,60 @@ const reqHandlers = {
       .then(({ data }) => {
         dispatch(action1(data));
       })
-      .catch(() => {
-        console.log('Error (get all connection)...');
+      .catch(e => {
+        console.log(e);
       });
   },
-
+  //-----------------------------------------------------
 
   /* 
     CREATE REQUEST
-
     Purpose: Create a request for a potential connection.
-    Inputs: {...}
-    Outputs: [{}, {}, {}, ...]
-    Exceptions: N/A
   */
   createRequest: (connection, { dispatch, action1 }) => {
-    axios.post(serverIndexURL + serverCreateRequestPath, {
+    return axios.post(serverIndexURL + serverCreateRequestPath, {
       connection
     })
       .then(({ data }) => {
-        console.log('Create Request (data):', data);
         dispatch(action1(data));
       })
-      .catch(() => {
-        console.log('Error (create request)...');
-      })
-      .then(() => {
-        console.log('Fallback (create request)...');
+      .catch(e => {
+        console.log(e);
       });
   },
+  //-----------------------------------------------------
 
   /* 
     DELETE REQUEST
-
     Purpose: Deletes a request and updates the connection status.
-    Inputs: Connection to delete, and a dispatch + action to update UI state.
   */
   deleteRequest: (connection, { dispatch, action1 }) => {
-    axios.delete(serverIndexURL + serverDeleteRequestPath, {
+    return axios.delete(serverIndexURL + serverDeleteRequestPath, {
       data: {
         connection
       }
     })
       .then(({ data }) => {
-        console.log('Delete Request (data):', data);
         dispatch(action1(data));
       })
-      .catch(() => {
-        console.log('Error (delete request)...');
-      })
-      .then(() => {
-        console.log('Fallback (delete request)...');
+      .catch(e => {
+        console.log(e);
       });
   },
+  //-----------------------------------------------------
 
   /* 
     GET ALL REQUESTS
-
-    Purpose: Gets all users for potential connections- displays all on the network.
-    Inputs: N/A
-    Outputs: [{}, {}, {}, ...]
-    Exceptions: N/A
+    NOTE: Not implemented.
+    SEE: getAllPotentialConnections.
   */
   getAllRequests: () => {
-    axios.get(serverIndexURL + serverGetAllRequestsPath)
+    return axios.get(serverIndexURL + serverGetAllRequestsPath)
       .then(({ data }) => {
         
       })
-      .catch(() => {
-        console.log('Error (get all request)...');
-      })
-      .then(() => {
-        console.log('Fallback (get all request)...');
+      .catch(e => {
+        console.log(e);
       });
   },
 

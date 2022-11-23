@@ -14,9 +14,12 @@ const FocusPage = () => {
   const params = useParams();
   const dispatch = useDispatch();
   const validAuth = useSelector((state) => state.sessionSlice.validAuth);
+  const menuView = useSelector(state => state.viewsSlice.menuView);
   
   useEffect(() => {
-    dispatch(setMenuView());
+    if (menuView) {
+      dispatch(setMenuView());
+    };
     
     const next = reqHandlers.getFocusedGif;
 

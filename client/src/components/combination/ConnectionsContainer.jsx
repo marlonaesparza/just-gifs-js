@@ -3,10 +3,8 @@ import { useSelector } from 'react-redux';
 import Connection from './Connection';
 import Div from '../single/Div';
 
-let i = 0;
 
 const ConnectionsContainer = (props) => {
-  i++;
   const potentialConnections = useSelector((state) => state.socialSlice.potentialConnections);
   const userConnections = useSelector((state) => state.socialSlice.userConnections);
   const findFriendsView = useSelector((state) => state.viewsSlice.findFriendsView);

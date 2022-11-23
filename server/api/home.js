@@ -3,17 +3,11 @@ const HomeBusiness = require('./business/home');
 
 
 router.get('/', (req, res) => {
-  const index = req.query.index ? req.query.index : 0;
-  HomeBusiness.getTrendingGifs(index, res);
+  HomeBusiness.getTrendingGifs(req, res);
 });
 
 router.get('/search', (req, res) => {
-  const index = req.query.index ? req.query.index : 0;
-  const search = req.query.search ? req.query.search : '';
-  if (search === '') {
-    return res.status(200).send({ data: []});
-  }
-  HomeBusiness.getSearchGifs(index, search, res);
+  HomeBusiness.getSearchGifs(req, res);
 });
 
 router.get('/focus', (req, res) => {

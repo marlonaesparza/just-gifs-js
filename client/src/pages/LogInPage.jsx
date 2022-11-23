@@ -12,11 +12,14 @@ const LogInPage = (props) => {
   const dispatch = useDispatch();
   const validAuth = useSelector((state) => state.sessionSlice.validAuth);
   const currentPath = useSelector((state) => state.pathSlice.path);
+  const menuView = useSelector(state => state.viewsSlice.menuView);
+  
   
   useEffect(() => {
-    dispatch(setMenuView());
+    if (menuView) {
+      dispatch(setMenuView());
+    };
 
-    console.log('Login user, or direct them to signup.');
     const next = () => {return;}
     
     const nextArgs = {

@@ -7,6 +7,9 @@ export const sessionSlice = createSlice({
     validAuth: false,
   },
   reducers: {
+    clearSessionSlice: (state) => {
+      state.validAuth = false;
+    },
     updateValidAuth: (state, { payload }) => {
       payload === true ? state.validAuth = true : state.validAuth = false
     },
@@ -14,6 +17,9 @@ export const sessionSlice = createSlice({
 });
 
 
-export const { updateValidAuth } = sessionSlice.actions;
+export const {
+  clearSessionSlice,
+  updateValidAuth
+} = sessionSlice.actions;
 
 export default sessionSlice.reducer;
