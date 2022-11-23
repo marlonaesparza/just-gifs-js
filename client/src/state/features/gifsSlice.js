@@ -34,12 +34,57 @@ export const gifsSlice = createSlice({
     updateFeedGifs: (state, { payload }) => {
       state.feed = payload;
     },
-    updateFocusGif: (state, {payload}) => {
+    updateFocusGif: (state, { payload }) => {
       state.focus = payload;
     },
-    updateFavoriteGifs: (state, {payload}) => {
+    updateFavoriteGifs: (state, { payload }) => {
       state.favorites = payload;
-    }
+    },
+    updateAllGifsAfterLikeOrDelete: (state, { payload }) => {
+      state.trending = state.trending.map((gif) => {
+        const gifId = gif.postID ? gif.postID : gif.id;
+        if (payload.postID === gifId) {
+          return {
+            ...payload
+          };
+        };
+
+        return gif;
+      });
+
+      state.searched = state.searched.map((gif) => {
+        const gifId = gif.postID ? gif.postID : gif.id;
+        if (payload.postID === gifId) {
+          return {
+            ...payload
+          };
+        };
+
+        return gif;
+      });
+
+      state.feed = state.feed.map((gif) => {
+        const gifId = gif.postID ? gif.postID : gif.id;
+        if (payload.postID === gifId) {
+          return {
+            ...payload
+          };
+        };
+
+        return gif;
+      });
+
+      state.favorites = state.favorites.filter((gif) => {
+        const gifId = gif.postID ? gif.postID : gif.id;
+        if (payload.postID === gifId) {
+          return false;
+        };
+
+        return true;
+      });
+
+      state.focus = payload;
+    },
   },
 });
 
@@ -51,7 +96,9 @@ export const {
   updateSearchedGifs,
   updateFeedGifs,
   updateFocusGif,
-  updateFavoriteGifs
+  updateFavoriteGifs,
+  updateAllGifsAfterLikeOrDelete,
+
 } = gifsSlice.actions;
 
 export default gifsSlice.reducer;

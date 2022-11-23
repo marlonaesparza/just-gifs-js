@@ -1,4 +1,5 @@
 const axios = require('axios');
+const feed = require('./feed');
 
 
 class HomeBusiness {
@@ -8,6 +9,7 @@ class HomeBusiness {
     this.searchUrl = 'https://api.giphy.com/v1/gifs/search?';
     this.getAllConnectionsUrl = 'http://localhost:8004/connections/getAllConnections';
     this.getMostRecentFeedUrl = 'http://localhost:8003/base/getMostRecentByOffset';
+    this.getPostsStatusesForUser = 'http://localhost:8003/base/getPostsStatusesForUser';
     this.getUsernamesForFavorites = 'http://localhost:8002/user/getUsernamesForFavorites';
     this.apiKey = 'api_key=' + process.env.GIPHY_KEY;
     this.limit = 'limit=12';
@@ -15,37 +17,77 @@ class HomeBusiness {
     this.getSearchGifs = this.getSearchGifs.bind(this);
   }
 
-  getTrendingGifs(i, res) {
-    const index = i ? i : 0;
+  //--------------------------------------------------------------------------
+  //--------------------------------------------------------------------------
+  /* 
+    GET TRENDING GIFS
+    Purpose: Sends trending gifs with user "liked" status to client.
+  */
+  async getTrendingGifs(req, res) {
+    let { userUUID } = req.cookies.hpp_session;
+    const index = req.query.index ? req.query.index : 0;
     const offset = 'offset=' + index;
     const url = this.trendingUrl + this.apiKey + '&' + this.limit + '&' + offset;
 
-    return axios.get(url)
-      .then((results) => {
-        const trendingGifs = results.data;
-        return res.status(200).send(trendingGifs);
-      })
-      .catch((error) => {
-        return res.status(500).send(error);
-      });
-  }
+    try {
+      const trendingGifsResponse = await axios.get(url);
+      const trendingGifs = trendingGifsResponse.data.data;
 
-  getSearchGifs(i, search, res) {
-    const index = i ? i : 0;
+      const trendingGifsWithStatusesResponse = await axios.post(this.getPostsStatusesForUser, {
+        userUUID,
+        posts: JSON.stringify(trendingGifs)
+      });
+
+      const trendingGifsWithStatuses = trendingGifsWithStatusesResponse.data;
+
+      return res.status(200).send(trendingGifsWithStatuses);
+
+    } catch (e) {
+
+      console.log(e)
+      return res.status(400).send();
+    };
+  };
+  //--------------------------------------------------------------------------
+  //--------------------------------------------------------------------------
+
+  /* 
+    GET SEARCHED GIFS
+    Purpose: Sends searched gifs, with user "liked" status, to client.
+  */
+  async getSearchGifs(req, res) {
+    let { userUUID } = req.cookies.hpp_session;
+    const index = req.query.index ? req.query.index : 0;
+    const search = req.query.search ? req.query.search : '';
     const offset = 'offset=' + index;
     const query = 'q=' + search;
     const url = this.searchUrl + this.apiKey + '&' + query + '&' + this.limit + '&' + offset;
 
-    return axios.get(url)
-      .then((results) => {
-        const searchGifs = results.data;
-        return res.status(200).send(searchGifs);
-      })
-      .catch(e => {
-        console.log(e);
-        return res.status(500).send();
+    if (search === '') {
+      return res.status(200).send({ data: []});
+    };
+    
+    try {
+      const searchGifsResponse = await axios.get(url);
+      const searchGifs = searchGifsResponse.data.data;
+  
+      const searchGifsWithStatusesResponse = await axios.post(this.getPostsStatusesForUser, {
+        userUUID,
+        posts: JSON.stringify(searchGifs)
       });
-  }
+  
+      const searchGifsWithStatuses = searchGifsWithStatusesResponse.data;
+
+      return res.status(200).send(searchGifsWithStatuses);
+
+    } catch (e) {
+      
+      console.log(e);
+      return res.status(400).send();
+    };
+  };
+  //--------------------------------------------------------------------------
+  //--------------------------------------------------------------------------
 
   async getUsersFeedGifs(req, res) {
     const { userUUID } = req.cookies.hpp_session;
@@ -59,16 +101,21 @@ class HomeBusiness {
         }
       });
 
-      const feed = await axios.get(this.getMostRecentFeedUrl, {
+      const feedWithStatuses = await axios.get(this.getMostRecentFeedUrl, {
         params: {
+          userUUID,
           offset,
           uuids: connections.data
         }
       });
 
+      if (feedWithStatuses.data.length === 0) {
+        return res.status(200).send([]);
+      };
+
       const feedWithUsernames = await axios.get(this.getUsernamesForFavorites, {
         params: {
-          feed: feed.data
+          feed: feedWithStatuses.data
         }
       });
 

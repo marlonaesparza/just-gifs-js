@@ -39,7 +39,7 @@ const reqHandlers = {
     })
       .then((result) => {
         if (nextArgs.updateTrendingGifs) {
-          dispatch(nextArgs.updateTrendingGifs(result.data.data));
+          dispatch(nextArgs.updateTrendingGifs(result.data));
         };
         if (nextArgs.updateSearchedGifs) {
           dispatch(nextArgs.updateSearchedGifs([]));
@@ -95,7 +95,7 @@ const reqHandlers = {
       }
     })
       .then(result => {
-        nextArgs.dispatch(nextArgs.action2(result.data.data));
+        nextArgs.dispatch(nextArgs.action2(result.data));
         nextArgs.dispatch(nextArgs.action3());
       })
       .catch(e => {
@@ -115,7 +115,7 @@ const reqHandlers = {
       }
     })
       .then(result => {
-        nextArgs.dispatch(nextArgs.actions.action1(result.data.data));
+        nextArgs.dispatch(nextArgs.actions.action1(result.data));
       })
       .catch(e => {
         console.log(e);
@@ -125,12 +125,16 @@ const reqHandlers = {
 
   /* 
     POST FAVORITE GIF
-    Purpose: Creates a favorite for a user.
+    Purpose: Creates a favorite for a user, then updates the UI.
   */
-  postFavoriteGif: (favoritedGif) => {
+  postFavoriteGif: (favoritedGif, { dispatch, updateAllGifsAfterLikeOrDelete }) => {
     return axios.post(serverIndexURL + serverPostFavoritePath, {
       ...favoritedGif
     })
+      .then(({ data }) => {
+        console.log('Post Favorite Gif (result):', data);
+        dispatch(updateAllGifsAfterLikeOrDelete(data));
+      })
       .catch(e => {
         console.log(e);
       });
@@ -138,17 +142,39 @@ const reqHandlers = {
   //-----------------------------------------------------
 
   /* 
-    GET FAVORITE GIFS
-    Purpose: Gets all user's favorite gifs.
+    DELETE FAVORITE GIF
+    Purpose: Deletes a favorite for a user, then updates the UI.
   */
-  getFavoriteGifs: (nextArgs) => {
-    return axios.get(serverIndexURL + serverGetAllFavoritesPath, {
-      params: {
-        index: nextArgs.offset
+
+  deleteFavoriteGif: (favoritedGif, { dispatch, updateAllGifsAfterLikeOrDelete }) => {
+    return axios.delete(serverIndexURL + serverDeleteFavoritePath, {
+      data: {
+        ...favoritedGif
       }
     })
       .then(({ data }) => {
-        nextArgs.dispatch(nextArgs.action1(data));
+        console.log('Delete Favorite Gif (result):', data);
+        dispatch(updateAllGifsAfterLikeOrDelete(data));
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  },
+  //-----------------------------------------------------
+  //-----------------------------------------------------
+
+  /* 
+    GET FAVORITE GIFS
+    Purpose: Gets and updates all user's favorite gifs.
+  */
+  getFavoriteGifs: ({ offset, dispatch, updateFavoriteGifs }) => {
+    return axios.get(serverIndexURL + serverGetAllFavoritesPath, {
+      params: {
+        index: offset
+      }
+    })
+      .then(({ data }) => {
+        dispatch(updateFavoriteGifs(data));
       })
       .catch(e => {
         console.log(e);

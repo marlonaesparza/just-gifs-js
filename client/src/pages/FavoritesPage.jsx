@@ -26,7 +26,7 @@ const FavoritesPage = (props) => {
     const nextArgs = {
       offset: 0,
       dispatch,
-      action1: updateFavoriteGifs,
+      updateFavoriteGifs,
       page: 'Favorites Page'
     };
 

@@ -21,21 +21,21 @@ const GifsContainer = (props) => {
     <Div gifsCont={true}>
       {
         !viewsSliceFeedView && location.pathname === '/home' ?
-          gifs.map((gif) => {
+          gifs.map((gif, i) => {
             return (
-              <Gif key={gif.id} gif={gif} homeGif={true}/>
+              <Gif key={i} gif={gif} homeGif={true}/>
             );
           }) :
         viewsSliceFeedView && location.pathname === '/home' ?
-          gifsSliceFeed.map((gif) => {
+          gifsSliceFeed.map((gif, i) => {
             return (
-              <Gif key={gif.postID} gif={gif} feedGif={true}/>
+              <Gif key={i} gif={gif} feedGif={true}/>
             );
           }) :
         location.pathname === '/favorites' ?
-          favoriteGifs.map((gif) => {
+          favoriteGifs.map((gif, i) => {
             return (
-              <Gif key={gif.postID} gif={gif} favoriteGif={true}/>
+              <Gif key={i} gif={gif} favoriteGif={true}/>
             );
           }) :
         null

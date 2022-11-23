@@ -17,7 +17,11 @@ class FeedBusiness {
       }
     })
       .then(({ data }) => {
-        return res.status(200).send(data);
+        const favorites = data.map((favorite) => {
+          return {...favorite, liked: true}
+        });
+
+        return res.status(200).send(favorites);
       })
       .catch(error => {
         console.log(error);
@@ -34,26 +38,31 @@ class FeedBusiness {
         return res.status(201).send(data);
       })
       .catch(error => {
-        console.log(error);
+        console.log('error');
         return res.status(400).send({});
       });
   }
 
   deleteAUserFavorite(req, res) {
+    if (!req.cookies.hpp_session) {
+      return res.status(400).send({...req.body});
+    };
+
     return axios.delete('http://localhost:8003/base/delete', {
-      userUUID: req.cookies ? req.cookies.hpp_session : undefined,
-      ...req.body
+      data: {
+        userUUID: req.cookies.hpp_session.userUUID,
+        ...req.body
+      }
     })
-      .then(result => {
-        console.log('Feed Router (delete):', result);
-        return res.status(201).send(result);
+      .then(({ data }) => {
+        console.log('Feed Router (delete):', data);
+        return res.status(200).send(data);
       })
       .catch(error => {
-        console.log(error);
+        console.log('error');
         return res.status(400).send({});
       });
-  }
-
+  };
 };
 
 
