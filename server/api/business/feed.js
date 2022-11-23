@@ -55,7 +55,6 @@ class FeedBusiness {
       }
     })
       .then(({ data }) => {
-        console.log('Feed Router (delete):', data);
         return res.status(200).send(data);
       })
       .catch(error => {
