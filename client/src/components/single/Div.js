@@ -28,6 +28,20 @@ const Div = styled.div`
         gap: .4rem;
         grid-template-columns: repeat(3, minmax(0, 1fr));
         grid-template-rows: repeat(4, minmax(0, 1fr));
+
+        @media (max-width: 960px) {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-gap: .5em;
+            background-color: white;
+        }
+        
+        @media (max-width: 615px) {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            grid-gap: .5em;
+            background-color: white;
+        }
       ` :
       pageMenu ?
       `
