@@ -11,36 +11,41 @@ const Div = styled.div`
     ({ homePage, focusPage, favoritesPage, friendsPage, signupPage, loginPage, pageHeader, gifsCont, pageMenu, connectionsCont, imgCont, gifDetailsAndActions, focusGifCont }) => 
       homePage || focusPage || favoritesPage || friendsPage || signupPage || loginPage ?
       ` 
+        overflow: unset;
         display: grid;
         gap: 0;
         grid-template-rows: 1fr 11fr;
       ` :
       pageHeader ?
       `
+        overflow: unset;
         display: grid;
         gap: 0;
         grid-template-columns: 6fr 6fr;
+        justify-content: center;
+        align-content: center;
       ` :
       gifsCont || connectionsCont ?
       `
+        background-color: rgba(234, 233, 233, 1);
+        height: 75vh;
+        overflow: auto;
         margin: .7rem auto;
         display: grid;
         gap: .4rem;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        grid-template-rows: repeat(4, minmax(0, 1fr));
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(4, 1fr);
 
         @media (max-width: 790px) {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            grid-gap: .5em;
-            background-color: white;
+            grid-template-rows: repeat(6, 1fr);
         }
         
         @media (max-width: 615px) {
             display: grid;
             grid-template-columns: repeat(1, 1fr);
-            grid-gap: .5em;
-            background-color: white;
+            grid-template-rows: repeat(12, 1fr);
         }
 
         @media (min-width: 960px) {
@@ -51,7 +56,7 @@ const Div = styled.div`
       `
         display: flex;
         width: 100%;
-        top: 2.9rem;
+        top: 3.5rem;
         position: fixed;
         height: auto;
         box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);

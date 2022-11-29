@@ -14,7 +14,6 @@ const Gif = (props) => {
   const dispatch = useDispatch();
   const path = location.pathname.split('/')[1];
   const focusedGif = useSelector((state) => state.gifsSlice.focus);
-  console.log('Gif (props gif):', props.gif);
 
   const handleFavoriteGif = (e) => {
     e.preventDefault();
@@ -135,7 +134,7 @@ const Gif = (props) => {
             handleFavoriteGif,
             handleDeleteFavoriteGif
           ) :
-        path === 'focus'  ?
+        path === 'focus' && focusedGif.id || focusedGif.postID ?
           createGifElement(
             focusedGif,
             handleFavoriteGif,

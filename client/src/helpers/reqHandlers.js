@@ -97,6 +97,7 @@ const reqHandlers = {
       .then(result => {
         nextArgs.dispatch(nextArgs.action2(result.data));
         nextArgs.dispatch(nextArgs.action3());
+        nextArgs.dispatch(nextArgs.action4());
       })
       .catch(e => {
         console.log(e);
