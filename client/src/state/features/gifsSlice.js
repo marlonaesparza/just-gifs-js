@@ -83,7 +83,6 @@ export const gifsSlice = createSlice({
         return true;
       });
 
-      console.log('Update Focus Gif:', payload);
       state.focus = payload;
     },
   },

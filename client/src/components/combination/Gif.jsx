@@ -13,8 +13,8 @@ import reqHandlers from '../../helpers/reqHandlers';
 const Gif = (props) => {
   const dispatch = useDispatch();
   const path = location.pathname.split('/')[1];
-  console.log('PATH (gif):', path);
   const focusedGif = useSelector((state) => state.gifsSlice.focus);
+  console.log('Gif (props gif):', props.gif);
 
   const handleFavoriteGif = (e) => {
     e.preventDefault();
@@ -79,14 +79,17 @@ const Gif = (props) => {
   };
 
   const createGifElement = (gif, handleFavoriteGif, handleDeleteFavoriteGif, focusGif) => {
+    // username that will be displayed for the gif
     let username = gif.username || 'Uknown';
+    // status depending on whether or not user liked the gif
     let liked = gif.liked ? 'unlike' : 'like';
+    // callback to use depending on the status of the gif
     let callback = gif.liked ? handleDeleteFavoriteGif : handleFavoriteGif;
-
+    // id of the gif
     let gifId = gif.postID ?
       gif.postID :
       gif.id;
-
+    // media url of the gif that will be displayed
     let mediaURL = gif.images && path === 'focus' ?
         gif.images.downsized_large.url :
       gif.postMedia && path === 'focus' ?
@@ -94,7 +97,7 @@ const Gif = (props) => {
       gif.images && path !== 'focus' ?  
         gif.images.fixed_height_small.url :
         gif.postMedia.fixed_height_small.url;
-
+    
     return (
       <Article gif={true} focusGif={focusGif}>
         <Div imgCont={true}>
@@ -126,26 +129,20 @@ const Gif = (props) => {
   return (
     <React.Fragment>
       {
-        path === 'home' && props.homeGif ?
+        path === 'home' || path === 'favorites' ?
           createGifElement(
             props.gif,
             handleFavoriteGif,
             handleDeleteFavoriteGif
           ) :
-        path === 'focus' && focusedGif.id || focusedGif.postID ?
+        path === 'focus'  ?
           createGifElement(
             focusedGif,
             handleFavoriteGif,
             handleDeleteFavoriteGif,
             true
           ) :
-        path === 'favorites' && props.favoriteGif || path === 'home' && props.feedGif ?
-          createGifElement(
-            props.gif,
-            handleFavoriteGif,
-            handleDeleteFavoriteGif
-          ) :
-
+          
         null
       }
     </React.Fragment>
