@@ -69,13 +69,13 @@ const ContentNav = (props) => {
 
             location.pathname === '/friends' ?
               <React.Fragment>
-                <Btn onClick={handleFindFriendsView}>Find Friends</Btn>
-                <Btn onClick={handleFriendsView}>Friends</Btn>
+                <Btn onClick={handleFindFriendsView} contentNavBtn={true}>Find Friends</Btn>
+                <Btn onClick={handleFriendsView} contentNavBtn={true}>Friends</Btn>
               </React.Fragment> :
 
               <React.Fragment>
-                <Btn onClick={handleTrendingView}>Trending</Btn>
-                <Btn onClick={handleFeedView}>Feed</Btn>
+                <Btn onClick={handleTrendingView} contentNavBtn={true}>Trending</Btn>
+                <Btn onClick={handleFeedView} contentNavBtn={true}>Feed</Btn>
               </React.Fragment> 
           }
         </Div>

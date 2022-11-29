@@ -6,6 +6,8 @@ class FeedBusiness {
     this.getAllUserFavorites = this.getAllUserFavorites.bind(this);
     this.createAUserFavaorite = this.createAUserFavaorite.bind(this);
     this.deleteAUserFavorite = this.deleteAUserFavorite.bind(this);
+    this.getUsernamesForFavorites = 'http://localhost:8002/user/getUsernamesForFavorites';
+
   }
 
   getAllUserFavorites(req, res) {
@@ -21,11 +23,18 @@ class FeedBusiness {
           return {...favorite, liked: true}
         });
 
-        return res.status(200).send(favorites);
+        return axios.get(this.getUsernamesForFavorites, {
+          params: {
+            posts: favorites
+          }
+        });
+      })
+      .then(favoritesWithUsernames => {
+        return res.status(200).send(favoritesWithUsernames.data);
       })
       .catch(error => {
         console.log(error);
-        return res.status(400).send({});
+        return res.status(400).send([]);
       });
   }
 

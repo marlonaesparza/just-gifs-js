@@ -45,7 +45,7 @@ const FocusPage = () => {
 
             <Div id='focus-content-container' homeContentCont={true}>
               <ContentNav />
-              <Div>
+              <Div focusGifCont={true}>
                 <Gif />
               </Div>
             </Div>

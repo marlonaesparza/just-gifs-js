@@ -115,7 +115,7 @@ class HomeBusiness {
 
       const feedWithUsernames = await axios.get(this.getUsernamesForFavorites, {
         params: {
-          feed: feedWithStatuses.data
+          posts: feedWithStatuses.data
         }
       });
 
