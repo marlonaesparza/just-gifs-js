@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateAllGifsAfterLikeOrDelete } from '../../state/features/gifsSlice';
 import Article from '../single/Article';
@@ -54,8 +54,6 @@ const Gif = (props) => {
       props.gif
     ;
 
-    console.log(gifToDelete);
-
     const gifToDeleteId = gifToDelete.liked ?
       gifToDelete.postID :
       gifToDelete.id;
@@ -79,7 +77,7 @@ const Gif = (props) => {
     reqHandlers.deleteFavoriteGif(favoritedGif, nextArgs);
   };
 
-  const createGifElement = (gif, handleFavoriteGif, handleDeleteFavoriteGif) => {
+  const createGifElement = (gif, handleFavoriteGif, handleDeleteFavoriteGif, focusGif) => {
     let username = gif.username || 'Uknown';
     let liked = gif.liked ? 'unlike' : 'like';
     let callback = gif.liked ? handleDeleteFavoriteGif : handleFavoriteGif;
@@ -90,10 +88,8 @@ const Gif = (props) => {
 
     let mediaURL = gif.images && path === 'focus' ?
         gif.images.downsized_large.url :
-
       gif.postMedia && path === 'focus' ?
         gif.postMedia.downsized_large.url :
-
       gif.images && path !== 'focus' ?  
         gif.images.fixed_height_small.url :
         gif.postMedia.fixed_height_small.url;
@@ -103,17 +99,25 @@ const Gif = (props) => {
     };
 
     return (
-      <Article gif={true}>
-        <Div>
-        <Link to={`/focus/${gifId}`}>
-          <Img id={gifId} src={mediaURL}/>
-        </Link>
+      <Article gif={true} focusGif={focusGif}>
+        <Div imgCont={true}>
+          <NavLink
+            to={`/focus/${gifId}`}
+            style={isActive => ({
+              display: 'block',
+              height: '100%',
+              textAlign: 'center',
+            })}
+          >
+            <Img id={gifId} src={mediaURL}/>
+          </NavLink>
         </Div>
-        <Div>
-          <Span>{username}</Span>
+        <Div gifDetailsAndActions={true}>
+          <Span gifDetailsAndActions={true}>User: {username}</Span>
           <Btn
             data-gif={(JSON.stringify(gif))}
             onClick={callback}
+            gifDetailsAndActions={true}
           >
             {liked}
           </Btn>
@@ -135,7 +139,8 @@ const Gif = (props) => {
           createGifElement(
             focusedGif,
             handleFavoriteGif,
-            handleDeleteFavoriteGif
+            handleDeleteFavoriteGif,
+            true
           ) :  
         path === 'favorites' && props.favoriteGif || path === 'home' && props.feedGif ?
           createGifElement(
