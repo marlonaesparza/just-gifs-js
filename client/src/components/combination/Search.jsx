@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { updateSearchValue } from '../../state/features/searchSlice';
 import { updateAllGifs, updateSearchedGifs } from '../../state/features/gifsSlice';
 import { clearSearchValue } from '../../state/features/searchSlice';
+import { setTrendingView } from '../../state/features/viewsSlice';
 import requestHelpers from '../../helpers/reqHandlers';
 import SearchInput from '../single/SearchInput';
 import Btn from '../single/Btn';
@@ -26,7 +27,8 @@ const Search = () => {
       dispatch,
       action1: updateAllGifs,
       action2: updateSearchedGifs,
-      action3: clearSearchValue
+      action3: clearSearchValue,
+      action4: setTrendingView
     };
 
     requestHelpers.getSearchedGifs(nextArgs);

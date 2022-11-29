@@ -11,8 +11,6 @@ const GifsContainer = (props) => {
   const viewsSliceFeedView = useSelector((state) => state.viewsSlice.feedView);
   const favoriteGifs = useSelector((state) => state.gifsSlice.favorites);
 
-  console.log('Favorite Gifs (gifs container):', favoriteGifs);
-
   let gifs = gifsSliceTrending;
 
   if (gifsSliceSearched.length !== 0) {
@@ -36,7 +34,6 @@ const GifsContainer = (props) => {
           }) :
         location.pathname === '/favorites' ?
           favoriteGifs.map((favoriteGif, i) => {
-            console.log('Favorite Gif (mapped: gifs container)', favoriteGif);
             return (
               <Gif key={i} gif={favoriteGif} favoriteGif={true}/>
             );

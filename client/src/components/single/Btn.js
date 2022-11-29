@@ -4,7 +4,6 @@ import styled from 'styled-components';
 const Btn = styled.button`
   margin: auto;
   padding: 0;
-  // width: 100%;
 
   ${
     ({ searchBtn, contentNavBtn }) =>
@@ -14,7 +13,7 @@ const Btn = styled.button`
       ` :
       contentNavBtn ?
       `
-        width: 50%;
+        width: 40%;
       ` :
       null
   }
