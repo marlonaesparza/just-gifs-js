@@ -7,7 +7,7 @@ const Article = styled.article`
   grid-template-rows: 10fr 2fr;
   justify-content: center;
   align-content: center;
-  width: 100%;
+  // width: 100%;
   height: 240px;
 
   ${

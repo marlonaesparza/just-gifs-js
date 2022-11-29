@@ -5,12 +5,12 @@ const Div = styled.div`
   margin: auto;
   width: 100%;
   height: 100%;
+  text-align: center;
   
   ${
     ({ homePage, focusPage, favoritesPage, friendsPage, signupPage, loginPage, pageHeader, gifsCont, pageMenu, connectionsCont, imgCont, gifDetailsAndActions, focusGifCont }) => 
       homePage || focusPage || favoritesPage || friendsPage || signupPage || loginPage ?
       ` 
-        // height: 100%;
         display: grid;
         gap: 0;
         grid-template-rows: 1fr 11fr;
@@ -29,7 +29,7 @@ const Div = styled.div`
         grid-template-columns: repeat(3, minmax(0, 1fr));
         grid-template-rows: repeat(4, minmax(0, 1fr));
 
-        @media (max-width: 960px) {
+        @media (max-width: 790px) {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             grid-gap: .5em;
@@ -42,17 +42,20 @@ const Div = styled.div`
             grid-gap: .5em;
             background-color: white;
         }
+
+        @media (min-width: 960px) {
+          width: 70%
+        }
       ` :
       pageMenu ?
       `
+        display: flex;
+        width: 100%;
+        top: 2.9rem;
         position: fixed;
-        top: 3.5rem;
-        right: 3em;
-        width: 30%;
         height: auto;
         box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
         background-color: #ffffff;
-        display: flex;
       ` :
       imgCont ?
       `
@@ -64,6 +67,8 @@ const Div = styled.div`
         display: grid;
         gap: 0;
         grid-template-columns: 8fr 4fr;
+        justify-content: center;
+        align-content: center;
       ` :
       focusGifCont ?
       `

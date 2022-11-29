@@ -13,6 +13,7 @@ import reqHandlers from '../../helpers/reqHandlers';
 const Gif = (props) => {
   const dispatch = useDispatch();
   const path = location.pathname.split('/')[1];
+  console.log('PATH (gif):', path);
   const focusedGif = useSelector((state) => state.gifsSlice.focus);
 
   const handleFavoriteGif = (e) => {
@@ -94,10 +95,6 @@ const Gif = (props) => {
         gif.images.fixed_height_small.url :
         gif.postMedia.fixed_height_small.url;
 
-    if (props.favoriteGif) {
-      username = '';
-    };
-
     return (
       <Article gif={true} focusGif={focusGif}>
         <Div imgCont={true}>
@@ -113,7 +110,7 @@ const Gif = (props) => {
           </NavLink>
         </Div>
         <Div gifDetailsAndActions={true}>
-          <Span gifDetailsAndActions={true}>User: {username}</Span>
+          <Span gifDetailsAndActions={true}>{username}</Span>
           <Btn
             data-gif={(JSON.stringify(gif))}
             onClick={callback}
@@ -135,13 +132,13 @@ const Gif = (props) => {
             handleFavoriteGif,
             handleDeleteFavoriteGif
           ) :
-        path === 'focus' && focusedGif.id ?
+        path === 'focus' && focusedGif.id || focusedGif.postID ?
           createGifElement(
             focusedGif,
             handleFavoriteGif,
             handleDeleteFavoriteGif,
             true
-          ) :  
+          ) :
         path === 'favorites' && props.favoriteGif || path === 'home' && props.feedGif ?
           createGifElement(
             props.gif,
