@@ -6,12 +6,11 @@ class FeedBusiness {
     this.getAllUserFavorites = this.getAllUserFavorites.bind(this);
     this.createAUserFavaorite = this.createAUserFavaorite.bind(this);
     this.deleteAUserFavorite = this.deleteAUserFavorite.bind(this);
-    this.getUsernamesForFavorites = 'http://localhost:8002/user/getUsernamesForFavorites';
-
   }
 
   getAllUserFavorites(req, res) {
     const hpp_session = req.cookies ? req.cookies.hpp_session : undefined;
+    const username = hpp_session.username;
 
     return axios.get('http://localhost:8003/base/all', {
       params: {
@@ -20,17 +19,13 @@ class FeedBusiness {
     })
       .then(({ data }) => {
         const favorites = data.map((favorite) => {
-          return {...favorite, liked: true}
+          return {...favorite, username, liked: true}
         });
 
-        return axios.get(this.getUsernamesForFavorites, {
-          params: {
-            posts: favorites
-          }
-        });
+        return favorites;
       })
       .then(favoritesWithUsernames => {
-        return res.status(200).send(favoritesWithUsernames.data);
+        return res.status(200).send(favoritesWithUsernames);
       })
       .catch(error => {
         console.log(error);

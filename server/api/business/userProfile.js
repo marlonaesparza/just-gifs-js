@@ -39,6 +39,7 @@ class UserProfileBusiness {
 
         let cookie = req.cookies.hpp_session;
         cookie.userUUID = userUUID;
+        cookie.username = username;
         res.cookie('hpp_session', cookie);
         return res.status(201).send({ user });
       })
@@ -79,6 +80,7 @@ class UserProfileBusiness {
 
         let cookie = req.cookies;
         cookie.userUUID = userUUID;
+        cookie.username = username;
         res.cookie('hpp_session', cookie);
         return res.status(201).send({ });
       })

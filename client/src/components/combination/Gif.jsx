@@ -23,6 +23,8 @@ const Gif = (props) => {
       props.gif
     ;
 
+    const gifToFavoriteUsername = gifToFavorite.username;
+
     const gifToFavoriteId =  gifToFavorite.postID ?
       gifToFavorite.postID :
       gifToFavorite.id;
@@ -30,6 +32,7 @@ const Gif = (props) => {
     const gifToFavoriteMedia = gifToFavorite.images || gifToFavorite.postMedia;
 
     const favoritedGif = {
+      username: gifToFavoriteUsername,
       postID: gifToFavoriteId,
       postRating: gifToFavorite.rating,
       postMedia: {
@@ -54,6 +57,8 @@ const Gif = (props) => {
       props.gif
     ;
 
+    const gifToDeleteUsername = gifToDelete.username;
+
     const gifToDeleteId = gifToDelete.liked ?
       gifToDelete.postID :
       gifToDelete.id;
@@ -61,6 +66,7 @@ const Gif = (props) => {
     const gifToDeleteMedia = gifToDelete.images || gifToDelete.postMedia;
 
     const favoritedGif = {
+      username: gifToDeleteUsername,
       postID: gifToDeleteId,
       postRating: gifToDelete.rating,
       postMedia: {
@@ -79,7 +85,7 @@ const Gif = (props) => {
 
   const createGifElement = (gif, handleFavoriteGif, handleDeleteFavoriteGif, focusGif) => {
     // username that will be displayed for the gif
-    let username = gif.username || 'Uknown';
+    let username = gif.username || 'Giphy';
     // status depending on whether or not user liked the gif
     let liked = gif.liked ? 'unlike' : 'like';
     // callback to use depending on the status of the gif

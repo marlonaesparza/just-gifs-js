@@ -35,7 +35,7 @@ class HomeBusiness {
 
       const trendingGifsWithStatusesResponse = await axios.post(this.getPostsStatusesForUser, {
         userUUID,
-        posts: JSON.stringify(trendingGifs)
+        posts: JSON.stringify(trendingGifs),
       });
 
       const trendingGifsWithStatuses = trendingGifsWithStatusesResponse.data;
@@ -56,7 +56,7 @@ class HomeBusiness {
     Purpose: Sends searched gifs, with user "liked" status, to client.
   */
   async getSearchGifs(req, res) {
-    let { userUUID } = req.cookies.hpp_session;
+    let { userUUID, username } = req.cookies.hpp_session;
     const index = req.query.index ? req.query.index : 0;
     const search = req.query.search ? req.query.search : '';
     const offset = 'offset=' + index;
@@ -73,7 +73,8 @@ class HomeBusiness {
   
       const searchGifsWithStatusesResponse = await axios.post(this.getPostsStatusesForUser, {
         userUUID,
-        posts: JSON.stringify(searchGifs)
+        posts: JSON.stringify(searchGifs),
+        username
       });
   
       const searchGifsWithStatuses = searchGifsWithStatusesResponse.data;
