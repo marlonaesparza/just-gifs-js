@@ -7,8 +7,10 @@ const Article = styled.article`
   grid-template-rows: 10fr 2fr;
   justify-content: center;
   align-content: center;
-  height: 240px;
+  height: 280px;
   background-color: white;
+  // width: 300px;
+  width: 100%;
 
   ${
     ({ gif, focusGif }) => 
