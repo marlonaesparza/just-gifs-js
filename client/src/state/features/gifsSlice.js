@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { mapState, filterState } from "./utils";
 
 
 export const gifsSlice = createSlice({
@@ -41,48 +42,10 @@ export const gifsSlice = createSlice({
       state.favorites = payload;
     },
     updateAllGifsAfterLikeOrDelete: (state, { payload }) => {
-      state.trending = state.trending.map((gif) => {
-        const gifId = gif.postID ? gif.postID : gif.id;
-        if (payload.postID === gifId) {
-          return {
-            ...payload
-          };
-        };
-
-        return gif;
-      });
-
-      state.searched = state.searched.map((gif) => {
-        const gifId = gif.postID ? gif.postID : gif.id;
-        if (payload.postID === gifId) {
-          return {
-            ...payload
-          };
-        };
-
-        return gif;
-      });
-
-      state.feed = state.feed.map((gif) => {
-        const gifId = gif.postID ? gif.postID : gif.id;
-        if (payload.postID === gifId) {
-          return {
-            ...payload
-          };
-        };
-
-        return gif;
-      });
-
-      state.favorites = state.favorites.filter((gif) => {
-        const gifId = gif.postID ? gif.postID : gif.id;
-        if (payload.postID === gifId) {
-          return false;
-        };
-
-        return true;
-      });
-
+      state.trending = mapState(state.trending, payload);
+      state.searched = mapState(state.searched, payload);
+      state.feed = mapState(state.feed, payload);
+      state.favorites = filterState(state.favorites, payload);
       state.focus = payload;
     },
   },
