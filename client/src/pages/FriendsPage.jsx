@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import { Navigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { updatePotentialConnections, updateUserConnections } from '../state/features/socialSlice';
+import {   setConnectionsAndPotentialConnections } from '../state/features/socialSlice';
 import { setCurrentPath } from '../state/features/pathSlice';
 import { setMenuView } from '../state/features/viewsSlice';
 import reqHandlers from '../helpers/reqHandlers';
@@ -26,13 +26,11 @@ const FriendsPage = (props) => {
     const nextArgs = {
       offset: 0,
       dispatch,
-      action1: updatePotentialConnections,
+      action1:   setConnectionsAndPotentialConnections,
       page: 'Friends Page'
     };
 
     dispatch(setCurrentPath('/friends'));
-
-    console.log('Access friends page, or have them login.');
 
     reqHandlers.authUser(next, nextArgs);
   }, []);
