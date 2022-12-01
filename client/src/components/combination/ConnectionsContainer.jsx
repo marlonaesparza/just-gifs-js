@@ -5,25 +5,26 @@ import Div from '../single/Div';
 
 
 const ConnectionsContainer = (props) => {
-  const potentialConnections = useSelector((state) => state.socialSlice.potentialConnections);
   const userConnections = useSelector((state) => state.socialSlice.userConnections);
-  const findFriendsView = useSelector((state) => state.viewsSlice.findFriendsView);
+  const potentialConnections = useSelector((state) => state.socialSlice.potentialConnections);
+  const searchedConnections = useSelector((state) => state.socialSlice.searchedConnections);
   const friendsView = useSelector((state) => state.viewsSlice.friendsView);
+  const findFriendsView = useSelector((state) => state.viewsSlice.findFriendsView);
+
+  let connectionsToDisplay =
+    friendsView ? userConnections :
+    findFriendsView ? potentialConnections : null;
+  
+  if (searchedConnections.length !== 0) {
+    connectionsToDisplay = searchedConnections;
+  };
   
   return (
     <Div connectionsCont={true}>
       {
-        findFriendsView ?
-          potentialConnections.map((connection, i) => {
-            // Update key with connection UUID
-            return <Connection key={i} connection={connection} />
-          }) :
-        friendsView ?
-          userConnections.map((connection, i) => {
-            // Update key with connection UUID
-            return <Connection key={i} connection={connection} />
-          }) :
-          'fallback'
+        connectionsToDisplay.map((connection, i) => {
+          return <Connection key={i} connection={connection}/>
+        })
       }
     </Div>
   );
