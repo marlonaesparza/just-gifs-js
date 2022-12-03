@@ -3,6 +3,7 @@ import { useParams, Navigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateFocusGif } from '../state/features/gifsSlice';
 import { setMenuView } from '../state/features/viewsSlice';
+import { setCurrentPath } from '../state/features/pathSlice';
 import Div from '../components/single/Div';
 import PageHeader from '../components/combination/PageHeader';
 import ContentNav from '../components/combination/ContentNav';
@@ -22,7 +23,6 @@ const FocusPage = () => {
     };
     
     const next = reqHandlers.getFocusedGif;
-
     const nextArgs = {
       gifId: params.gifId,
       dispatch,
@@ -31,6 +31,8 @@ const FocusPage = () => {
       }
     };
 
+    const currentPath = location.pathname.split('/')[3];
+    dispatch(setCurrentPath(`/focus/${currentPath}`));
     reqHandlers.authUser(next, nextArgs);
   }, []);
 

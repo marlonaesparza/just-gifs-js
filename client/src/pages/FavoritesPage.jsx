@@ -31,9 +31,6 @@ const FavoritesPage = (props) => {
     };
 
     dispatch(setCurrentPath('/favorites'));
-
-    console.log('Access favorites page, or have them login.');
-
     reqHandlers.authUser(next, nextArgs);
   }, []);
 
