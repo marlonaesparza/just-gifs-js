@@ -95,6 +95,7 @@ const reqHandlers = {
       }
     })
       .then(result => {
+        console.log('Get Searched Gifs:', result.data);
         nextArgs.dispatch(nextArgs.action2(result.data));
         nextArgs.dispatch(nextArgs.action3());
         nextArgs.dispatch(nextArgs.action4());
@@ -320,6 +321,25 @@ const reqHandlers = {
         console.log(e);
       });
   },
+  //-----------------------------------------------------
+  /*
+    GET SEARCHED FRIENDS
+    Purpose: 
+  */
+    getSearchedFriends: ({ search, dispatch, setSearchedFriends, clearSearchView }) => {
+      return axios.get(serverIndexURL + getSearchedFriendsURL, {
+        params: {
+          search
+        }
+      })
+        .then(({ data }) => {
+          dispatch(setSearchedFriends(data));
+          dispatch(clearSearchView());
+        })
+        .catch(e => {
+          console.log(e);
+        });
+    },
   //-----------------------------------------------------
 
   /* 
