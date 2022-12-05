@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setTrendingView, setFeedView, setFindFriendsView, setFriendsView } from '../../state/features/viewsSlice';
 import { updateTrendingGifs, updateFeedGifs,updateSearchedGifs } from '../../state/features/gifsSlice';
 import Search from './Search';
@@ -14,6 +14,10 @@ const ContentNav = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const params = useParams();
+  const trendingView = useSelector(state => state.viewsSlice.trendingView);
+  const feedView =  useSelector(state => state.viewsSlice.feedView);
+  const findFriendsView = useSelector(state => state.viewsSlice.findFriendsView);
+  const friendsView = useSelector(state => state.viewsSlice.friendsView);
 
   const handleTrendingView = (e) => {
     e.preventDefault();
@@ -56,26 +60,29 @@ const ContentNav = (props) => {
     navigate(-1);
   };
 
+  const pathIsFocusOrFavorites =
+    location.pathname === '/favorites' ||  location.pathname.split('/')[1] === 'focus';
+
   return (
     <React.Fragment>
       <Nav id='content-nav' contentNav={true}>
         <Div>
-          <Search/>
+          {pathIsFocusOrFavorites ? null : <Search/>}
         </Div>  
         <Div>
           {
-            params.gifId || location.pathname === '/favorites' ? 
+            params.gifId || pathIsFocusOrFavorites ? 
               <Btn onClick={handleBackBtn}>Back</Btn> :
 
             location.pathname === '/friends' ?
               <React.Fragment>
-                <Btn onClick={handleFindFriendsView} contentNavBtn={true}>Find Friends</Btn>
-                <Btn onClick={handleFriendsView} contentNavBtn={true}>Friends</Btn>
+                <Btn onClick={handleFindFriendsView} contentNavBtn={true} active={findFriendsView}>Find Friends</Btn>
+                <Btn onClick={handleFriendsView} contentNavBtn={true} active={friendsView}>Friends</Btn>
               </React.Fragment> :
 
               <React.Fragment>
-                <Btn onClick={handleTrendingView} contentNavBtn={true}>Trending</Btn>
-                <Btn onClick={handleFeedView} contentNavBtn={true}>Feed</Btn>
+                <Btn onClick={handleTrendingView} contentNavBtn={true} active={trendingView}>Trending</Btn>
+                <Btn onClick={handleFeedView} contentNavBtn={true} active={feedView}>Feed</Btn>
               </React.Fragment> 
           }
         </Div>
