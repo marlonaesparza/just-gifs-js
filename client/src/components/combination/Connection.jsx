@@ -83,7 +83,10 @@ const Connection = ({ connection }) => {
             connection.status === 'delete' ?
             <Btn onClick={handleDeleteConnection}>{connection.status}</Btn> :
 
-            <Btn onClick={handleRequest}>{connection.status}</Btn>
+            connection.status === 'add' ?
+            <Btn onClick={handleRequest}>{connection.status}</Btn> :
+            
+            null
           }
         </Div>
       </Article>

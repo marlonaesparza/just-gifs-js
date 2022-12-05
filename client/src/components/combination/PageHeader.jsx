@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { setMenuView } from '../../state/features/viewsSlice';
 import Header1 from '../single/Header1';
@@ -7,6 +7,7 @@ import Div from '../single/Div';
 import Nav from '../single/Nav';
 import Ul from '../single/Ul';
 import Li from '../single/Li';
+import RouterLink from '../single/Link';
 import reqHandlers from '../../helpers/reqHandlers';
 
 
@@ -35,11 +36,9 @@ const PageHeader = (props) => {
   return (
     <React.Fragment>
       <Div id='page-header' pageHeader={ true }>
-        <Link to={'/home'} style={{
-          textDecoration: 'none'
-        }}>
+        <RouterLink to={'/home'}>
           <Header1>Just Gifs</Header1>  
-        </Link>
+        </RouterLink>
         <Nav>
           <Ul>
             <Li onClick={handleMenu}>Menu</Li>
@@ -57,22 +56,18 @@ const PageHeader = (props) => {
                 <Div id='page-menu' pageMenu={ true }>
                   <Nav>
                     <Ul pageMenu={ true }>
-                      <Link to={'/signup'} style={{
-                        textDecoration: 'none'
-                      }}>
-                        <Li id='menu-signup-link' menuOption={ true }>Signup</Li>
-                      </Link>
+                      <RouterLink to={'/signup'}>
+                        <Li id='menu-signup-RouterLink' menuOption={ true }>Signup</Li>
+                      </RouterLink>
                     </Ul>
                   </Nav>
                 </Div> :
                 <Div id='page-menu' pageMenu={ true }>
                   <Nav>
                     <Ul pageMenu={ true }>
-                      <Link to={'/login'} style={{
-                        textDecoration: 'none'
-                      }}>
-                        <Li id='menu-login-link' menuOption={ true }>Login</Li>
-                      </Link>
+                      <RouterLink to={'/login'}>
+                        <Li id='menu-login-RouterLink' menuOption={ true }>Login</Li>
+                      </RouterLink>
                     </Ul>
                   </Nav>
                 </Div>
@@ -80,22 +75,19 @@ const PageHeader = (props) => {
             <Div id='page-menu' pageMenu={ true }>
               <Nav>
                 <Ul pageMenu={ true }>
-                  <Link to={'/home'} style={{
-                        textDecoration: 'none'
-                  }}>
-                    <Li id='menu-home-link' menuOption={ true }>Home</Li>
-                  </Link>
-                  <Link to={'/favorites'} style={{
-                        textDecoration: 'none'
-                      }}>
-                    <Li id='menu-favorites-link' menuOption={ true }>Favorites</Li>
-                  </Link>
-                  <Link to={'/friends'} style={{
-                        textDecoration: 'none'
-                  }}>
-                    <Li id='menu-friends-link' menuOption={ true }>Friends</Li>
-                  </Link>
-                  <Li id='menu-logout-link' menuOption={ true } onClick={ handleLogout }>Logout</Li>
+                  <RouterLink to={'/home'}>
+                    <Li id='menu-home-RouterLink' menuOption={ true }>Home</Li>
+                  </RouterLink>
+
+                  <RouterLink to={'/favorites'}>
+                    <Li id='menu-favorites-RouterLink' menuOption={ true }>Favorites</Li>
+                  </RouterLink>
+
+                  <RouterLink to={'/friends'}>
+                    <Li id='menu-friends-RouterLink' menuOption={ true }>Friends</Li>
+                  </RouterLink>
+                  
+                  <Li id='menu-logout-RouterLink' menuOption={ true } onClick={ handleLogout }>Logout</Li>
                 </Ul>
               </Nav>
             </Div>
