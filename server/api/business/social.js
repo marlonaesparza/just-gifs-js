@@ -14,7 +14,7 @@ class SocialBusiness {
     let { userUUID } = req.cookies.hpp_session;
     
     return axios.get('http://localhost:8002/user/all', {
-      params: req.query.offset
+      params: { offset: req.query.offset }
     })
       .then(({data}) => {
         const pConnections = data.filter((connection) => {
@@ -164,31 +164,89 @@ class SocialBusiness {
       - Request Body carries the Connection's details; uuid
       - Request Cookies carries requesters details; userUUID
   */
-    deleteConnection(req, res) {
-      const { uuid } = req.body;
-      let { userUUID } = req.cookies.hpp_session;
-      
-      return axios.delete('http://localhost:8004/connections/delete', {
-        data: {
-          aUUID: userUUID,
-          rUUID: uuid
-        }
-      })
-        .then(({data}) => {
-          const { rUUID } = data;
+  deleteConnection(req, res) {
+    const { uuid } = req.body;
+    let { userUUID } = req.cookies.hpp_session;
+    
+    return axios.delete('http://localhost:8004/connections/delete', {
+      data: {
+        aUUID: userUUID,
+        rUUID: uuid
+      }
+    })
+      .then(({data}) => {
+        const { rUUID } = data;
 
-          return res.status(200).send({
-            uuid: rUUID,
-            username: req.body.username,
-            status: 'add'
-          });
-        })
-        .catch(e => {
-          console.log(e);
-          return res.status(500).send(connection);
+        return res.status(200).send({
+          uuid: rUUID,
+          username: req.body.username,
+          status: 'add'
         });
-    }
+      })
+      .catch(e => {
+        console.log(e);
+        return res.status(500).send(connection);
+      });
+  }
     // ----------------------------------------------------------
+
+  searchForPotentialConnections(req, res) {
+    const { searched } = req.query;
+    const { userUUID } = req.cookies.hpp_session;
+
+    return axios.get('http://localhost:8002/user/getSearchedConnections', {
+      params: {
+        searched
+      }
+    })
+      .then(({ data }) => {
+        console.log(data);
+        return axios.get('http://localhost:8004/connections/connectionStatus', {
+          params: {
+            userUUID,
+            pConnections: data
+          }
+        })
+      })
+      .then(({ data }) => {
+        return res.status(200).send(data);
+      })
+      .catch(e => {
+        console.log(e);
+      })
+  }
+
+  async searchForUserConnections(req, res) {
+    const { userUUID } = req.cookies.hpp_session;
+    const { searched } = req.query;
+
+    try {
+      const { data } = await axios.get('http://localhost:8004/connections/getAllConnections', {
+        params: {
+          uuid: userUUID
+        }
+      });
+
+      const connections = JSON.stringify(data);
+
+      const userConnections = await axios.get('http://localhost:8002/user/getSearchedConnections', {
+        params: {
+          searched,
+          uuids: connections
+        }
+      });
+
+      const userConnectionsWithStatus = userConnections.data.map((uC) => {
+        return { ...uC, status: 'delete' };
+      })
+
+      return res.status(200).send(userConnectionsWithStatus);
+
+    } catch (e) {
+      console.log(e);
+      return res.status(400).send();
+    };
+  }
 };
 
 
