@@ -18,10 +18,11 @@ const serverGetAllFavoritesPath = 'api/feed/all';
 const serverCreateConnectionPath = 'api/social/createConnection';
 const serverDeleteConnectionPath = 'api/social/deleteConnection';
 const serverGetAllPotentialConnectionsPath = 'api/social/allPotentialConnections';
-const serverGetAllUserConnectionsPath = 'api/social/allUserConnections';
 const serverCreateRequestPath = 'api/social/createRequest';
 const serverDeleteRequestPath = 'api/social/deleteRequest';
 const serverGetAllRequestsPath = 'api/social/allRequests';
+const searchForPotentialConnectionsPath = 'api/social/searchForPotentialConnections';
+const searchForUserConnectionsPath = 'api/social/searchForUserConnections';
 
 
 const reqHandlers = {
@@ -323,18 +324,35 @@ const reqHandlers = {
   },
   //-----------------------------------------------------
   /*
-    GET SEARCHED FRIENDS
+    Search For Potential Connections
     Purpose: 
   */
-    getSearchedFriends: ({ search, dispatch, setSearchedFriends, clearSearchView }) => {
-      return axios.get(serverIndexURL + getSearchedFriendsURL, {
+    searchForPotentialConnections: ({ searched, dispatch, setSearchedConnections, clearSearchValue }) => {
+      return axios.get(serverIndexURL + searchForPotentialConnectionsPath, {
         params: {
-          search
+          searched
         }
       })
         .then(({ data }) => {
-          dispatch(setSearchedFriends(data));
-          dispatch(clearSearchView());
+          console.log('searchForPotentialConnections RESULT:', data);
+          dispatch(setSearchedConnections(data));
+          dispatch(clearSearchValue());
+        })
+        .catch(e => {
+          console.log(e);
+        });
+    },
+
+    searchForUserConnections: ({ searched, dispatch, setSearchedConnections, clearSearchValue }) => {
+      return axios.get(serverIndexURL + searchForUserConnectionsPath, {
+        params: {
+          searched
+        }
+      })
+        .then(({ data }) => {
+          console.log('searchForUserConnections RESULT:', data);
+          dispatch(setSearchedConnections(data));
+          dispatch(clearSearchValue());
         })
         .catch(e => {
           console.log(e);

@@ -9,8 +9,7 @@ const Article = styled.article`
   align-content: center;
   height: 300px;
   background-color: white;
-  // width: 300px;
-  width: 100%;
+  width: 95%;
 
   ${
     ({ gif, focusGif }) => 

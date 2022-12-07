@@ -13,10 +13,34 @@ const Btn = styled.button`
       ` :
       contentNavBtn ?
       `
-        width: 40%;
+        font-weight: bold;
+        border: none;
+        padding: 4px 5px;
       ` :
       null
   }
+
+  color: ${
+    ({ active }) =>
+      active ?
+      `
+        white
+      ` :
+      `
+        curentColor
+      `
+  };
+
+  background-color: ${
+    ({ active }) =>
+      active ?
+      `
+        #B460FF
+      ` :
+      `
+        curentColor
+      `
+  };
 `;
 
 

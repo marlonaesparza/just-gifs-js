@@ -56,7 +56,7 @@ const Div = styled.div`
       `
         display: flex;
         width: 100%;
-        top: 3.5rem;
+        top: 3.4rem;
         position: fixed;
         height: auto;
         box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);

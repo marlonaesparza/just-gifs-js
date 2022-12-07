@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 const Li = styled.li`
   margin: auto;
-  padding: .4rem;
+  padding: 1rem 0;
 
   ${
     ({ pageMenu }) =>
@@ -12,6 +12,11 @@ const Li = styled.li`
         display: block;
       ` :
       null
+  }
+
+  &:hover {
+    cursor: pointer;
+    color: #B460FF;
   }
 `;
 
