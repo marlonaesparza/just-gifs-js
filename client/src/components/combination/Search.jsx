@@ -15,6 +15,8 @@ const Search = () => {
   const searchSliceValue = useSelector((state) => state.searchSlice.value);
   const gifsSliceSearched = useSelector((state) => state.gifsSlice.searched);
   const searchedConnections = useSelector((state) => state.socialSlice.searchedConnections);
+  const findFriendsView = useSelector((state) => state.viewsSlice.findFriendsView)
+  const friendsView = useSelector((state) => state.viewsSlice.friendsView)
   
   const handleSearchVal = (e) => {
     e.preventDefault();
@@ -37,21 +39,23 @@ const Search = () => {
       action3: clearSearchValue,
       action4: setTrendingView
     };
-
     requestHelpers.getSearchedGifs(nextArgs);
   };
 
   const handleSearchedFriends = (e) => {
     e.preventDefault();
     const nextArgs = {
-      offset: 0,
-      search: searchSliceValue,
+      searched: searchSliceValue,
       dispatch,
       setSearchedConnections,
       clearSearchValue,
     };
-
-    requestHelpers.getSearchedFriends(nextArgs);
+    
+    if (findFriendsView) {
+      requestHelpers.searchForPotentialConnections(nextArgs);
+    } else if (friendsView) {
+      requestHelpers.searchForUserConnections(nextArgs);
+    }
   };
 
   const pathname = location.pathname;
