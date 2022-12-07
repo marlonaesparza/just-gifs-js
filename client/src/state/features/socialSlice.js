@@ -42,6 +42,9 @@ export const socialSlice = createSlice({
         state.userConnections = state.userConnections.filter((connection) => {
           return connection.uuid !== payload.data.uuid
         });
+        state.searchedConnections = state.searchedConnections.filter((connection) => {
+          return connection.uuid !== payload.data.uuid
+        });
         state.potentialConnections.push(payload.data);
          
       } else {
@@ -53,10 +56,18 @@ export const socialSlice = createSlice({
           };
           return connection;
         });
+        state.searchedConnections = state.searchedConnections.map((connection) => {
+          // On make request, replace the searched connection with the new one;
+          // The new connection has an updated status of "pending".
+          if (connection.uuid === payload.uuid) {
+            return payload;
+          };
+          return connection;
+        });
       }
     },
 
-    setSearchedConnections: (state, payload) => {
+    setSearchedConnections: (state, { payload }) => {
       state.searchedConnections = payload;
     },
     
