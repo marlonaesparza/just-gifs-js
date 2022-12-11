@@ -6,10 +6,14 @@ const Li = styled.li`
   padding: 1rem 0;
 
   ${
-    ({ pageMenu }) =>
+    ({ pageMenu, paginationLi }) =>
       pageMenu ?
       `
         display: block;
+      ` :
+      paginationLi ?
+      `
+        width: 100%;
       ` :
       null
   }

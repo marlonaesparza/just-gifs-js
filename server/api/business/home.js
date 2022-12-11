@@ -23,23 +23,21 @@ class HomeBusiness {
     GET TRENDING GIFS
     Purpose: Sends trending gifs with user "liked" status to client.
   */
+ 
   async getTrendingGifs(req, res) {
     let { userUUID } = req.cookies.hpp_session;
-    const index = req.query.index ? req.query.index : 0;
-    const offset = 'offset=' + index;
-    const url = this.trendingUrl + this.apiKey + '&' + this.limit + '&' + offset;
+    const offset = Number(req.query.offset ? req.query.offset : 1);
+    const offsetParam = 'offset=' + ((offset - 1) * 12);
+    const url = this.trendingUrl + this.apiKey + '&' + this.limit + '&' + offsetParam;
 
     try {
       const trendingGifsResponse = await axios.get(url);
       const trendingGifs = trendingGifsResponse.data.data;
-
       const trendingGifsWithStatusesResponse = await axios.post(this.getPostsStatusesForUser, {
         userUUID,
         posts: JSON.stringify(trendingGifs),
       });
-
       const trendingGifsWithStatuses = trendingGifsWithStatusesResponse.data;
-
       return res.status(200).send(trendingGifsWithStatuses);
 
     } catch (e) {
@@ -48,6 +46,7 @@ class HomeBusiness {
       return res.status(400).send();
     };
   };
+
   //--------------------------------------------------------------------------
   //--------------------------------------------------------------------------
 
@@ -57,11 +56,11 @@ class HomeBusiness {
   */
   async getSearchGifs(req, res) {
     let { userUUID, username } = req.cookies.hpp_session;
-    const index = req.query.index ? req.query.index : 0;
     const search = req.query.search ? req.query.search : '';
-    const offset = 'offset=' + index;
     const query = 'q=' + search;
-    const url = this.searchUrl + this.apiKey + '&' + query + '&' + this.limit + '&' + offset;
+    const offset = Number(req.query.offset ? req.query.offset : 1);
+    const offsetParam = 'offset=' + ((offset - 1) * 12);
+    const url = this.searchUrl + this.apiKey + '&' + query + '&' + this.limit + '&' + offsetParam;
 
     if (search === '') {
       return res.status(200).send({ data: []});
@@ -92,10 +91,10 @@ class HomeBusiness {
 
   async getUsersFeedGifs(req, res) {
     const { userUUID } = req.cookies.hpp_session;
-    const { offset } = req.query;
+    const offset = Number(req.query.offset ? req.query.offset : 1);
+    const offsetParam = (offset - 1) * 12;
 
     try {
-
       const connections = await axios.get(this.getAllConnectionsUrl, {
         params: {
           uuid: userUUID
@@ -105,7 +104,7 @@ class HomeBusiness {
       const feedWithStatuses = await axios.get(this.getMostRecentFeedUrl, {
         params: {
           userUUID,
-          offset,
+          offset: offsetParam,
           uuids: connections.data
         }
       });

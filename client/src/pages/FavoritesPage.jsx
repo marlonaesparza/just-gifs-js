@@ -9,6 +9,7 @@ import Div from '../components/single/Div';
 import PageHeader from '../components/combination/PageHeader';
 import ContentNav from '../components/combination/ContentNav';
 import GifsContainer from '../components/combination/GifsContainer';
+import Pagination from '../components/combination/Pagination';
 
 
 const FavoritesPage = (props) => {
@@ -47,6 +48,7 @@ const FavoritesPage = (props) => {
               <ContentNav/>
               <GifsContainer />
             </Div>
+            <Pagination />
           </Div>
       }
     </React.Fragment>

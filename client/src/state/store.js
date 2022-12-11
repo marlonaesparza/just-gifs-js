@@ -5,6 +5,7 @@ import viewsSliceReducer from './features/viewsSlice';
 import sessionSliceReducer from "./features/sessionSlice";
 import pathSliceReducer from './features/pathSlice';
 import socialSliceReducer from './features/socialSlice';
+import paginationSliceReducer from './features/paginationSlice';
 
 
 export default configureStore({
@@ -15,6 +16,7 @@ export default configureStore({
     sessionSlice: sessionSliceReducer,
     pathSlice: pathSliceReducer,
     socialSlice: socialSliceReducer,
+    paginationSlice: paginationSliceReducer,
     
   },
 });

@@ -6,7 +6,7 @@ const Btn = styled.button`
   padding: 0;
 
   ${
-    ({ searchBtn, contentNavBtn }) =>
+    ({ searchBtn, contentNavBtn, paginationBtn }) =>
       searchBtn ?
       `
         width: auto;
@@ -15,6 +15,13 @@ const Btn = styled.button`
       `
         font-weight: bold;
         border: none;
+        padding: 4px 5px;
+      ` :
+      paginationBtn ?
+      `
+        display: block;
+        width: 90%;
+        font-weight: bold;
         padding: 4px 5px;
       ` :
       null

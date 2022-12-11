@@ -18,16 +18,17 @@ const ContentNav = (props) => {
   const feedView =  useSelector(state => state.viewsSlice.feedView);
   const findFriendsView = useSelector(state => state.viewsSlice.findFriendsView);
   const friendsView = useSelector(state => state.viewsSlice.friendsView);
+  const trendingIndex = useSelector(state => state.paginationSlice.trendingIndex);
+  const feedIndex = useSelector(state => state.paginationSlice.feedIndex);
 
   const handleTrendingView = (e) => {
     e.preventDefault();
     const nextArgs = {
-      offset: 0,
+      offset: trendingIndex,
       dispatch,
       updateTrendingGifs,
       updateSearchedGifs,
       setTrendingView,
-      page: 'Home Page'
     };
     reqHandlers.getTrendingGifs(nextArgs);
   };
@@ -35,7 +36,7 @@ const ContentNav = (props) => {
   const handleFeedView = (e) => {
     e.preventDefault();
     const nextArgs = {
-      offset: 0,
+      offset: feedIndex,
       dispatch,
       updateFeedGifs,
       updateSearchedGifs,

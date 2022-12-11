@@ -1,11 +1,12 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { updateSearchValue } from '../../state/features/searchSlice';
-import { updateAllGifs, updateSearchedGifs } from '../../state/features/gifsSlice';
-import { clearSearchValue } from '../../state/features/searchSlice';
+import { updateSearchedGifs } from '../../state/features/gifsSlice';
+import { clearSearchValue, setIsActive } from '../../state/features/searchSlice';
 import { setTrendingView } from '../../state/features/viewsSlice';
 import { setSearchedConnections } from '../../state/features/socialSlice';
-import requestHelpers from '../../helpers/reqHandlers';
+import { setSearchIndex } from '../../state/features/paginationSlice';
+import reqHandlers from '../../helpers/reqHandlers';
 import SearchInput from '../single/SearchInput';
 import Btn from '../single/Btn';
 
@@ -28,18 +29,18 @@ const Search = () => {
     if (searchSliceValue.length === 0) {
       return;
     };
-
     e.preventDefault();
+    const next = reqHandlers.getSearchedGifs;
     const nextArgs = {
-      offset: 0,
       search: searchSliceValue,
+      offset: 1,
       dispatch,
-      action1: updateAllGifs,
-      action2: updateSearchedGifs,
-      action3: clearSearchValue,
-      action4: setTrendingView
+      updateSearchedGifs,
+      setTrendingView,
+      setSearchIndex,
     };
-    requestHelpers.getSearchedGifs(nextArgs);
+    reqHandlers.authUser(next, nextArgs);
+    dispatch(setIsActive());
   };
 
   const handleSearchedFriends = (e) => {
@@ -48,13 +49,12 @@ const Search = () => {
       searched: searchSliceValue,
       dispatch,
       setSearchedConnections,
-      clearSearchValue,
     };
     
     if (findFriendsView) {
-      requestHelpers.searchForPotentialConnections(nextArgs);
+      reqHandlers.searchForPotentialConnections(nextArgs);
     } else if (friendsView) {
-      requestHelpers.searchForUserConnections(nextArgs);
+      reqHandlers.searchForUserConnections(nextArgs);
     }
   };
 
@@ -70,6 +70,8 @@ const Search = () => {
     } else if (pathname === '/friends') {
       dispatch(setSearchedConnections([]))
     };
+    dispatch(clearSearchValue());
+    dispatch(setIsActive());
   };
   
   return (

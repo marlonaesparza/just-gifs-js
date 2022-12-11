@@ -8,13 +8,13 @@ const Div = styled.div`
   text-align: center;
   
   ${
-    ({ homePage, focusPage, favoritesPage, friendsPage, signupPage, loginPage, pageHeader, gifsCont, pageMenu, connectionsCont, imgCont, gifDetailsAndActions, focusGifCont }) => 
+    ({ homePage, focusPage, favoritesPage, friendsPage, signupPage, loginPage, pageHeader, gifsCont, pageMenu, connectionsCont, imgCont, gifDetailsAndActions, focusGifCont, paginationCont }) => 
       homePage || focusPage || favoritesPage || friendsPage || signupPage || loginPage ?
       ` 
         overflow: unset;
         display: grid;
         gap: 0;
-        grid-template-rows: 1fr 11fr;
+        grid-template-rows: 1fr 10fr 1fr;
       ` :
       pageHeader ?
       `
@@ -80,6 +80,13 @@ const Div = styled.div`
         height: 90%;
         width: 95%;
         margin: .7rem auto;
+      ` :
+      paginationCont ?
+      `
+        display: grid;
+        grid-template-columns: 3fr 6fr 3fr;
+        justify-content: center;
+        align-content: center;
       ` :
       null
   }
