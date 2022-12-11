@@ -8,6 +8,7 @@ import Div from '../components/single/Div';
 import PageHeader from '../components/combination/PageHeader';
 import ContentNav from '../components/combination/ContentNav';
 import GifsContainer from '../components/combination/GifsContainer';
+import Pagination from '../components/combination/Pagination';
 
 
 const HomePage = (props) => {
@@ -23,7 +24,7 @@ const HomePage = (props) => {
     const next = reqHandlers.getTrendingGifs;
 
     const nextArgs = {
-      offset: 0,
+      offset: 1,
       dispatch,
       updateTrendingGifs,
       page: 'Home Page'
@@ -44,6 +45,10 @@ const HomePage = (props) => {
             <Div id='home-content-container' homeContentCont={true}>
               <ContentNav/>
               <GifsContainer/>
+            </Div>
+
+            <Div id='home-pagination-container'>
+              <Pagination/>
             </Div>
           </Div>
       }

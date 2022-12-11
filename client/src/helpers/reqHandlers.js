@@ -1,5 +1,6 @@
 import axios from "axios";
 import Cookies from "js-cookie";
+import { setFeedIndex } from "../state/features/paginationSlice";
 import sliceHandlers from "./sliceHandlers";
 
 
@@ -29,24 +30,30 @@ const reqHandlers = {
   /* 
     GET TRENDING GIFS
     Purpose: Gets trending gifs for home page.
+    offset,
+      dispatch,
+      updateTrendingGifs,
+      setTrendingIndex,
+      setTrendingView,
   */
-  getTrendingGifs: (nextArgs) => {
-    const dispatch = nextArgs.dispatch;
-
+  getTrendingGifs: ({offset, dispatch, updateTrendingGifs, updateSearchedGifs, setTrendingIndex, setTrendingView}) => {
     return axios.get(serverIndexURL + serverHomePath, {
       params: {
-        index: nextArgs.offset
+        offset: offset
       }
     })
-      .then((result) => {
-        if (nextArgs.updateTrendingGifs) {
-          dispatch(nextArgs.updateTrendingGifs(result.data));
+      .then(result => {
+        if (updateTrendingGifs) {
+          dispatch(updateTrendingGifs(result.data));
         };
-        if (nextArgs.updateSearchedGifs) {
-          dispatch(nextArgs.updateSearchedGifs([]));
+        if (updateSearchedGifs) {
+          dispatch(updateSearchedGifs([]));
         };
-        if (nextArgs.setTrendingView) {
-          dispatch(nextArgs.setTrendingView());
+        if (setTrendingIndex) {
+          dispatch(setTrendingIndex(offset));
+        }
+        if (setTrendingView) {
+          dispatch(setTrendingView());
         };
       })
       .catch(e => {
@@ -77,6 +84,9 @@ const reqHandlers = {
         if (nextArgs.setFeedView) {
           dispatch(nextArgs.setFeedView());
         };
+        if (nextArgs.setFeedIndex) {
+          dispatch(nextArgs.setFeedIndex(nextArgs.offset));
+        }
       })
       .catch(e => {
         console.log(e);
@@ -88,29 +98,31 @@ const reqHandlers = {
     GET SEARCHED GIFS
     Purpose: Gets all searched gifs.
   */
-  getSearchedGifs: (nextArgs) => {
+
+  getSearchedGifs: ({ search, offset, dispatch, updateSearchedGifs, setSearchIndex, setTrendingView }) => {
     return axios.get(serverIndexURL + serverSearchPath, {
       params: {
-        index: nextArgs.offset,
-        search: nextArgs.search
+        search,
+        offset
       }
     })
       .then(result => {
-        console.log('Get Searched Gifs:', result.data);
-        nextArgs.dispatch(nextArgs.action2(result.data));
-        nextArgs.dispatch(nextArgs.action3());
-        nextArgs.dispatch(nextArgs.action4());
+        dispatch(updateSearchedGifs(result.data));
+        dispatch(setSearchIndex(offset));
+        dispatch(setTrendingView());
       })
       .catch(e => {
         console.log(e);
       })
   },
-  //-----------------------------------------------------
 
+  //-----------------------------------------------------
+  
   /* 
     GET FOCUSED GIF
     Purpose: Gets focused gif for focus page.
   */
+
   getFocusedGif: (nextArgs) => {
     return axios.get(serverIndexURL + serverFocusPath, {
       params: {
@@ -124,6 +136,7 @@ const reqHandlers = {
         console.log(e);
       });
   },
+
   //-----------------------------------------------------
 
   /* 
