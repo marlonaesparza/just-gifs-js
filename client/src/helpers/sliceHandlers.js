@@ -5,6 +5,7 @@ import { clearSearchValue } from '../state/features/searchSlice';
 import { clearSessionSlice } from '../state/features/sessionSlice';
 import { clearSocialSlice } from '../state/features/socialSlice';
 import { clearViewsSlice } from '../state/features/viewsSlice';
+import { resetPagination } from "../state/features/paginationSlice";
 
 
 const sliceHandlers = {
@@ -19,6 +20,7 @@ const sliceHandlers = {
     dispatch(clearSearchValue());
     dispatch(clearSocialSlice());
     dispatch(clearViewsSlice());
+    dispatch(resetPagination());
   },
 
   /* 

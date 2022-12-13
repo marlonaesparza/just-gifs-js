@@ -10,6 +10,12 @@ export const paginationSlice = createSlice({
     feedIndex: 1,
   },
   reducers: {
+    resetPagination: (state) => {
+      state.offset = 1;
+      state.trendingIndex = 1;
+      state.searchIndex = 1;
+      state.feedIndex = 1;
+    },
     offsetForward: (state) => {
       if (!(state.offset > 4000)) {
         state.offset = state.offset + 6;
@@ -39,7 +45,8 @@ export const {
   setTrendingIndex,
   setSearchIndex,
   setFeedIndex,
-
+  resetPagination,
+  
 } = paginationSlice.actions;
 
 export default paginationSlice.reducer;

@@ -9,6 +9,7 @@ import Div from '../components/single/Div';
 import PageHeader from '../components/combination/PageHeader';
 import ContentNav from '../components/combination/ContentNav';
 import ConnectionsContainer from '../components/combination/ConnectionsContainer';
+import Pagination from '../components/combination/Pagination';
 
 
 const FriendsPage = (props) => {
@@ -48,6 +49,8 @@ const FriendsPage = (props) => {
               <ContentNav/>
               <ConnectionsContainer />
             </Div>
+
+            <Pagination />
           </Div>
       }
     </React.Fragment>

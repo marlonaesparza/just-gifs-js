@@ -200,7 +200,6 @@ class SocialBusiness {
       }
     })
       .then(({ data }) => {
-        console.log(data);
         return axios.get('http://localhost:8004/connections/connectionStatus', {
           params: {
             userUUID,
