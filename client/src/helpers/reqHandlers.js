@@ -163,6 +163,7 @@ const reqHandlers = {
   */
 
   deleteFavoriteGif: (favoritedGif, { dispatch, updateAllGifsAfterLikeOrDelete }) => {
+    console.log('Delete a user favorite:', favoritedGif);
     return axios.delete(serverIndexURL + serverDeleteFavoritePath, {
       data: {
         ...favoritedGif

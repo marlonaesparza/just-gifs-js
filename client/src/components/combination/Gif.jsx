@@ -57,9 +57,11 @@ const Gif = (props) => {
       props.gif
     ;
 
+    console.log('Gif to delete...:', gifToDelete);
+
     const gifToDeleteUsername = gifToDelete.username;
 
-    const gifToDeleteId = gifToDelete.liked ?
+    const gifToDeleteId = gifToDelete.postID ?
       gifToDelete.postID :
       gifToDelete.id;
 

@@ -51,6 +51,8 @@ class FeedBusiness {
       return res.status(400).send({...req.body});
     };
 
+    console.log('Delete a user favorite:', req.body)
+
     return axios.delete('http://localhost:8003/base/delete', {
       data: {
         userUUID: req.cookies.hpp_session.userUUID,
