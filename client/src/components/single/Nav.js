@@ -7,6 +7,20 @@ const Nav = styled.nav`
   padding: 0;
 
   ${
+    ({ headerNav }) =>
+      headerNav ?
+      `
+        &:hover {
+          cursor: pointer;
+          background: linear-gradient(90deg, hsla(64, 41%, 92%, 1) 0%, hsla(196, 83%, 84%, 1) 50%, hsla(305, 75%, 83%, 1) 100%);
+      
+        }
+      ` :
+      null
+  }
+  
+
+  ${
     ({ contentNav }) =>
       contentNav ?
       `

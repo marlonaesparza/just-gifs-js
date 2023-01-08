@@ -37,9 +37,9 @@ const PageHeader = (props) => {
     <React.Fragment>
       <Div id='page-header' pageHeader={ true }>
         <RouterLink to={'/home'}>
-          <Header1>Just Gifs</Header1>  
+          <Header1>JG</Header1>  
         </RouterLink>
-        <Nav>
+        <Nav headerNav>
           <Ul>
             <Li onClick={handleMenu}>Menu</Li>
           </Ul>

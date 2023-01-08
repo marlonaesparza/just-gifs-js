@@ -3,26 +3,24 @@ import styled from 'styled-components';
 
 const Btn = styled.button`
   margin: auto;
-  padding: 0;
+  padding: 2px 6px;
+  border: none;
+  font-family: 'Poppins', sans-serif;
+
 
   ${
     ({ searchBtn, contentNavBtn, paginationBtn }) =>
       searchBtn ?
       `
-        width: auto;
+
       ` :
       contentNavBtn ?
       `
-        font-weight: bold;
-        border: none;
-        padding: 4px 5px;
       ` :
       paginationBtn ?
       `
         display: block;
         width: 90%;
-        font-weight: bold;
-        padding: 4px 5px;
       ` :
       null
   }
@@ -31,23 +29,29 @@ const Btn = styled.button`
     ({ active }) =>
       active ?
       `
-        white
+        black
       ` :
       `
         curentColor
       `
   };
 
-  background-color: ${
+  ${
     ({ active }) =>
       active ?
       `
-        #B460FF
+        background: linear-gradient(90deg, hsla(64, 41%, 92%, 1) 0%, hsla(196, 83%, 84%, 1) 50%, hsla(305, 75%, 83%, 1) 100%);
       ` :
       `
-        curentColor
+        background: hsla(0, 0%, 100%, .3);
       `
   };
+
+  &:hover {
+    cursor: pointer;
+    background: linear-gradient(90deg, hsla(64, 41%, 92%, 1) 0%, hsla(196, 83%, 84%, 1) 50%, hsla(305, 75%, 83%, 1) 100%);
+    
+  }
 `;
 
 

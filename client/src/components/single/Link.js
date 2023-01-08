@@ -8,10 +8,10 @@ const RouterLink = styled(Link)`
   
   &:hover,
   &:focus{
-    color: #B460FF;
+    color: #black;
   }
   &:active{
-    color: #B460FF;
+    color: #black;
   }
   &:visited{
     text-decoration: none;

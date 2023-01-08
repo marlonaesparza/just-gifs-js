@@ -9,12 +9,31 @@ const Div = styled.div`
   
   ${
     ({ homePage, focusPage, favoritesPage, friendsPage, signupPage, loginPage, pageHeader, gifsCont, pageMenu, connectionsCont, imgCont, gifDetailsAndActions, focusGifCont, paginationCont }) => 
-      homePage || focusPage || favoritesPage || friendsPage || signupPage || loginPage ?
+      homePage || focusPage || favoritesPage || friendsPage ?
       ` 
+        font-family: 'Poppins', sans-serif;
         overflow: unset;
         display: grid;
         gap: 0;
         grid-template-rows: 1fr 10fr 1fr;
+        background: hsla(64, 41%, 92%, 1);
+        background: linear-gradient(90deg, hsla(64, 41%, 92%, 1) 0%, hsla(196, 83%, 84%, 1) 50%, hsla(305, 75%, 83%, 1) 100%);
+        background: -moz-linear-gradient(90deg, hsla(64, 41%, 92%, 1) 0%, hsla(196, 83%, 84%, 1) 50%, hsla(305, 75%, 83%, 1) 100%);
+        background: -webkit-linear-gradient(90deg, hsla(64, 41%, 92%, 1) 0%, hsla(196, 83%, 84%, 1) 50%, hsla(305, 75%, 83%, 1) 100%);
+        filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#F2F3E2", endColorstr="#B2E5F8", GradientType=1 );
+      ` :
+      signupPage || loginPage ?
+      ` 
+        font-family: 'Poppins', sans-serif;
+        overflow: unset;
+        display: grid;
+        gap: 0;
+        grid-template-rows: 1fr 10fr;
+        background: hsla(64, 41%, 92%, 1);
+        background: linear-gradient(90deg, hsla(64, 41%, 92%, 1) 0%, hsla(196, 83%, 84%, 1) 50%, hsla(305, 75%, 83%, 1) 100%);
+        background: -moz-linear-gradient(90deg, hsla(64, 41%, 92%, 1) 0%, hsla(196, 83%, 84%, 1) 50%, hsla(305, 75%, 83%, 1) 100%);
+        background: -webkit-linear-gradient(90deg, hsla(64, 41%, 92%, 1) 0%, hsla(196, 83%, 84%, 1) 50%, hsla(305, 75%, 83%, 1) 100%);
+        filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#F2F3E2", endColorstr="#B2E5F8", GradientType=1 );
       ` :
       pageHeader ?
       `
@@ -27,8 +46,9 @@ const Div = styled.div`
       ` :
       gifsCont || connectionsCont ?
       `
-        background-color: rgba(234, 233, 233, 1);
+        // background-color: rgba(234, 233, 233, 1);
         height: 75vh;
+        width: 90%;
         overflow: auto;
         margin: .7rem auto;
         display: grid;
@@ -60,7 +80,8 @@ const Div = styled.div`
         position: fixed;
         height: auto;
         box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
-        background-color: #ffffff;
+        background: linear-gradient(180deg, hsla(64, 41%, 92%, .95) 0%, hsla(196, 83%, 84%, .95) 50%, hsla(305, 75%, 83%, .95) 100%);
+
       ` :
       imgCont ?
       `
@@ -78,11 +99,12 @@ const Div = styled.div`
       focusGifCont ?
       `
         height: 90%;
-        width: 95%;
+        width: 90%;
         margin: .7rem auto;
       ` :
       paginationCont ?
       `
+        max-width: 1090px;
         display: grid;
         grid-template-columns: 3fr 6fr 3fr;
         justify-content: center;

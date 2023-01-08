@@ -57,8 +57,6 @@ const Gif = (props) => {
       props.gif
     ;
 
-    console.log('Gif to delete...:', gifToDelete);
-
     const gifToDeleteUsername = gifToDelete.username;
 
     const gifToDeleteId = gifToDelete.postID ?
@@ -107,17 +105,19 @@ const Gif = (props) => {
     
     return (
       <Article gif={true} focusGif={focusGif}>
-        <Div imgCont={true}>
-          <NavLink
-            to={`/focus/${gifId}`}
-            style={isActive => ({
-              display: 'block',
-              height: '100%',
-              textAlign: 'center',
-            })}
-          >
-            <Img id={gifId} src={mediaURL}/>
-          </NavLink>
+        <Div>
+          <Div imgCont={true}>
+            <NavLink
+              to={`/focus/${gifId}`}
+              style={isActive => ({
+                display: 'block',
+                height: '100%',
+                textAlign: 'center',
+              })}
+            >
+              <Img id={gifId} src={mediaURL}/>
+            </NavLink>
+          </Div>
         </Div>
         <Div gifDetailsAndActions={true}>
           <Span gifDetailsAndActions={true}>{username}</Span>

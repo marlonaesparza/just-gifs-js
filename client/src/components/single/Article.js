@@ -8,8 +8,10 @@ const Article = styled.article`
   justify-content: center;
   align-content: center;
   height: 300px;
-  background-color: white;
+  // background-color: white;
   width: 95%;
+  background: hsla(0, 0%, 100%, .4);
+  filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#ffffff", endColorstr="#F5F5F5", GradientType=1 ); 
 
   ${
     ({ gif, focusGif }) => 
