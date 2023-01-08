@@ -163,6 +163,7 @@ const reqHandlers = {
   */
 
   deleteFavoriteGif: (favoritedGif, { dispatch, updateAllGifsAfterLikeOrDelete }) => {
+    console.log('Delete a user favorite:', favoritedGif);
     return axios.delete(serverIndexURL + serverDeleteFavoritePath, {
       data: {
         ...favoritedGif
@@ -340,32 +341,28 @@ const reqHandlers = {
     Search For Potential Connections
     Purpose: 
   */
-    searchForPotentialConnections: ({ searched, dispatch, setSearchedConnections, clearSearchValue }) => {
+    searchForPotentialConnections: ({ searched, dispatch, setSearchedConnections}) => {
       return axios.get(serverIndexURL + searchForPotentialConnectionsPath, {
         params: {
           searched
         }
       })
         .then(({ data }) => {
-          console.log('searchForPotentialConnections RESULT:', data);
           dispatch(setSearchedConnections(data));
-          dispatch(clearSearchValue());
         })
         .catch(e => {
           console.log(e);
         });
     },
 
-    searchForUserConnections: ({ searched, dispatch, setSearchedConnections, clearSearchValue }) => {
+    searchForUserConnections: ({ searched, dispatch, setSearchedConnections }) => {
       return axios.get(serverIndexURL + searchForUserConnectionsPath, {
         params: {
           searched
         }
       })
         .then(({ data }) => {
-          console.log('searchForUserConnections RESULT:', data);
           dispatch(setSearchedConnections(data));
-          dispatch(clearSearchValue());
         })
         .catch(e => {
           console.log(e);

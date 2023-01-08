@@ -11,6 +11,7 @@ import reqHandlers from '../../helpers/reqHandlers';
 
 
 const Pagination = () => {
+  const path = location.pathname.split('/')[1];
   const dispatch = useDispatch();
   const offset = useSelector(state => state.paginationSlice.offset);
   const isFeedView = useSelector(state => state.viewsSlice.feedView);
@@ -71,21 +72,30 @@ const Pagination = () => {
       isFeedView ? feedIndex :
       searchIsActive ? searchIndex : trendingIndex;
 
-    if (i === currentPaginationIndex) {
+    if (path == 'favorites' || path === 'friends') {
       let PaginationBtn = (
         <Li key={i} paginationLi={ true }>
-          <Btn onClick={ getContentByPagination } paginationBtn={ true } active={ true }>{i}</Btn>
+          <Btn paginationBtn={ true } disabled>{i}</Btn>
         </Li>
       );
       listOfPaginationBtns.push(PaginationBtn);
     } else {
-      let PaginationBtn = (
-        <Li key={i} paginationLi={ true }>
-          <Btn onClick={ getContentByPagination } paginationBtn={ true }>{i}</Btn>
-        </Li>
-      );
-      listOfPaginationBtns.push(PaginationBtn);
-    }
+      if (i === currentPaginationIndex) {
+        let PaginationBtn = (
+          <Li key={i} paginationLi={ true }>
+            <Btn onClick={ getContentByPagination } paginationBtn={ true } active={ true }>{i}</Btn>
+          </Li>
+        );
+        listOfPaginationBtns.push(PaginationBtn);
+      } else {
+        let PaginationBtn = (
+          <Li key={i} paginationLi={ true }>
+            <Btn onClick={ getContentByPagination } paginationBtn={ true }>{i}</Btn>
+          </Li>
+        );
+        listOfPaginationBtns.push(PaginationBtn);
+      };
+    };
   };
 
   return (

@@ -68,7 +68,7 @@ const ContentNav = (props) => {
     <React.Fragment>
       <Nav id='content-nav' contentNav={true}>
         <Div>
-          {pathIsFocusOrFavorites ? null : <Search/>}
+          {pathIsFocusOrFavorites || feedView ? null : <Search/>}
         </Div>  
         <Div>
           {

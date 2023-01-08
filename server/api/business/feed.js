@@ -42,7 +42,6 @@ class FeedBusiness {
         return res.status(201).send(data);
       })
       .catch(error => {
-        console.log('error');
         return res.status(400).send({});
       });
   }
@@ -51,6 +50,8 @@ class FeedBusiness {
     if (!req.cookies.hpp_session) {
       return res.status(400).send({...req.body});
     };
+
+    console.log('Delete a user favorite:', req.body)
 
     return axios.delete('http://localhost:8003/base/delete', {
       data: {
@@ -62,7 +63,6 @@ class FeedBusiness {
         return res.status(200).send(data);
       })
       .catch(error => {
-        console.log('error');
         return res.status(400).send({});
       });
   };
