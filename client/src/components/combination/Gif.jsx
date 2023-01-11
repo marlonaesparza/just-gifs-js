@@ -8,7 +8,8 @@ import Div from '../single/Div';
 import Btn from '../single/Btn';
 import Span from '../single/Span';
 import reqHandlers from '../../helpers/reqHandlers';
-
+import Heart from '../single/Heart';
+import { faHeart } from '@fortawesome/free-regular-svg-icons';
 
 const Gif = (props) => {
   const dispatch = useDispatch();
@@ -125,8 +126,10 @@ const Gif = (props) => {
             data-gif={(JSON.stringify(gif))}
             onClick={callback}
             gifDetailsAndActions={true}
+            liked={gif.liked}
+            heart
           >
-            {liked}
+            <Heart icon={faHeart} />
           </Btn>
         </Div>
       </Article>

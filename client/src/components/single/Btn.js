@@ -25,32 +25,44 @@ const Btn = styled.button`
       null
   }
 
-  color: ${
-    ({ active }) =>
-      active ?
-      `
-        black
-      ` :
-      `
-        curentColor
-      `
-  };
+
 
   ${
-    ({ active }) =>
+    ({ active, liked }) =>
+      liked ?
+      `
+        background: hsla(303, 79%, 76%, 1);
+        background: linear-gradient(90deg, hsla(303, 79%, 76%, 1) 0%, hsla(360, 86%, 67%, 1) 100%);
+        background: -moz-linear-gradient(90deg, hsla(303, 79%, 76%, 1) 0%, hsla(360, 86%, 67%, 1) 100%);
+        background: -webkit-linear-gradient(90deg, hsla(303, 79%, 76%, 1) 0%, hsla(360, 86%, 67%, 1) 100%);
+        filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#F292ED", endColorstr="#F36364", GradientType=1 );
+      ` :  
       active ?
       `
         background: linear-gradient(90deg, hsla(64, 41%, 92%, 1) 0%, hsla(196, 83%, 84%, 1) 50%, hsla(305, 75%, 83%, 1) 100%);
       ` :
       `
-        background: hsla(0, 0%, 100%, .3);
+        background-color: initial
       `
   };
 
-  &:hover {
-    cursor: pointer;
-    background: linear-gradient(90deg, hsla(64, 41%, 92%, 1) 0%, hsla(196, 83%, 84%, 1) 50%, hsla(305, 75%, 83%, 1) 100%);
-    
+  ${({ heart }) =>
+    heart ?
+    `
+      &:hover {
+        background: hsla(303, 79%, 76%, 1);
+        background: linear-gradient(90deg, hsla(303, 79%, 76%, 1) 0%, hsla(360, 86%, 67%, 1) 100%);
+        background: -moz-linear-gradient(90deg, hsla(303, 79%, 76%, 1) 0%, hsla(360, 86%, 67%, 1) 100%);
+        background: -webkit-linear-gradient(90deg, hsla(303, 79%, 76%, 1) 0%, hsla(360, 86%, 67%, 1) 100%);
+        filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#F292ED", endColorstr="#F36364", GradientType=1 );
+      }
+    ` : 
+    `
+      &:hover {
+        cursor: pointer;
+        background: linear-gradient(90deg, hsla(64, 41%, 92%, 1) 0%, hsla(196, 83%, 84%, 1) 50%, hsla(305, 75%, 83%, 1) 100%);
+      }
+    `
   }
 `;
 
