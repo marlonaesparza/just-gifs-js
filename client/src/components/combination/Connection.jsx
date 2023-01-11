@@ -59,7 +59,7 @@ const Connection = ({ connection }) => {
   }
 
   return (
-      <Article>
+      <Article connection>
         <Div>
           <Img/>
         </Div>

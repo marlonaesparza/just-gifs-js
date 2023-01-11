@@ -7,7 +7,6 @@ const Btn = styled.button`
   border: none;
   font-family: 'Poppins', sans-serif;
 
-
   ${
     ({ searchBtn, contentNavBtn, paginationBtn }) =>
       searchBtn ?
@@ -24,8 +23,6 @@ const Btn = styled.button`
       ` :
       null
   }
-
-
 
   ${
     ({ active, liked }) =>
