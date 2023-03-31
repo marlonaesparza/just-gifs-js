@@ -8,11 +8,11 @@ export const searchSlice = createSlice({
     isActive: false,
   },
   reducers: {
-    updateSearchValue: (state, { payload }) => {
-      state.value = payload;
-    },
     clearSearchValue: (state) => {
       state.value = '';
+    },
+    updateSearchValue: (state, { payload }) => {
+      state.value = payload;
     },
     setIsActive: (state) => {
       state.isActive = !state.isActive;

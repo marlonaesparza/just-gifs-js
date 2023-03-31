@@ -7,10 +7,14 @@ const Btn = styled.button`
   border: none;
   font-family: 'Poppins', sans-serif;
 
+  border: 2px solid black;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
   ${
     ({ searchBtn, contentNavBtn, paginationBtn }) =>
       searchBtn ?
       `
+      border-radius: 3px;
+
 
       ` :
       contentNavBtn ?
@@ -28,11 +32,8 @@ const Btn = styled.button`
     ({ active, liked }) =>
       liked ?
       `
-        background: hsla(303, 79%, 76%, 1);
-        background: linear-gradient(90deg, hsla(303, 79%, 76%, 1) 0%, hsla(360, 86%, 67%, 1) 100%);
-        background: -moz-linear-gradient(90deg, hsla(303, 79%, 76%, 1) 0%, hsla(360, 86%, 67%, 1) 100%);
-        background: -webkit-linear-gradient(90deg, hsla(303, 79%, 76%, 1) 0%, hsla(360, 86%, 67%, 1) 100%);
-        filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#F292ED", endColorstr="#F36364", GradientType=1 );
+      background: -webkit-linear-gradient(180deg, hsla(213, 62%, 45%, 1) 0%, hsla(213, 62%, 45%, 1) 0%, hsla(0, 0%, 96%, 1) 100%);
+      
       ` :  
       active ?
       `
@@ -46,12 +47,11 @@ const Btn = styled.button`
   ${({ heart }) =>
     heart ?
     `
+
+      border-radius: 4px;
       &:hover {
-        background: hsla(303, 79%, 76%, 1);
-        background: linear-gradient(90deg, hsla(303, 79%, 76%, 1) 0%, hsla(360, 86%, 67%, 1) 100%);
-        background: -moz-linear-gradient(90deg, hsla(303, 79%, 76%, 1) 0%, hsla(360, 86%, 67%, 1) 100%);
-        background: -webkit-linear-gradient(90deg, hsla(303, 79%, 76%, 1) 0%, hsla(360, 86%, 67%, 1) 100%);
-        filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#F292ED", endColorstr="#F36364", GradientType=1 );
+        background: -webkit-linear-gradient(180deg, hsla(213, 62%, 45%, 1) 0%, hsla(213, 62%, 45%, 1) 0%, hsla(0, 0%, 96%, 1) 100%);
+
       }
     ` : 
     `

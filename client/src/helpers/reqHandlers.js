@@ -86,7 +86,7 @@ const reqHandlers = {
         };
         if (nextArgs.setFeedIndex) {
           dispatch(nextArgs.setFeedIndex(nextArgs.offset));
-        }
+        };
       })
       .catch(e => {
         console.log(e);
@@ -124,6 +124,8 @@ const reqHandlers = {
   */
 
   getFocusedGif: (nextArgs) => {
+    // Set focused img to a loading icon
+    // sliceHandlers.dispatchSetFocusLoading(nextArgs.dispatch);
     return axios.get(serverIndexURL + serverFocusPath, {
       params: {
         id: nextArgs.gifId
@@ -131,6 +133,7 @@ const reqHandlers = {
     })
       .then(result => {
         nextArgs.dispatch(nextArgs.actions.action1(result.data));
+        sliceHandlers.dispatchSetFocusLoading(nextArgs.dispatch);
       })
       .catch(e => {
         console.log(e);
@@ -215,7 +218,13 @@ const reqHandlers = {
         };
 
         sliceHandlers.authUserSlice(dispatch, true);
-        next(nextArgs);
+
+        if (next.getTrendingGifs && next.getFeedGifs) {
+          next.getTrendingGifs(nextArgs);
+          next.getFeedGifs(nextArgs);
+        } else {
+          next(nextArgs);
+        };
       })
       .catch(() => {
         sliceHandlers.authUserSlice(dispatch, false);

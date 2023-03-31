@@ -8,14 +8,27 @@ const Div = styled.div`
   text-align: center;
   
   ${
-    ({ homePage, focusPage, favoritesPage, friendsPage, signupPage, loginPage, pageHeader, gifsCont, pageMenu, connectionsCont, imgCont, gifDetailsAndActions, focusGifCont, paginationCont }) => 
-      homePage || focusPage || favoritesPage || friendsPage ?
+    ({ loadingIconContainer, homePage, focusPage, favoritesPage, friendsPage, signupPage, loginPage, pageHeader, gifsCont, pageMenu, connectionsCont, imgCont, gifDetailsAndActions, focusGifCont, paginationCont }) => 
+      homePage || focusPage ?
       ` 
         font-family: 'Poppins', sans-serif;
         overflow: unset;
         display: grid;
         gap: 0;
         grid-template-rows: 1fr 10fr 1fr;
+        background: hsla(64, 41%, 92%, 1);
+        background: linear-gradient(90deg, hsla(64, 41%, 92%, 1) 0%, hsla(196, 83%, 84%, 1) 50%, hsla(305, 75%, 83%, 1) 100%);
+        background: -moz-linear-gradient(90deg, hsla(64, 41%, 92%, 1) 0%, hsla(196, 83%, 84%, 1) 50%, hsla(305, 75%, 83%, 1) 100%);
+        background: -webkit-linear-gradient(90deg, hsla(64, 41%, 92%, 1) 0%, hsla(196, 83%, 84%, 1) 50%, hsla(305, 75%, 83%, 1) 100%);
+        filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#F2F3E2", endColorstr="#B2E5F8", GradientType=1 );
+      ` :
+      favoritesPage || friendsPage ?
+      ` 
+        font-family: 'Poppins', sans-serif;
+        overflow: unset;
+        display: grid;
+        gap: 0;
+        grid-template-rows: 1fr 11fr;
         background: hsla(64, 41%, 92%, 1);
         background: linear-gradient(90deg, hsla(64, 41%, 92%, 1) 0%, hsla(196, 83%, 84%, 1) 50%, hsla(305, 75%, 83%, 1) 100%);
         background: -moz-linear-gradient(90deg, hsla(64, 41%, 92%, 1) 0%, hsla(196, 83%, 84%, 1) 50%, hsla(305, 75%, 83%, 1) 100%);
@@ -109,6 +122,10 @@ const Div = styled.div`
         grid-template-columns: 3fr 6fr 3fr;
         justify-content: center;
         align-content: center;
+      ` :
+      loadingIconContainer ?
+      `
+        display: grid;
       ` :
       null
   }

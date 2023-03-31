@@ -1,11 +1,11 @@
-import { updateValidAuth } from "../state/features/sessionSlice";
+import { updateValidAuth, clearSessionSlice } from "../state/features/sessionSlice";
 import { clearGifsSlice } from "../state/features/gifsSlice";
 import { clearPathSlice } from '../state/features/pathSlice';
 import { clearSearchValue } from '../state/features/searchSlice';
-import { clearSessionSlice } from '../state/features/sessionSlice';
 import { clearSocialSlice } from '../state/features/socialSlice';
 import { clearViewsSlice } from '../state/features/viewsSlice';
 import { resetPagination } from "../state/features/paginationSlice";
+import { setFocusLoading, clearState } from '../state/features/loadingSlice';
 
 
 const sliceHandlers = {
@@ -21,6 +21,7 @@ const sliceHandlers = {
     dispatch(clearSocialSlice());
     dispatch(clearViewsSlice());
     dispatch(resetPagination());
+    dispatch(clearState());
   },
 
   /* 
@@ -29,6 +30,14 @@ const sliceHandlers = {
   */
   authUserSlice: (dispatch, bool) => {
     dispatch(updateValidAuth(bool));
+  },
+
+  /* 
+    Dispatch Set Fous Loading
+    Purpose: Updates focus loading state to true or false.
+  */
+  dispatchSetFocusLoading: (dispatch) => {
+    dispatch(setFocusLoading());
   }
 };
 

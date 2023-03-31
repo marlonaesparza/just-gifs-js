@@ -15,6 +15,7 @@ export const socialSlice = createSlice({
     clearSocialSlice: (state) => {
       state.potentialConnections = [];
       state.userConnections = [];
+      state.searchedConnections = [];
     },
     setConnectionsAndPotentialConnections: (state, { payload }) => {
       state.potentialConnections = payload.filter((connection) => {

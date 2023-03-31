@@ -8,7 +8,9 @@ import Div from '../components/single/Div';
 import PageHeader from '../components/combination/PageHeader';
 import ContentNav from '../components/combination/ContentNav';
 import Gif from '../components/combination/Gif';
+import LoadingIcon from '../components/combination/LoadingIcon';
 import reqHandlers from '../helpers/reqHandlers';
+import sliceHandlers from '../helpers/sliceHandlers';
 
 
 const FocusPage = () => {
@@ -16,6 +18,7 @@ const FocusPage = () => {
   const dispatch = useDispatch();
   const validAuth = useSelector((state) => state.sessionSlice.validAuth);
   const menuView = useSelector(state => state.viewsSlice.menuView);
+  const focusLoading = useSelector(state => state.loadingSlice.focusLoading)
   
   useEffect(() => {
     if (menuView) {
@@ -33,6 +36,7 @@ const FocusPage = () => {
 
     const currentPath = location.pathname.split('/')[3];
     dispatch(setCurrentPath(`/focus/${currentPath}`));
+    sliceHandlers.dispatchSetFocusLoading(dispatch);
     reqHandlers.authUser(next, nextArgs);
   }, []);
 
@@ -48,7 +52,10 @@ const FocusPage = () => {
             <Div id='focus-content-container' homeContentCont={true}>
               <ContentNav />
               <Div focusGifCont={true}>
-                <Gif />
+                {
+                  focusLoading ?
+                    <LoadingIcon/> : <Gif />
+                }
               </Div>
             </Div>
           </Div>

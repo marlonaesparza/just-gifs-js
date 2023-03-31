@@ -48,7 +48,7 @@ const FavoritesPage = (props) => {
               <ContentNav/>
               <GifsContainer />
             </Div>
-            <Pagination />
+            {/* <Pagination /> */}
           </Div>
       }
     </React.Fragment>

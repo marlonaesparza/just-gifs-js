@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { setTrendingView, setFeedView, setFindFriendsView, setFriendsView } from '../../state/features/viewsSlice';
 import { updateTrendingGifs, updateFeedGifs,updateSearchedGifs } from '../../state/features/gifsSlice';
+import { resetPagination } from '../../state/features/paginationSlice';
 import Search from './Search';
 import Div from '../single/Div';
 import Nav from '../single/Nav';
@@ -58,12 +59,13 @@ const ContentNav = (props) => {
 
   const handleBackBtn = (e) => {
     e.preventDefault();
+    dispatch(resetPagination());
     navigate(-1);
   };
 
   const pathIsFocusOrFavorites =
     location.pathname === '/favorites' ||  location.pathname.split('/')[1] === 'focus';
-
+  console.log(pathIsFocusOrFavorites, feedView);
   return (
     <React.Fragment>
       <Nav id='content-nav' contentNav={true}>

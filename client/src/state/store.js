@@ -6,10 +6,12 @@ import sessionSliceReducer from "./features/sessionSlice";
 import pathSliceReducer from './features/pathSlice';
 import socialSliceReducer from './features/socialSlice';
 import paginationSliceReducer from './features/paginationSlice';
+import loadingSlice from "./features/loadingSlice";
 
 
 export default configureStore({
   reducer: {
+    loadingSlice: loadingSlice,
     gifsSlice: gifsSliceReducer,
     searchSlice: searchSliceReducer,
     viewsSlice: viewsSliceReducer,

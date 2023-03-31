@@ -50,7 +50,7 @@ const FriendsPage = (props) => {
               <ConnectionsContainer />
             </Div>
 
-            <Pagination />
+            {/* <Pagination /> */}
           </Div>
       }
     </React.Fragment>

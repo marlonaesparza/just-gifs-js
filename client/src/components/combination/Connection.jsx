@@ -76,7 +76,7 @@ const Connection = ({ connection }) => {
 
             connection.status === 'pending' ?
             <React.Fragment>
-              <Btn onClick={handleRequest}>{connection.status}</Btn>
+              <Btn disabled>{connection.status}</Btn>
               <Btn onClick={handleRequest}>cancel</Btn>
             </React.Fragment> :
 

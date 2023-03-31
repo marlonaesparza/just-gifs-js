@@ -5,7 +5,9 @@ const SearchInput = styled.input.attrs({
   type: 'text'
 })`
   margin: auto;
-  border: none;
+  border-radius: 3px;
+
+  border: 1px solid black;
   padding: 4px;
 `;
 

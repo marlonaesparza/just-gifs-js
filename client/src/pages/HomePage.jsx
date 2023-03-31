@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import { Navigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateTrendingGifs } from '../state/features/gifsSlice';
+import { updateTrendingGifs, updateFeedGifs } from '../state/features/gifsSlice';
 import { setMenuView } from '../state/features/viewsSlice';
 import reqHandlers from '../helpers/reqHandlers';
 import Div from '../components/single/Div';
@@ -21,12 +21,16 @@ const HomePage = (props) => {
       dispatch(setMenuView());
     };
     
-    const next = reqHandlers.getTrendingGifs;
+    const next = {
+      getTrendingGifs: reqHandlers.getTrendingGifs,
+      getFeedGifs: reqHandlers.getFeedGifs,
+    };
 
     const nextArgs = {
       offset: 1,
       dispatch,
       updateTrendingGifs,
+      updateFeedGifs,
       page: 'Home Page'
     };
 
