@@ -7,6 +7,7 @@ import pathSliceReducer from './features/pathSlice';
 import socialSliceReducer from './features/socialSlice';
 import paginationSliceReducer from './features/paginationSlice';
 import loadingSlice from "./features/loadingSlice";
+import formSlice from "./features/formSlice";
 
 
 export default configureStore({
@@ -19,6 +20,7 @@ export default configureStore({
     pathSlice: pathSliceReducer,
     socialSlice: socialSliceReducer,
     paginationSlice: paginationSliceReducer,
+    formSlice: formSlice,
     
   },
 });

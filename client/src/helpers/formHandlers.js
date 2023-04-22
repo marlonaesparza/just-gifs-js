@@ -4,6 +4,7 @@ const formHandlers = {
     const usernameValid = username.length >= 6 ? true : false;
     const passwordValid = password.length >= 8 ? true : false;
 
+    // if using sign up page
     if (values.confirmedPassword) {
       const confirmedPassword = values.confirmedPassword;
       const confirmedPasswordValid = confirmedPassword === password;
@@ -14,13 +15,35 @@ const formHandlers = {
       ;
 
     } else {
+      // else using login page
       return usernameValid === true && passwordValid === true ?
         true :
         false
       ;
     };
   },
-  
+
+  // input: string (represents username)
+  // output: boolean (states if username valid)
+  validateUsername: (username) => {
+    return username.length >= 6 ? true : false
+  },
+
+  // input: string (represents username)
+  // output: boolean (states if username valid)
+  validatePassword: (password) => {
+    return password.length >= 8 ? true : false
+  },
+
+  // input: string (represents username)
+  // output: boolean (states if username valid)
+  validateConfirmedPassword: (password, confirmedPassword) => {
+    if (!this.validatePassword(password) || password !== confirmedPassword) {
+      return false;
+    };
+    
+  },
+
 };
 
 

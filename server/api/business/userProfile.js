@@ -85,7 +85,7 @@ class UserProfileBusiness {
         return res.status(201).send({ });
       })
       .catch(() => {
-        return res.status(404);
+        return res.status(404).send({ });
       });
   };
   

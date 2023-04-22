@@ -1,6 +1,7 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 import { setFeedIndex } from "../state/features/paginationSlice";
+import { setErrorMessage } from '../state/features/formSlice';
 import sliceHandlers from "./sliceHandlers";
 
 
@@ -248,7 +249,13 @@ const reqHandlers = {
         next(() => {}, nextArgs);
       })
       .catch(e => {
-        console.log(e);
+        nextArgs.dispatch(setErrorMessage(
+          `Username must be 6 or more characters long. Password must be 8 or more characters long. Confirm password must match password.`
+        ));
+  
+        return setTimeout(() => {
+          nextArgs.dispatch(setErrorMessage(''));
+        }, 4050);
       });
   },
   //-----------------------------------------------------
@@ -268,7 +275,11 @@ const reqHandlers = {
         next(() => {}, nextArgs);
       })
       .catch(e => {
-        console.log(e);
+        nextArgs.dispatch(setErrorMessage('You entered invalid login credentials.'));
+
+        return setTimeout(() => {
+          nextArgs.dispatch(setErrorMessage(''));
+        }, 3080);
       });
   },
   //-----------------------------------------------------

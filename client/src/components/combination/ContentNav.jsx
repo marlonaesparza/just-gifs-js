@@ -65,7 +65,7 @@ const ContentNav = (props) => {
 
   const pathIsFocusOrFavorites =
     location.pathname === '/favorites' ||  location.pathname.split('/')[1] === 'focus';
-  console.log(pathIsFocusOrFavorites, feedView);
+    
   return (
     <React.Fragment>
       <Nav id='content-nav' contentNav={true}>

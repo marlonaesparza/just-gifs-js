@@ -1,5 +1,6 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch,useSelector } from 'react-redux';
+import { setErrorMessage } from '../../state/features/formSlice';
 import Form from './../single/Form';
 import FormLabel from '../single/FormLabel';
 import FormUsernameInput from '../single/FormUsernameInput';
@@ -7,10 +8,18 @@ import FormPasswordInput from '../single/FormPasswordInput';
 import FormSubmitInput from '../single/FormSubmitInput';
 import formHandlers from '../../helpers/formHandlers';
 import reqHandlers from '../../helpers/reqHandlers';
+import ErrorMessage from './ErrorMessage';
 
 
 const LoginForm = (props) => {
   const dispatch = useDispatch();
+  const errorMessage = useSelector(state => state.formSlice.errorMessage);
+
+  useEffect(() => {
+    if (errorMessage.length > 0) {
+      dispatch(setErrorMessage(''));
+    };
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -22,8 +31,13 @@ const LoginForm = (props) => {
 
     if (!formHandlers.validate(values)) {
       console.log('Invalid Login Form: Create better UX.');
-      return;
-    }
+
+      dispatch(setErrorMessage('You entered invalid login credentials.'));
+
+      return setTimeout(() => {
+        dispatch(setErrorMessage(''));
+      }, 3000);
+    };
 
     console.log('Valid Login Form: Post info to server.');
     const next = reqHandlers.authUser;
@@ -42,7 +56,9 @@ const LoginForm = (props) => {
       <FormLabel htmlFor='password'>Password</FormLabel>
       <FormPasswordInput id='password-input' name='password' />
 
-      <FormSubmitInput id='submit-btn' />
+      {
+        errorMessage.length > 0 ? <ErrorMessage errorMessage={errorMessage}/> : <FormSubmitInput id='submit-btn' />
+      }
     </Form>
   );
 };

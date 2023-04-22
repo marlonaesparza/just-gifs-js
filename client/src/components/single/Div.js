@@ -8,7 +8,7 @@ const Div = styled.div`
   text-align: center;
   
   ${
-    ({ loadingIconContainer, homePage, focusPage, favoritesPage, friendsPage, signupPage, loginPage, pageHeader, gifsCont, pageMenu, connectionsCont, imgCont, gifDetailsAndActions, focusGifCont, paginationCont }) => 
+    ({ loadingIconContainer, homePage, focusPage, favoritesPage, friendsPage, signupPage, loginPage, pageHeader, gifsCont, pageMenu, connectionsCont, imgCont, gifDetailsAndActions, focusGifCont, paginationCont, errorMessage }) => 
       homePage || focusPage ?
       ` 
         font-family: 'Poppins', sans-serif;
@@ -21,6 +21,9 @@ const Div = styled.div`
         background: -moz-linear-gradient(90deg, hsla(64, 41%, 92%, 1) 0%, hsla(196, 83%, 84%, 1) 50%, hsla(305, 75%, 83%, 1) 100%);
         background: -webkit-linear-gradient(90deg, hsla(64, 41%, 92%, 1) 0%, hsla(196, 83%, 84%, 1) 50%, hsla(305, 75%, 83%, 1) 100%);
         filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#F2F3E2", endColorstr="#B2E5F8", GradientType=1 );
+
+        // background-color: #fce043;
+        // background-image: linear-gradient(315deg, #fce043 0%, #fb7ba2 74%);
       ` :
       favoritesPage || friendsPage ?
       ` 
@@ -34,6 +37,9 @@ const Div = styled.div`
         background: -moz-linear-gradient(90deg, hsla(64, 41%, 92%, 1) 0%, hsla(196, 83%, 84%, 1) 50%, hsla(305, 75%, 83%, 1) 100%);
         background: -webkit-linear-gradient(90deg, hsla(64, 41%, 92%, 1) 0%, hsla(196, 83%, 84%, 1) 50%, hsla(305, 75%, 83%, 1) 100%);
         filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#F2F3E2", endColorstr="#B2E5F8", GradientType=1 );
+
+        // background-color: #fce043;
+        // background-image: linear-gradient(315deg, #fce043 0%, #fb7ba2 74%);
       ` :
       signupPage || loginPage ?
       ` 
@@ -126,6 +132,14 @@ const Div = styled.div`
       loadingIconContainer ?
       `
         display: grid;
+      ` :
+      errorMessage ?
+      `
+        margin: 1rem auto;
+        padding: .3rem 0;
+        width: 90%;
+        background-color: rgba(255,51,51,.6);
+        border-radius: .3rem;
       ` :
       null
   }
