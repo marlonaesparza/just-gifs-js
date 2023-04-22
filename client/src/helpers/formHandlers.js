@@ -38,10 +38,15 @@ const formHandlers = {
   // input: string (represents username)
   // output: boolean (states if username valid)
   validateConfirmedPassword: (password, confirmedPassword) => {
-    if (!this.validatePassword(password) || password !== confirmedPassword) {
+    const vP = (password) => {
+      return password.length >= 8 ? true : false
+    }; 
+
+    if (vP(password) || password !== confirmedPassword) {
       return false;
-    };
-    
+    } else {
+      return true;
+    }
   },
 
 };
