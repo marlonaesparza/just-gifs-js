@@ -3,6 +3,7 @@ import { Navigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateTrendingGifs, updateFeedGifs } from '../state/features/gifsSlice';
 import { setMenuView } from '../state/features/viewsSlice';
+import { resetPagination } from '../state/features/paginationSlice';
 import reqHandlers from '../helpers/reqHandlers';
 import Div from '../components/single/Div';
 import PageHeader from '../components/combination/PageHeader';
@@ -25,6 +26,11 @@ const HomePage = (props) => {
       getTrendingGifs: reqHandlers.getTrendingGifs,
       getFeedGifs: reqHandlers.getFeedGifs,
     };
+
+    // every time a user navigates to the home page
+    // reset the GIF pagination to 1
+    // NOTE: This also happens when using the back button from favorites page to home.
+    dispatch(resetPagination());
 
     const nextArgs = {
       offset: 1,

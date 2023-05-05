@@ -23,6 +23,12 @@ export const formSlice = createSlice({
     setErrorMessage: (state, { payload }) => {
       state.errorMessage = payload;
     },
+    clearFormSlice: (state, { payload }) => {
+      state.username = '';
+      state.password = '';
+      state.confirmedPassword = '';
+      state.errorMessage = '';
+    },
   }
 });
 
@@ -32,7 +38,8 @@ export const {
   setPassword,
   setConfirmedPassword,
   setErrorMessage,
-
+  clearFormSlice,
+  
 } = formSlice.actions;
 
 export default formSlice.reducer;

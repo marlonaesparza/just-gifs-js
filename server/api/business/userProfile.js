@@ -22,6 +22,7 @@ class UserProfileBusiness {
       password
     })
       .then(({ data }) => {
+        console.log('Data Log:', data);
         user = data;
         userUUID = data.uuid;
         
@@ -44,8 +45,8 @@ class UserProfileBusiness {
         return res.status(201).send({ user });
       })
       .catch(e => {
-        console.log(e);
-        return res.status(500).send();
+        console.log('Error Message Log:', e);
+        return res.status(500).send(e);
       });
   };
 

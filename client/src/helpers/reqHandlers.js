@@ -77,6 +77,7 @@ const reqHandlers = {
     })
       .then(result => {
         if (nextArgs.updateFeedGifs) {
+          console.log(result.data);
           dispatch(nextArgs.updateFeedGifs(result.data));
         };
         if (nextArgs.updateSearchedGifs) {
@@ -246,9 +247,11 @@ const reqHandlers = {
       confirmedPassword
     })
       .then(() => {
+        console.log('huh');
         next(() => {}, nextArgs);
       })
       .catch(e => {
+        console.log('hu huh');
         nextArgs.dispatch(setErrorMessage(
           `Username must be 6 or more characters long. Password must be 8 or more characters long. Confirm password must match password.`
         ));

@@ -1,22 +1,22 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setUsername, setPassword, setErrorMessage, setConfirmedPassword } from '../../state/features/formSlice';
+import { clearFormSlice } from '../../state/features/formSlice';
 import Form from './../single/Form';
 import FormLabel from '../single/FormLabel';
 import FormUsernameInput from '../single/FormUsernameInput';
 import FormPasswordInput from '../single/FormPasswordInput';
 import FormSubmitInput from '../single/FormSubmitInput';
-import formHandlers from '../../helpers/formHandlers';
+import { formHandlers, formHandler } from '../../helpers/formHandlers';
 import reqHandlers from '../../helpers/reqHandlers';
 import ErrorMessage from './ErrorMessage';
 
+const formHandlerClass = new formHandler;
 
 const SignupForm = (props) => {
   const dispatch = useDispatch();
 
   const errorMessage = useSelector(state => state.formSlice.errorMessage);
-  const errMessStatements = errorMessage.split('. ');
-
   const username = useSelector(state => state.formSlice.username);
   const password = useSelector(state => state.formSlice.password);
   const confirmedPassword = useSelector(state => state.formSlice.confirmedPassword);
@@ -29,34 +29,33 @@ const SignupForm = (props) => {
 
   const handleChange = (e) => {
     const value = e.target.value;
-    console.log('whahdhashdsdh')
 
     if (e.target.id === 'username-input') {
       dispatch(setUsername(value));
-      if (!formHandlers.validateUsername(username)) {
-        dispatch(setErrorMessage('Username must be at least 6 characters long.'));
+      if (!formHandlerClass.validateUsername(value)) {
+        dispatch(setErrorMessage('Username must be at least 6 characters long.Letters and numbers only'));
         return setTimeout(() => {
           dispatch(setErrorMessage(''));
-        }, 1050);
+        }, 2050);
       };
 
     } else if (e.target.id === 'password-input') {
       dispatch(setPassword(value));
-      if (!formHandlers.validatePassword(password)) {
-        dispatch(setErrorMessage('Password must be at least 8 characters long.'));
+      if (!formHandlerClass.validatePassword(value)) {
+        dispatch(setErrorMessage('Password must be at least 8 characters long.Letters and numbers only'));
         return setTimeout(() => {
           dispatch(setErrorMessage(''));
-        }, 1050);
+        }, 2050);
       };
 
     } else if (e.target.id === 'confirm-password-input') {
-      console.log('confirmed passowrd time')
       dispatch(setConfirmedPassword(value));
-      if (!formHandlers.validateConfirmedPassword(confirmedPassword)) {
-        dispatch(setErrorMessage('Confirmed password must be at least 8 characters long.'));
+      // validatePassword method works just fine before submission
+      if (!formHandlerClass.validatePassword(value)) {
+        dispatch(setErrorMessage('Confirmed password must be at least 8 characters long.Letters and numbers only'));
         return setTimeout(() => {
           dispatch(setErrorMessage(''));
-        }, 1050);
+        }, 2050);
       };
     };
   };
@@ -70,14 +69,16 @@ const SignupForm = (props) => {
       confirmedPassword: e.target['confirmed-password'].value
     };
 
-    if (!formHandlers.validate(values)) {
+    dispatch(clearFormSlice());
+
+    if (!formHandlerClass.validate(values)) {
       dispatch(setErrorMessage(
-        `Username must be 6 or more characters long. Password must be 8 or more characters long. Confirm password must match password.`
+        `Username must be 6 or more characters long.Password must be 8 or more characters long.Confirm password must match password. Letters and numbers only.`
       ));
 
       return setTimeout(() => {
         dispatch(setErrorMessage(''));
-      }, 3000);
+      }, 3050);
     };
 
     const next = reqHandlers.authUser;
@@ -101,7 +102,7 @@ const SignupForm = (props) => {
       <FormPasswordInput id='confirm-password-input' name='confirmed-password' onChange={handleChange} value={confirmedPassword}/>
       
       {
-        errorMessage.length > 0 ? <ErrorMessage errorMessage={errorMessage} errMessStatements={errMessStatements}/> : <FormSubmitInput id='submit-btn' />
+        errorMessage.length > 0 ? <ErrorMessage errorMessage={errorMessage}/> : <FormSubmitInput id='submit-btn' />
       }
     </Form>
   );
