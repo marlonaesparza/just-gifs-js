@@ -77,7 +77,6 @@ const reqHandlers = {
     })
       .then(result => {
         if (nextArgs.updateFeedGifs) {
-          console.log(result.data);
           dispatch(nextArgs.updateFeedGifs(result.data));
         };
         if (nextArgs.updateSearchedGifs) {
@@ -153,7 +152,6 @@ const reqHandlers = {
       ...favoritedGif
     })
       .then(({ data }) => {
-        console.log('Post Favorite Gif (result):', data);
         dispatch(updateAllGifsAfterLikeOrDelete(data));
       })
       .catch(e => {
@@ -168,14 +166,12 @@ const reqHandlers = {
   */
 
   deleteFavoriteGif: (favoritedGif, { dispatch, updateAllGifsAfterLikeOrDelete }) => {
-    console.log('Delete a user favorite:', favoritedGif);
     return axios.delete(serverIndexURL + serverDeleteFavoritePath, {
       data: {
         ...favoritedGif
       }
     })
       .then(({ data }) => {
-        console.log('Delete Favorite Gif (result):', data);
         dispatch(updateAllGifsAfterLikeOrDelete(data));
       })
       .catch(e => {
@@ -247,11 +243,9 @@ const reqHandlers = {
       confirmedPassword
     })
       .then(() => {
-        console.log('huh');
         next(() => {}, nextArgs);
       })
       .catch(e => {
-        console.log('hu huh');
         nextArgs.dispatch(setErrorMessage(
           `Username must be 6 or more characters long. Password must be 8 or more characters long. Confirm password must match password.`
         ));

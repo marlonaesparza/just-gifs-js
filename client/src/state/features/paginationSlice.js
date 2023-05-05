@@ -11,7 +11,6 @@ export const paginationSlice = createSlice({
   },
   reducers: {
     resetPagination: (state) => {
-      console.log('what');
       state.offset = 1;
       state.trendingIndex = 1;
       state.searchIndex = 1;
