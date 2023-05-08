@@ -6,6 +6,7 @@ import { clearSocialSlice } from '../state/features/socialSlice';
 import { clearViewsSlice } from '../state/features/viewsSlice';
 import { resetPagination } from "../state/features/paginationSlice";
 import { setFocusLoading, clearState } from '../state/features/loadingSlice';
+import { clearFormSlice } from "../state/features/formSlice";
 
 
 const sliceHandlers = {
@@ -21,6 +22,7 @@ const sliceHandlers = {
     dispatch(clearSocialSlice());
     dispatch(clearViewsSlice());
     dispatch(resetPagination());
+    dispatch(clearFormSlice());
     dispatch(clearState());
   },
 

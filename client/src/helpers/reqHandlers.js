@@ -152,7 +152,6 @@ const reqHandlers = {
       ...favoritedGif
     })
       .then(({ data }) => {
-        console.log('Post Favorite Gif (result):', data);
         dispatch(updateAllGifsAfterLikeOrDelete(data));
       })
       .catch(e => {
@@ -167,14 +166,12 @@ const reqHandlers = {
   */
 
   deleteFavoriteGif: (favoritedGif, { dispatch, updateAllGifsAfterLikeOrDelete }) => {
-    console.log('Delete a user favorite:', favoritedGif);
     return axios.delete(serverIndexURL + serverDeleteFavoritePath, {
       data: {
         ...favoritedGif
       }
     })
       .then(({ data }) => {
-        console.log('Delete Favorite Gif (result):', data);
         dispatch(updateAllGifsAfterLikeOrDelete(data));
       })
       .catch(e => {

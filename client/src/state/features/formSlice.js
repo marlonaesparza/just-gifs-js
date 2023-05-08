@@ -5,38 +5,41 @@ import formHandlers from "../../helpers/formHandlers";
 export const formSlice = createSlice({
   name: 'formSlice',
   initialState: {
-    login: {
-      username: '',
-      password: '',
-    },
-    signup: {
-      username: '',
-      password: '',
-      confirmedPassword: '',
-    },
+    username: '',
+    password: '',
+    confirmedPassword: '',
     errorMessage: '',
-
   },
   reducers: {
-    setLoginInput: (state, { payload }) => {
-      state.login = payload;
+    setUsername: (state, { payload }) => {
+      state.username = payload;
     },
-    setSignupInput: (state, { payload }) => {
-      state.signup = payload;
+    setPassword: (state, { payload }) => {
+      state.password = payload;
+    },
+    setConfirmedPassword: (state, { payload }) => {
+      state.confirmedPassword = payload;
     },
     setErrorMessage: (state, { payload }) => {
-      console.log(payload);
       state.errorMessage = payload;
+    },
+    clearFormSlice: (state, { payload }) => {
+      state.username = '';
+      state.password = '';
+      state.confirmedPassword = '';
+      state.errorMessage = '';
     },
   }
 });
 
 
 export const {
-  setLoginInput,
-  setSignupInput,
+  setUsername,
+  setPassword,
+  setConfirmedPassword,
   setErrorMessage,
-
+  clearFormSlice,
+  
 } = formSlice.actions;
 
 export default formSlice.reducer;

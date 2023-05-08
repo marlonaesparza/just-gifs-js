@@ -6,22 +6,29 @@ import Paragraph from '../single/Paragraph';
 
 const ErrorMessage = (props) => {
   const { errorMessage } = props;
+
+  const errStatements = errorMessage.split('.');
+  const errElements = errStatements.map((statement, i) => (
+    <Paragraph key={i} errorMessage={true}>{ statement }.</Paragraph>
+  ));
   
   if (props.errMessStatements) {
     const statements = props.errMessStatements.map((statement, i) => (
-      <React.Fragment>
-        <Paragraph errorMessage={true}>{ statement }</Paragraph>
-      </React.Fragment>
+      <Paragraph key={i} errorMessage={true}>{ statement }</Paragraph>
     ));
     return (
       <Div errorMessage={true}>
+      <React.Fragment>
         { statements }
+      </React.Fragment>
+
       </Div>
     );
   } else {
     return (
       <Div errorMessage={true}>
-        <Paragraph errorMessage={true}>{ errorMessage }</Paragraph>
+        {/* <Paragraph errorMessage={true}>{ errorMessage }</Paragraph> */}
+        { errElements }
       </Div>
     );
   }
