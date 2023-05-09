@@ -114,6 +114,7 @@ const reqHandlers = {
       })
       .catch(e => {
         console.log(e);
+        return;
       })
   },
 
@@ -138,6 +139,7 @@ const reqHandlers = {
       })
       .catch(e => {
         console.log(e);
+        return;
       });
   },
 
@@ -156,6 +158,7 @@ const reqHandlers = {
       })
       .catch(e => {
         console.log(e);
+        return;
       });
   },
   //-----------------------------------------------------

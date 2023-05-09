@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useParams, Navigate } from 'react-router-dom';
+import { useParams, Navigate} from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateFocusGif } from '../state/features/gifsSlice';
 import { setMenuView } from '../state/features/viewsSlice';
@@ -11,6 +11,7 @@ import Gif from '../components/combination/Gif';
 import LoadingIcon from '../components/combination/LoadingIcon';
 import reqHandlers from '../helpers/reqHandlers';
 import sliceHandlers from '../helpers/sliceHandlers';
+import { current } from '@reduxjs/toolkit';
 
 
 const FocusPage = () => {
@@ -19,7 +20,7 @@ const FocusPage = () => {
   const validAuth = useSelector((state) => state.sessionSlice.validAuth);
   const menuView = useSelector(state => state.viewsSlice.menuView);
   const focusLoading = useSelector(state => state.loadingSlice.focusLoading)
-  
+
   useEffect(() => {
     if (menuView) {
       dispatch(setMenuView());
@@ -34,8 +35,7 @@ const FocusPage = () => {
       }
     };
 
-    const currentPath = location.pathname.split('/')[3];
-    dispatch(setCurrentPath(`/focus/${currentPath}`));
+    dispatch(setCurrentPath(`/focus/${params.gifId}`));
     sliceHandlers.dispatchSetFocusLoading(dispatch);
     reqHandlers.authUser(next, nextArgs);
   }, []);
